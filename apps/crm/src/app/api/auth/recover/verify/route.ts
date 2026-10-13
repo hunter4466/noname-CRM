@@ -13,7 +13,7 @@ export const POST = async (request: Request) => {
     return validationError(body.error);
   }
   if (body.data.code !== MOCK_RECOVERY_CODE) {
-    return jsonError(ApiErrorCode.ValidationFailed, 'That code is not valid or has expired');
+    return jsonError(ApiErrorCode.ValidationFailed, 'El código no es válido o ya venció');
   }
   return NextResponse.json<OkResponse>({ ok: true });
 };

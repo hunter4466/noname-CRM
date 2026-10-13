@@ -18,7 +18,7 @@ export const useComboPreview = (combo: ComboInput, regularPrice: number): PosPre
 
   const total = roundMoney(resolved.reduce((sum, entry) => sum + (entry.picked?.upcharge ?? 0), basePrice));
   const ticketLines = [
-    { label: `1 ${combo.name || 'New combo'}`, amount: formatAmount(basePrice), isModifier: false },
+    { label: `1 ${combo.name || 'Nuevo combo'}`, amount: formatAmount(basePrice), isModifier: false },
     ...resolved.flatMap(({ picked }) =>
       picked
         ? [{ label: `+ ${picked.productName}`, amount: picked.upcharge ? `+${formatAmount(picked.upcharge)}` : '', isModifier: true }]
@@ -31,11 +31,11 @@ export const useComboPreview = (combo: ComboInput, regularPrice: number): PosPre
     name: `${index + 1}. ${slot.name}`,
     badgeTone: null,
     badgeLabel: '',
-    rule: 'Pick 1',
+    rule: 'Elige 1',
     options: slot.items.map((item) => ({
       id: item.productId,
       label: item.productName,
-      note: item.isOutOfStock ? 'Out of stock' : item.upcharge ? `+ ${formatMoney(item.upcharge)}` : 'Included',
+      note: item.isOutOfStock ? 'Agotado' : item.upcharge ? `+ ${formatMoney(item.upcharge)}` : 'Incluido',
       state: item.isOutOfStock
         ? PreviewOptionState.Unavailable
         : item.productId === pickedId
@@ -48,10 +48,10 @@ export const useComboPreview = (combo: ComboInput, regularPrice: number): PosPre
 
   const emptySlot = combo.slots.find((slot) => slot.isRequired && slot.items.length === 0);
   return {
-    title: combo.name || 'New combo',
+    title: combo.name || 'Nuevo combo',
     basePrice: formatMoney(basePrice),
     groups,
-    missingText: emptySlot ? `Add at least one product to "${emptySlot.name}"` : null,
+    missingText: emptySlot ? `Agrega al menos un producto a "${emptySlot.name}"` : null,
     total: formatMoney(total),
     ticketLines,
     ticketTotal: formatAmount(total),

@@ -6,16 +6,16 @@ const locationSettings = (overrides: Partial<Record<'loc_miraflores' | 'loc_san_
     locationName: 'Miraflores',
     isAvailable: overrides.loc_miraflores ?? true,
     priceOverride: null,
-    routedPrinterName: 'Kitchen',
-    printerOptions: ['Kitchen', 'Cold station'],
+    routedPrinterName: 'Cocina',
+    printerOptions: ['Cocina', 'Estación fría'],
   },
   {
     locationId: 'loc_san_isidro',
     locationName: 'San Isidro',
     isAvailable: overrides.loc_san_isidro ?? true,
     priceOverride: null,
-    routedPrinterName: 'Kitchen',
-    printerOptions: ['Kitchen'],
+    routedPrinterName: 'Cocina',
+    printerOptions: ['Cocina'],
   },
   {
     locationId: 'loc_barranco',
@@ -23,7 +23,7 @@ const locationSettings = (overrides: Partial<Record<'loc_miraflores' | 'loc_san_
     isAvailable: overrides.loc_barranco ?? true,
     priceOverride: null,
     routedPrinterName: null,
-    printerOptions: ['Bar'],
+    printerOptions: ['Barra'],
   },
 ];
 
@@ -44,7 +44,7 @@ interface ProductSeed {
 const seeds: ProductSeed[] = [
   {
     id: 'prd_classic_burger',
-    name: 'Classic burger',
+    name: 'Hamburguesa clásica',
     sku: 'BUR-001',
     categoryId: 'cat_burgers',
     price: 29,
@@ -53,7 +53,7 @@ const seeds: ProductSeed[] = [
   },
   {
     id: 'prd_cheese_burger',
-    name: 'Cheese burger',
+    name: 'Hamburguesa con queso',
     sku: 'BUR-002',
     categoryId: 'cat_burgers',
     price: 32,
@@ -62,7 +62,7 @@ const seeds: ProductSeed[] = [
   },
   {
     id: 'prd_crispy_chicken_burger',
-    name: 'Crispy chicken burger',
+    name: 'Hamburguesa de pollo crispy',
     sku: 'BUR-005',
     categoryId: 'cat_burgers',
     price: 31,
@@ -71,18 +71,18 @@ const seeds: ProductSeed[] = [
   },
   {
     id: 'prd_caesar_salad',
-    name: 'Caesar salad',
+    name: 'Ensalada César',
     sku: 'SAL-004',
     categoryId: 'cat_salads',
     price: 24,
     tone: Tone.Teal,
     groupIds: ['mg_dressing', 'mg_add_protein', 'mg_add_drink'],
-    description: 'Romaine, parmesan, croutons. Choose your dressing.',
+    description: 'Lechuga romana, parmesano, crutones. Elige tu aderezo.',
     availability: { loc_barranco: false },
   },
   {
     id: 'prd_quinoa_salad',
-    name: 'Quinoa salad',
+    name: 'Ensalada de quinua',
     sku: 'SAL-006',
     categoryId: 'cat_salads',
     price: 26,
@@ -119,7 +119,7 @@ const seeds: ProductSeed[] = [
     groupIds: ['mg_cremas'],
   },
   { id: 'prd_camote_frito', name: 'Camote frito', sku: 'SIDE-003', categoryId: 'cat_sides', price: 10, tone: Tone.Amber },
-  { id: 'prd_side_salad', name: 'Side salad', sku: 'SIDE-006', categoryId: 'cat_sides', price: 8, tone: Tone.Teal },
+  { id: 'prd_side_salad', name: 'Ensalada personal', sku: 'SIDE-006', categoryId: 'cat_sides', price: 8, tone: Tone.Teal },
   {
     id: 'prd_yuca_frita',
     name: 'Yuca frita',
@@ -136,7 +136,7 @@ const seeds: ProductSeed[] = [
     categoryId: 'cat_beverages',
     price: 6,
     tone: Tone.Violet,
-    usedInGroupName: 'Add a drink',
+    usedInGroupName: 'Agregar bebida',
   },
   {
     id: 'prd_inca_kola',
@@ -145,7 +145,7 @@ const seeds: ProductSeed[] = [
     categoryId: 'cat_beverages',
     price: 5,
     tone: Tone.Yellow,
-    usedInGroupName: 'Add a drink',
+    usedInGroupName: 'Agregar bebida',
   },
   { id: 'prd_limonada', name: 'Limonada', sku: 'BEV-007', categoryId: 'cat_beverages', price: 8, tone: Tone.Yellow },
   {
@@ -156,7 +156,7 @@ const seeds: ProductSeed[] = [
     price: 3.5,
     tone: Tone.Blue,
     status: ProductStatus.OutOfStock,
-    usedInGroupName: 'Add a drink',
+    usedInGroupName: 'Agregar bebida',
     availability: { loc_san_isidro: false, loc_barranco: false },
   },
 ];

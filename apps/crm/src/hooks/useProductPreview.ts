@@ -57,7 +57,7 @@ export const useProductPreview = (product: ProductInput, allGroups: ModifierGrou
 
   const total = roundMoney(attached.reduce((sum, entry) => sum + groupCharge(entry), product.price));
   const ticketLines = [
-    { label: `1 ${product.name || 'New product'}`, amount: formatAmount(product.price), isModifier: false },
+    { label: `1 ${product.name || 'Nuevo producto'}`, amount: formatAmount(product.price), isModifier: false },
     ...attached.flatMap(groupTicketLines),
   ];
 
@@ -71,7 +71,7 @@ export const useProductPreview = (product: ProductInput, allGroups: ModifierGrou
       options: group.options.map((option) => ({
         id: option.id,
         label: option.label,
-        note: !option.isAvailable ? 'Out of stock' : option.priceDelta ? `+ ${formatMoney(option.priceDelta)}` : 'Included',
+        note: !option.isAvailable ? 'Agotado' : option.priceDelta ? `+ ${formatMoney(option.priceDelta)}` : 'Incluido',
         state: optionState(chosen.includes(option.id), !option.isAvailable, isFull),
         onPick: () => setSelection((current) => toggleOption(current, selectable, option.id)),
       })),
@@ -93,10 +93,10 @@ export const useProductPreview = (product: ProductInput, allGroups: ModifierGrou
   ).map((groupId) => attached.find((entry) => entry.group.id === groupId)?.group.name.toLowerCase() ?? groupId);
 
   return {
-    title: product.name || 'New product',
+    title: product.name || 'Nuevo producto',
     basePrice: formatMoney(product.price),
     groups,
-    missingText: missing.length > 0 ? `Choose a ${missing.join(', ')} to add this item` : null,
+    missingText: missing.length > 0 ? `Elige: ${missing.join(', ')} para agregar este ítem` : null,
     total: formatMoney(total),
     ticketLines,
     ticketTotal: formatAmount(total),

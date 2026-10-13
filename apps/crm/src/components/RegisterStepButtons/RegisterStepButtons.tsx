@@ -10,7 +10,7 @@ export interface RegisterStepButtonsProps {
 export const RegisterStepButtons = ({ onBack, children }: RegisterStepButtonsProps) => (
   <div className={styles.buttons}>
     <Button size={ButtonSize.Large} onClick={onBack}>
-      Back
+      Atrás
     </Button>
     {children}
   </div>

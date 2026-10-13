@@ -15,11 +15,11 @@ export interface ComboSlotsSectionProps {
 export const ComboSlotsSection = ({ slots, products, onUpdateSlot, onRemoveSlot, onAddSlot, onAddItem }: ComboSlotsSectionProps) => (
   <Card>
     <CardHeader
-      title="Slots"
-      subtitle="Each slot is one choice the cashier makes. Items are real products; upcharges add to the combo price."
+      title="Pasos"
+      subtitle="Cada paso es una elección del cajero. Los ítems son productos reales; los recargos se suman al precio del combo."
       actions={
         <Button size={ButtonSize.Small} onClick={() => onAddSlot(true)}>
-          Add slot
+          Agregar paso
         </Button>
       }
     />

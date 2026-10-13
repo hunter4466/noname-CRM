@@ -6,12 +6,12 @@ import styles from './MenuTile.module.css';
 
 const tileBadge = (item: MenuItem) => {
   if (item.isOutOfStock) {
-    return 'Out of stock';
+    return 'Agotado';
   }
   if (item.modifierGroupIds.length === 0) {
     return null;
   }
-  return item.isCombo ? `${item.modifierGroupIds.length} choices` : 'Options';
+  return item.isCombo ? `${item.modifierGroupIds.length} choices` : 'Opciones';
 };
 
 export interface MenuTileProps {

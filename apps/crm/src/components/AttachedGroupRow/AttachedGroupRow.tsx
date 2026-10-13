@@ -16,10 +16,10 @@ export interface AttachedGroupRowProps {
 export const AttachedGroupRow = ({ group, maxOverride, isFirst, isLast, onDetach, onMove }: AttachedGroupRowProps) => (
   <div className={styles.row}>
     <div className={styles.order}>
-      <button type="button" className={styles.arrow} aria-label={`Move ${group.name} up`} disabled={isFirst} onClick={() => onMove(-1)}>
+      <button type="button" className={styles.arrow} aria-label={`Subir ${group.name}`} disabled={isFirst} onClick={() => onMove(-1)}>
         ↑
       </button>
-      <button type="button" className={styles.arrow} aria-label={`Move ${group.name} down`} disabled={isLast} onClick={() => onMove(1)}>
+      <button type="button" className={styles.arrow} aria-label={`Bajar ${group.name}`} disabled={isLast} onClick={() => onMove(1)}>
         ↓
       </button>
     </div>
@@ -27,10 +27,10 @@ export const AttachedGroupRow = ({ group, maxOverride, isFirst, isLast, onDetach
       <div className={styles.heading}>
         <strong>{group.name}</strong>
         <Badge tone={group.minSelections > 0 ? BadgeTone.Required : BadgeTone.Optional}>
-          {group.minSelections > 0 ? 'REQUIRED' : 'OPTIONAL'}
+          {group.minSelections > 0 ? 'OBLIGATORIO' : 'OPCIONAL'}
         </Badge>
         <span className="hint">{describeGroupRules(group, maxOverride)}</span>
-        {maxOverride !== null && <Pill tone={PillTone.Info}>Overridden · group default is {group.maxSelections}</Pill>}
+        {maxOverride !== null && <Pill tone={PillTone.Info}>Personalizado · el grupo usa {group.maxSelections}</Pill>}
       </div>
       <ChipList>
         {group.options.map((option) => (
@@ -42,7 +42,7 @@ export const AttachedGroupRow = ({ group, maxOverride, isFirst, isLast, onDetach
       </ChipList>
     </div>
     <Button size={ButtonSize.Small} variant={ButtonVariant.Ghost} onClick={onDetach}>
-      Remove
+      Quitar
     </Button>
   </div>
 );

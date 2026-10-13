@@ -35,33 +35,33 @@ export const ModifierOptionsCard = ({
   return (
     <Card>
       <CardHeader
-        title="Options"
+        title="Opciones"
         actions={
           <>
             <Select
               className={styles.link}
-              aria-label="Link a product"
+              aria-label="Vincular un producto"
               value={LINK_PLACEHOLDER}
               options={[
-                { value: LINK_PLACEHOLDER, label: 'Link a product…' },
+                { value: LINK_PLACEHOLDER, label: 'Vincular un producto…' },
                 ...linkable.map((product) => ({ value: product.id, label: `${product.name} · ${product.sku}` })),
               ]}
               onChange={(event) => linkProductById(event.target.value)}
             />
             <Button size={ButtonSize.Small} onClick={onAddSimple}>
-              Add simple option
+              Agregar opción simple
             </Button>
           </>
         }
       />
       <Table
         columns={[
-          { label: 'Option' },
-          { label: 'Price' },
-          { label: 'Then ask' },
-          { label: 'Default' },
-          { label: 'Available' },
-          { label: <span className="visually-hidden">Actions</span> },
+          { label: 'Opción' },
+          { label: 'Precio' },
+          { label: 'Luego pregunta' },
+          { label: 'Predeterminado' },
+          { label: 'Disponible' },
+          { label: <span className="visually-hidden">Acciones</span> },
         ]}
       >
         {options.map((option) => (
@@ -75,7 +75,7 @@ export const ModifierOptionsCard = ({
         ))}
       </Table>
       <div className={styles.footnote}>
-        Linked prices default to the product&apos;s own price — change it here to sell the item cheaper inside this group.
+        Los precios vinculados toman el precio del producto: cámbialo aquí para venderlo más barato dentro de este grupo.
       </div>
     </Card>
   );

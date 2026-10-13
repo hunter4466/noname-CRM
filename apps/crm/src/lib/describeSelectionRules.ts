@@ -3,12 +3,12 @@ import type { ModifierGroupInput } from '@noname/types';
 /** Plain-language reading of the selection rules, shown under the rule inputs. */
 export const describeSelectionRules = (group: ModifierGroupInput) => {
   const requirement =
-    group.minSelections > 0 ? `Required · the customer must choose at least ${group.minSelections}` : 'Optional · the customer may choose';
-  const range = group.minSelections > 0 ? ` and up to ${group.maxSelections}` : ` up to ${group.maxSelections}`;
+    group.minSelections > 0 ? `Obligatorio · el cliente debe elegir al menos ${group.minSelections}` : 'Opcional · el cliente puede elegir';
+  const range = group.minSelections > 0 ? ` y hasta ${group.maxSelections}` : ` hasta ${group.maxSelections}`;
   const free =
     group.freeSelections > 0
-      ? ` The first ${group.freeSelections} are free; each extra is charged.`
-      : ' Each choice is charged at its option price.';
-  const repeats = group.allowRepeats ? ' The same option can be picked more than once.' : '';
+      ? ` Las primeras ${group.freeSelections} son gratis; cada adicional se cobra.`
+      : ' Cada elección se cobra al precio de su opción.';
+  const repeats = group.allowRepeats ? ' La misma opción se puede elegir más de una vez.' : '';
   return `${requirement}${range}.${free}${repeats}`;
 };

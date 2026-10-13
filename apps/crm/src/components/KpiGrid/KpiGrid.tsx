@@ -7,7 +7,7 @@ export interface KpiGridProps {
 }
 
 export const KpiGrid = ({ kpis }: KpiGridProps) => (
-  <section className={styles.grid} aria-label="Key figures">
+  <section className={styles.grid} aria-label="Cifras clave">
     {kpis.map((kpi) => (
       <KpiCard key={kpi.label} kpi={kpi} />
     ))}

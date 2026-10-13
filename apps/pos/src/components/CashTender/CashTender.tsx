@@ -19,7 +19,7 @@ export const CashTender = ({ total, checkout }: CashTenderProps) => {
     <div className={styles.row}>
       <div className={styles.tender}>
         <div className={styles.display}>
-          <span className="hint">Received</span>
+          <span className="hint">Recibido</span>
           <b className={styles.amount}>{formatMoney(Number(checkout.tendered) || 0)}</b>
         </div>
         <div className={styles.quick}>
@@ -30,12 +30,12 @@ export const CashTender = ({ total, checkout }: CashTenderProps) => {
           ))}
         </div>
         <div className={classNames(styles.change, isShort && styles.short)}>
-          <span>{isShort ? 'Still missing' : 'Change'}</span>
+          <span>{isShort ? 'Falta' : 'Vuelto'}</span>
           <span className="mono">{formatMoney(Math.abs(checkout.change))}</span>
         </div>
       </div>
       <div className={styles.pad}>
-        <Keypad keys={CASH_KEYS} ariaLabel="Cash keypad" onPress={checkout.pressTenderKey} />
+        <Keypad keys={CASH_KEYS} ariaLabel="Teclado de efectivo" onPress={checkout.pressTenderKey} />
       </div>
     </div>
   );

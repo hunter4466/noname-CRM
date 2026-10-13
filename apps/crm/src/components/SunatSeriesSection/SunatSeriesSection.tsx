@@ -15,11 +15,11 @@ export const SunatSeriesSection = () => {
     <Card>
       <SunatSectionHeader
         number={4}
-        title="Series & numbering"
-        subtitle="One series per POS, so two terminals never issue the same number — even offline."
+        title="Series y numeración"
+        subtitle="Una serie por POS, para que dos cajas nunca emitan el mismo número, incluso sin conexión."
         actions={
-          <Button size={ButtonSize.Small} disabled title="Series are created with each POS">
-            Add series
+          <Button size={ButtonSize.Small} disabled title="Las series se crean con cada POS">
+            Agregar serie
           </Button>
         }
       />
@@ -27,11 +27,11 @@ export const SunatSeriesSection = () => {
         {(items) => (
           <Table
             columns={[
-              { label: 'Document' },
-              { label: 'Series' },
-              { label: 'Location · POS' },
-              { label: 'Next number' },
-              { label: 'Status' },
+              { label: 'Comprobante' },
+              { label: 'Serie' },
+              { label: 'Local · POS' },
+              { label: 'Siguiente número' },
+              { label: 'Estado' },
             ]}
           >
             {items.map((item) => (
@@ -45,14 +45,14 @@ export const SunatSeriesSection = () => {
                   <span className="mono">{String(item.nextNumber).padStart(8, '0')}</span>
                 </TableCell>
                 <TableCell>
-                  <Pill tone={item.isActive ? PillTone.Ok : PillTone.Neutral}>{item.isActive ? 'Active' : 'Inactive'}</Pill>
+                  <Pill tone={item.isActive ? PillTone.Ok : PillTone.Neutral}>{item.isActive ? 'Activo' : 'Inactivo'}</Pill>
                 </TableCell>
               </tr>
             ))}
           </Table>
         )}
       </QueryState>
-      <TableFooter summary="Facturas start with F, boletas with B; 4 characters. Credit notes use the same letter as the document they correct." />
+      <TableFooter summary="Las facturas empiezan con F y las boletas con B; 4 caracteres. Las notas de crédito usan la misma letra que el comprobante que corrigen." />
     </Card>
   );
 };

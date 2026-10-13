@@ -10,7 +10,7 @@ type Params = { productId: string };
 
 export const GET = withPermissions<Params>([PermissionKey.CatalogView], async (_request, { params }) => {
   const product = findProduct((await params).productId);
-  return product ? NextResponse.json<Product>(product) : notFound('Product');
+  return product ? NextResponse.json<Product>(product) : notFound('Producto');
 });
 
 export const PATCH = withPermissions<Params>([PermissionKey.CatalogManage], async (request, { params }) => {
@@ -19,5 +19,5 @@ export const PATCH = withPermissions<Params>([PermissionKey.CatalogManage], asyn
     return validationError(body.error);
   }
   const product = updateProduct((await params).productId, body.data);
-  return product ? NextResponse.json<Product>(product) : notFound('Product');
+  return product ? NextResponse.json<Product>(product) : notFound('Producto');
 });

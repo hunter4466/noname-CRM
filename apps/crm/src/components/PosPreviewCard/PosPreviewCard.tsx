@@ -12,8 +12,8 @@ export interface PosPreviewCardProps {
 }
 
 export const PosPreviewCard = ({ preview, subtitle, ticketTitle, ticketNote }: PosPreviewCardProps) => (
-  <Card ariaLabel="POS preview">
-    <CardHeader title="POS preview" subtitle={subtitle} actions={<Pill tone={PillTone.Info}>Live</Pill>} />
+  <Card ariaLabel="Vista previa del POS">
+    <CardHeader title="Vista previa del POS" subtitle={subtitle} actions={<Pill tone={PillTone.Info}>En vivo</Pill>} />
     <CardBody>
       <div className={styles.device}>
         <div className={styles.heading}>
@@ -25,7 +25,7 @@ export const PosPreviewCard = ({ preview, subtitle, ticketTitle, ticketNote }: P
         ))}
         {preview.missingText && <div className={styles.missing}>{preview.missingText}</div>}
         <button type="button" className={styles.addButton} disabled={preview.missingText !== null}>
-          <span>Add to order</span>
+          <span>Agregar al pedido</span>
           <span className="mono">{preview.total}</span>
         </button>
       </div>

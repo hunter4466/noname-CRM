@@ -8,7 +8,7 @@ export const AddLocationCard = () => (
     <span className={styles.icon}>
       <IconPlus />
     </span>
-    <span className={styles.title}>Add a location</span>
-    <span className="hint">Search the address, drop the pin, then add its points of sale.</span>
+    <span className={styles.title}>Agregar un local</span>
+    <span className="hint">Busca la dirección, coloca el pin y luego agrega sus puntos de venta.</span>
   </Link>
 );

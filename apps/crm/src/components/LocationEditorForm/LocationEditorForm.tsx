@@ -14,25 +14,25 @@ export interface LocationEditorFormProps {
 
 export const LocationEditorForm = ({ location }: LocationEditorFormProps) => {
   const editor = useLocationEditor(location);
-  const title = editor.draft.name || 'New location';
+  const title = editor.draft.name || 'Nuevo local';
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Locations', href: Route.Locations }, { label: title }]}
+        breadcrumbs={[{ label: 'Punto de Venta', href: Route.Dashboard }, { label: 'Locales', href: Route.Locations }, { label: title }]}
         title={title}
         meta={
           <>
             <Pill tone={editor.draft.isActive ? PillTone.Ok : PillTone.Neutral} withDot>
-              {editor.draft.isActive ? 'Open · accepting orders' : 'Inactive'}
+              {editor.draft.isActive ? 'Abierto · recibiendo pedidos' : 'Inactivo'}
             </Pill>
-            {editor.draft.establishmentCode && <span className="hint">Establishment {editor.draft.establishmentCode}</span>}
+            {editor.draft.establishmentCode && <span className="hint">Establecimiento {editor.draft.establishmentCode}</span>}
           </>
         }
         actions={
           <>
             {location && (
               <Button onClick={editor.toggleActive} disabled={editor.save.isPending}>
-                {editor.draft.isActive ? 'Deactivate' : 'Activate'}
+                {editor.draft.isActive ? 'Desactivar' : 'Activar'}
               </Button>
             )}
             <Button
@@ -40,7 +40,7 @@ export const LocationEditorForm = ({ location }: LocationEditorFormProps) => {
               disabled={editor.save.isPending || (!editor.isDirty && location !== null)}
               onClick={editor.submit}
             >
-              {editor.save.isPending ? 'Saving…' : location ? 'Save changes' : 'Create location'}
+              {editor.save.isPending ? 'Guardando…' : location ? 'Guardar cambios' : 'Crear local'}
             </Button>
           </>
         }

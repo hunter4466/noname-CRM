@@ -17,18 +17,18 @@ export interface RegisterLocationStepProps extends RegisterStepProps {
 
 export const RegisterLocationStep = ({ request, updateField, onBack, onSubmit, isSubmitting, error }: RegisterLocationStepProps) => (
   <>
-    <AuthHeading title="Your first location" hint="You can add the map pin, printers and more locations later." />
-    <Field label="Location name" htmlFor="locationName">
+    <AuthHeading title="Tu primer local" hint="Puedes agregar la ubicación en el mapa, impresoras y más locales después." />
+    <Field label="Nombre del local" htmlFor="locationName">
       <TextInput
         id="locationName"
         large
-        placeholder="e.g. Miraflores"
+        placeholder="p. ej. Miraflores"
         value={request.firstLocationName}
         onChange={(event) => updateField('firstLocationName', event.target.value)}
       />
     </Field>
     <div className={styles.row}>
-      <Field label="District" htmlFor="district">
+      <Field label="Distrito" htmlFor="district">
         <Select
           id="district"
           large
@@ -37,7 +37,7 @@ export const RegisterLocationStep = ({ request, updateField, onBack, onSubmit, i
           onChange={(event) => updateField('firstLocationDistrict', event.target.value)}
         />
       </Field>
-      <Field label="Opening hours" htmlFor="openingHours">
+      <Field label="Horario de atención" htmlFor="openingHours">
         <TextInput
           id="openingHours"
           large
@@ -57,7 +57,7 @@ export const RegisterLocationStep = ({ request, updateField, onBack, onSubmit, i
         disabled={isSubmitting || !request.firstLocationName.trim()}
         onClick={onSubmit}
       >
-        {isSubmitting ? 'Creating account…' : 'Create account'}
+        {isSubmitting ? 'Creando cuenta…' : 'Crear cuenta'}
       </Button>
     </RegisterStepButtons>
   </>

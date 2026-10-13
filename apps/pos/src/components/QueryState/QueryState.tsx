@@ -20,7 +20,7 @@ export const QueryState = <T,>({ data, isLoading, error, children }: QueryStateP
   if (isLoading || data === undefined) {
     return (
       <div className={styles.loading} aria-busy="true">
-        Loading…
+        Cargando…
       </div>
     );
   }

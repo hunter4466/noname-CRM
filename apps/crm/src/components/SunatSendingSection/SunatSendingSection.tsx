@@ -4,13 +4,13 @@ import type { SunatSectionProps } from '@/types/SunatSectionProps';
 import { SunatSectionHeader } from '../SunatSectionHeader/SunatSectionHeader';
 
 const boletaOptions = [
-  { value: BoletaSending.Immediately, label: 'Send each one right away' },
-  { value: BoletaSending.DailySummary, label: 'Group in the resumen diario' },
+  { value: BoletaSending.Immediately, label: 'Enviar cada una al instante' },
+  { value: BoletaSending.DailySummary, label: 'Agrupar en el resumen diario' },
 ];
 
 export const SunatSendingSection = ({ draft, updateField }: SunatSectionProps) => (
   <Card>
-    <SunatSectionHeader number={6} title="Sending & contingency" />
+    <SunatSectionHeader number={6} title="Envío y contingencia" />
     <CardBody>
       <FieldGrid>
         <Field label="Boletas" htmlFor="boletaSending">
@@ -21,7 +21,7 @@ export const SunatSendingSection = ({ draft, updateField }: SunatSectionProps) =
             onChange={(event) => updateField('sendBoletasInSummary', event.target.value === BoletaSending.DailySummary)}
           />
         </Field>
-        <Field label="Resumen diario time" htmlFor="summaryTime">
+        <Field label="Hora del resumen diario" htmlFor="summaryTime">
           <TextInput
             id="summaryTime"
             monospace
@@ -30,10 +30,10 @@ export const SunatSendingSection = ({ draft, updateField }: SunatSectionProps) =
             onChange={(event) => updateField('dailySummaryTime', event.target.value)}
           />
         </Field>
-        <Field label="Facturas & notes" htmlFor="facturaSending">
+        <Field label="Facturas y notas" htmlFor="facturaSending">
           <Select
             id="facturaSending"
-            options={[{ value: BoletaSending.Immediately, label: 'Send right away' }]}
+            options={[{ value: BoletaSending.Immediately, label: 'Enviar al instante' }]}
             value={BoletaSending.Immediately}
             disabled
           />
@@ -41,20 +41,20 @@ export const SunatSendingSection = ({ draft, updateField }: SunatSectionProps) =
       </FieldGrid>
       <FieldGrid>
         <ToggleRow
-          label="Keep selling when offline"
-          hint="Issue locally, send when the connection returns"
+          label="Seguir vendiendo sin conexión"
+          hint="Emitir localmente y enviar cuando vuelva la conexión"
           checked={draft.offlineContingency}
           onChange={(value) => updateField('offlineContingency', value)}
         />
         <ToggleRow
-          label="Email PDF + XML to the customer"
-          hint="When an email is captured at checkout"
+          label="Enviar PDF + XML al cliente por correo"
+          hint="Cuando se registra un correo al cobrar"
           checked={draft.emailDocuments}
           onChange={(value) => updateField('emailDocuments', value)}
         />
         <ToggleRow
-          label="Alert me on rejections"
-          hint="Email and dashboard alert"
+          label="Avisarme de rechazos"
+          hint="Correo y alerta en el panel"
           checked={draft.alertOnRejection}
           onChange={(value) => updateField('alertOnRejection', value)}
         />

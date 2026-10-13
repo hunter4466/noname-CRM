@@ -6,7 +6,7 @@ import { SunatSectionHeader } from '../SunatSectionHeader/SunatSectionHeader';
 import styles from './SunatConnectionSection.module.css';
 
 const environmentOptions = [
-  { value: SunatEnvironment.Beta, label: 'Beta (testing)' },
+  { value: SunatEnvironment.Beta, label: 'Beta (pruebas)' },
   { value: SunatEnvironment.Production, label: 'Producción' },
 ];
 
@@ -16,10 +16,10 @@ export const SunatConnectionSection = ({ draft, updateField }: SunatSectionProps
     <Card>
       <SunatSectionHeader
         number={2}
-        title="Connection"
+        title="Conexión"
         actions={
           <SegmentedControl
-            ariaLabel="Environment"
+            ariaLabel="Entorno"
             options={environmentOptions}
             value={draft.environment}
             onChange={(environment) => updateField('environment', environment)}
@@ -29,30 +29,30 @@ export const SunatConnectionSection = ({ draft, updateField }: SunatSectionProps
       <CardBody>
         <div className={styles.modes}>
           <RadioCard
-            title="Through an OSE / PSE provider"
+            title="A través de un proveedor OSE / PSE"
             recommended
-            detail="The provider signs, validates and sends; you get the CDR back. Handles retries and SUNAT downtime."
+            detail="El proveedor firma, valida y envía; tú recibes el CDR. Gestiona reintentos y caídas de SUNAT."
             isSelected={isOse}
             onSelect={() => updateField('connectionMode', SunatConnectionMode.OseProvider)}
           />
           <RadioCard
-            title="Directly to SUNAT"
-            detail="SEE – Del contribuyente. We sign with your certificate and call SUNAT's web services with your SOL user."
+            title="Directo a SUNAT"
+            detail="SEE – Del contribuyente. Firmamos con tu certificado y llamamos a los servicios web de SUNAT con tu usuario SOL."
             isSelected={!isOse}
             onSelect={() => updateField('connectionMode', SunatConnectionMode.Direct)}
           />
         </div>
         {isOse ? (
           <FieldGrid>
-            <Field label="Provider" htmlFor="providerName">
+            <Field label="Proveedor" htmlFor="providerName">
               <TextInput
                 id="providerName"
-                placeholder="Provider name"
+                placeholder="Nombre del proveedor"
                 value={draft.providerName}
                 onChange={(event) => updateField('providerName', event.target.value)}
               />
             </Field>
-            <Field label="API endpoint" htmlFor="providerEndpoint">
+            <Field label="Endpoint de la API" htmlFor="providerEndpoint">
               <TextInput
                 id="providerEndpoint"
                 monospace
@@ -62,9 +62,9 @@ export const SunatConnectionSection = ({ draft, updateField }: SunatSectionProps
               />
             </Field>
             <Field
-              label="API token"
+              label="Token de la API"
               htmlFor="providerToken"
-              hint={draft.hasProviderToken ? 'Stored in Secret Manager · enter a new one to replace it' : 'Not set'}
+              hint={draft.hasProviderToken ? 'Guardado en Secret Manager · ingresa uno nuevo para reemplazarlo' : 'No configurado'}
             >
               <TextInput id="providerToken" monospace type="password" placeholder="••••••••••••" disabled />
             </Field>
@@ -75,12 +75,12 @@ export const SunatConnectionSection = ({ draft, updateField }: SunatSectionProps
               <TextInput
                 id="solUser"
                 monospace
-                placeholder="RUC + user, e.g. 20XXXXXXXXXMODDATOS"
+                placeholder="RUC + usuario, p. ej. 20XXXXXXXXXMODDATOS"
                 value={draft.solUser}
                 onChange={(event) => updateField('solUser', event.target.value)}
               />
             </Field>
-            <Field label="Clave SOL" htmlFor="solPassword" hint="Stored in Secret Manager, never in the database">
+            <Field label="Clave SOL" htmlFor="solPassword" hint="Guardada en Secret Manager, nunca en la base de datos">
               <TextInput id="solPassword" type="password" placeholder="••••••••" disabled />
             </Field>
           </FieldGrid>

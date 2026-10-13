@@ -12,10 +12,10 @@ export const ProductGeneralSection = ({ draft, categories, updateField }: Produc
     <CardHeader title="General" />
     <CardBody>
       <FieldGrid>
-        <Field label="Name" htmlFor="productName">
+        <Field label="Nombre" htmlFor="productName">
           <TextInput id="productName" value={draft.name} onChange={(event) => updateField('name', event.target.value)} />
         </Field>
-        <Field label="Category" htmlFor="productCategory">
+        <Field label="Categoría" htmlFor="productCategory">
           <Select
             id="productCategory"
             options={categories.map((category) => ({ value: category.id, label: category.name }))}
@@ -31,7 +31,7 @@ export const ProductGeneralSection = ({ draft, categories, updateField }: Produc
             onChange={(event) => updateField('sku', event.target.value.toUpperCase())}
           />
         </Field>
-        <Field label="Price (IGV included)" htmlFor="productPrice">
+        <Field label="Precio (IGV incluido)" htmlFor="productPrice">
           <TextInput
             id="productPrice"
             prefix="S/"
@@ -44,7 +44,7 @@ export const ProductGeneralSection = ({ draft, categories, updateField }: Produc
           />
         </Field>
       </FieldGrid>
-      <Field label="Description on menu & receipt" htmlFor="productDescription">
+      <Field label="Descripción en la carta y el comprobante" htmlFor="productDescription">
         <TextArea id="productDescription" value={draft.description} onChange={(event) => updateField('description', event.target.value)} />
       </Field>
     </CardBody>

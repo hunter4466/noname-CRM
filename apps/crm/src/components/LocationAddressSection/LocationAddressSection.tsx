@@ -19,16 +19,16 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
   return (
     <Card>
       <CardHeader
-        title="Address & map"
-        subtitle="Search with Google Maps, then drag the pin to the door customers actually use. Delivery and curbside pickup use this point."
+        title="Dirección y mapa"
+        subtitle="Busca con Google Maps y arrastra el pin a la puerta que usan los clientes. El delivery y el recojo usan este punto."
       />
       <CardBody>
         <div className={styles.layout}>
           <div className={styles.fields}>
-            <Field label="Address" htmlFor="address">
+            <Field label="Dirección" htmlFor="address">
               <TextInput id="address" value={draft.address} onChange={(event) => updateField('address', event.target.value)} />
             </Field>
-            <Field label="Reference" htmlFor="addressReference">
+            <Field label="Referencia" htmlFor="addressReference">
               <TextInput
                 id="addressReference"
                 value={draft.addressReference}
@@ -36,13 +36,13 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
               />
             </Field>
             <FieldGrid>
-              <Field label="Department" htmlFor="department">
+              <Field label="Departamento" htmlFor="department">
                 <Select id="department" options={singleOption(draft.department)} value={draft.department} disabled />
               </Field>
-              <Field label="Province" htmlFor="province">
+              <Field label="Provincia" htmlFor="province">
                 <Select id="province" options={singleOption(draft.province)} value={draft.province} disabled />
               </Field>
-              <Field label="District" htmlFor="district">
+              <Field label="Distrito" htmlFor="district">
                 <Select
                   id="district"
                   options={limaDistricts.map((entry) => ({ value: entry.name, label: entry.name }))}
@@ -56,9 +56,9 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
                 <TextInput id="ubigeo" monospace readOnly value={draft.ubigeo} />
               </Field>
               <Field
-                label="SUNAT establishment code"
+                label="Código de establecimiento SUNAT"
                 htmlFor="establishmentCode"
-                hint='The "código de establecimiento anexo" registered under your RUC.'
+                hint='El "código de establecimiento anexo" registrado en tu RUC.'
               >
                 <TextInput
                   id="establishmentCode"
@@ -70,7 +70,7 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
               </Field>
             </FieldGrid>
             <FieldGrid>
-              <Field label="Latitude" htmlFor="latitude">
+              <Field label="Latitud" htmlFor="latitude">
                 <TextInput
                   id="latitude"
                   monospace
@@ -80,7 +80,7 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
                   onChange={(event) => updateField('latitude', Number(event.target.value))}
                 />
               </Field>
-              <Field label="Longitude" htmlFor="longitude">
+              <Field label="Longitud" htmlFor="longitude">
                 <TextInput
                   id="longitude"
                   monospace
@@ -93,8 +93,8 @@ export const LocationAddressSection = ({ draft, updateField }: LocationAddressSe
             </FieldGrid>
           </div>
           <div className={styles.map}>
-            <MapIllustration label={`Map picker with pin on ${draft.address || 'the new location'}`} large />
-            <div className="hint">Map placeholder · the Google Maps JS widget with Places autocomplete renders here.</div>
+            <MapIllustration label={`Selector de mapa con pin en ${draft.address || 'el nuevo local'}`} large />
+            <div className="hint">Mapa provisional · aquí se mostrará el widget de Google Maps con autocompletado de Places.</div>
           </div>
         </div>
       </CardBody>

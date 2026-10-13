@@ -22,16 +22,18 @@ export const ProductsScreen = () => {
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Products' }]}
-        title="Products"
-        lede={'Everything you sell at the POS. Modifier groups are shared — build "Add a drink" once, attach it to any product.'}
+        breadcrumbs={[{ label: 'Punto de Venta', href: Route.Dashboard }, { label: 'Productos' }]}
+        title="Productos"
+        lede={
+          'Todo lo que vendes en el POS. Los grupos de modificadores se comparten: crea "Agregar bebida" una vez y vincúlalo a cualquier producto.'
+        }
         actions={
           <>
-            <Button disabled title="Coming soon">
-              Import CSV
+            <Button disabled title="Próximamente">
+              Importar CSV
             </Button>
             <ButtonLink href={productRoute(NEW_ENTITY_ID)} variant={ButtonVariant.Primary}>
-              New product
+              Nuevo producto
             </ButtonLink>
           </>
         }

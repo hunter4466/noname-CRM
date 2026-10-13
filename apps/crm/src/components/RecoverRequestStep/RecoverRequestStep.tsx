@@ -19,16 +19,19 @@ export const RecoverRequestStep = ({ flow }: RecoverRequestStepProps) => {
   return (
     <form className={styles.form} onSubmit={submit}>
       <Link href={Route.Login} className={styles.back}>
-        ← Back to sign in
+        ← Volver a iniciar sesión
       </Link>
-      <AuthHeading title="Reset your password" hint="Enter the email you sign in with. We'll send you a 6-digit code." />
-      <Field label="Work email" htmlFor="recoverEmail">
+      <AuthHeading
+        title="Restablece tu contraseña"
+        hint="Ingresa el correo con el que inicias sesión. Te enviaremos un código de 6 dígitos."
+      />
+      <Field label="Correo de trabajo" htmlFor="recoverEmail">
         <TextInput
           id="recoverEmail"
           large
           type="email"
           autoComplete="email"
-          placeholder="you@company.pe"
+          placeholder="tu@empresa.pe"
           value={flow.email}
           onChange={(event) => flow.setEmail(event.target.value)}
         />
@@ -41,10 +44,10 @@ export const RecoverRequestStep = ({ flow }: RecoverRequestStepProps) => {
         fullWidth
         disabled={flow.requestCode.isPending || !flow.email.includes('@')}
       >
-        Send code
+        Enviar código
       </Button>
       <div className="hint">
-        Signed up with Google? <Link href={Route.Login}>Continue with Google</Link> instead. There&apos;s no password to reset.
+        ¿Te registraste con Google? Mejor <Link href={Route.Login}>continúa con Google</Link>: no hay contraseña que restablecer.
       </div>
     </form>
   );

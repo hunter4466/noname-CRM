@@ -4,7 +4,7 @@ import { SunatSectionHeader } from '../SunatSectionHeader/SunatSectionHeader';
 
 export const SunatIssuerSection = ({ draft, updateField }: SunatSectionProps) => (
   <Card>
-    <SunatSectionHeader number={1} title="Issuer (emisor)" actions={<span className="hint">Must match your RUC record exactly</span>} />
+    <SunatSectionHeader number={1} title="Emisor" actions={<span className="hint">Debe coincidir exactamente con tu ficha RUC</span>} />
     <CardBody>
       <FieldGrid>
         <Field label="RUC" htmlFor="ruc">
@@ -29,7 +29,7 @@ export const SunatIssuerSection = ({ draft, updateField }: SunatSectionProps) =>
         <Field label="Nombre comercial" htmlFor="commercialName">
           <TextInput
             id="commercialName"
-            placeholder="[YOUR BRAND]"
+            placeholder="[TU MARCA]"
             value={draft.commercialName}
             onChange={(event) => updateField('commercialName', event.target.value)}
           />
@@ -39,7 +39,7 @@ export const SunatIssuerSection = ({ draft, updateField }: SunatSectionProps) =>
         <Field label="Domicilio fiscal" htmlFor="fiscalAddress">
           <TextInput
             id="fiscalAddress"
-            placeholder="Address as registered with SUNAT"
+            placeholder="Dirección registrada en SUNAT"
             value={draft.fiscalAddress}
             onChange={(event) => updateField('fiscalAddress', event.target.value)}
           />

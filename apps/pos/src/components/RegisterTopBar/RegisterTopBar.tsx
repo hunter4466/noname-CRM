@@ -27,9 +27,11 @@ export const RegisterTopBar = () => {
         </span>
       </div>
       <div className={styles.right}>
-        {terminal && <StatusDot isOk={terminal.isOnline} label={terminal.isOnline ? 'Online' : 'Offline'} />}
+        {terminal && <StatusDot isOk={terminal.isOnline} label={terminal.isOnline ? 'En línea' : 'Sin conexión'} />}
         {terminal && <StatusDot isOk={terminal.sunatConnected} label="SUNAT" />}
-        {terminal && <StatusDot isOk={!terminal.printerPaperLow} label={terminal.printerPaperLow ? 'Printer · paper low' : 'Printer'} />}
+        {terminal && (
+          <StatusDot isOk={!terminal.printerPaperLow} label={terminal.printerPaperLow ? 'Impresora · poco papel' : 'Impresora'} />
+        )}
         <span className={styles.clock}>{clock.time}</span>
         {session && (
           <span className={styles.who}>
@@ -37,7 +39,7 @@ export const RegisterTopBar = () => {
             {session.staff.fullName}
           </span>
         )}
-        <button type="button" className={styles.lock} aria-label="Lock register" disabled={lock.isPending} onClick={() => lock.mutate()}>
+        <button type="button" className={styles.lock} aria-label="Bloquear caja" disabled={lock.isPending} onClick={() => lock.mutate()}>
           <IconLock />
         </button>
       </div>

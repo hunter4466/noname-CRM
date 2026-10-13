@@ -4,8 +4,8 @@ import { Card, CardBody, CardHeader, Field, FieldGrid, Pill, PillTone, Segmented
 import styles from './ComboGeneralSection.module.css';
 
 const pricingOptions = [
-  { value: ComboPricingMode.FixedPrice, label: 'Fixed combo price' },
-  { value: ComboPricingMode.ItemsTotalMinusDiscount, label: 'Items total − discount' },
+  { value: ComboPricingMode.FixedPrice, label: 'Precio fijo del combo' },
+  { value: ComboPricingMode.ItemsTotalMinusDiscount, label: 'Total de ítems − descuento' },
 ];
 
 export interface ComboGeneralSectionProps {
@@ -22,7 +22,7 @@ export const ComboGeneralSection = ({ combo, draft, categories, updateField }: C
       <CardHeader title="General" />
       <CardBody>
         <FieldGrid>
-          <Field label="Combo name" htmlFor="comboName">
+          <Field label="Nombre del combo" htmlFor="comboName">
             <TextInput id="comboName" value={draft.name} onChange={(event) => updateField('name', event.target.value)} />
           </Field>
           <Field label="SKU" htmlFor="comboSku">
@@ -33,7 +33,7 @@ export const ComboGeneralSection = ({ combo, draft, categories, updateField }: C
               onChange={(event) => updateField('sku', event.target.value.toUpperCase())}
             />
           </Field>
-          <Field label="Category" htmlFor="comboCategory">
+          <Field label="Categoría" htmlFor="comboCategory">
             <Select
               id="comboCategory"
               options={categories.map((category) => ({ value: category.id, label: category.name }))}
@@ -42,16 +42,16 @@ export const ComboGeneralSection = ({ combo, draft, categories, updateField }: C
             />
           </Field>
         </FieldGrid>
-        <Field label="Pricing">
+        <Field label="Precio">
           <SegmentedControl
-            ariaLabel="Pricing mode"
+            ariaLabel="Modo de precio"
             options={pricingOptions}
             value={draft.pricingMode}
             onChange={(mode) => updateField('pricingMode', mode)}
           />
         </Field>
         <FieldGrid>
-          <Field label={isFixed ? 'Combo price (IGV included)' : 'Discount on items total'} htmlFor="comboAmount">
+          <Field label={isFixed ? 'Precio del combo (IGV incluido)' : 'Descuento sobre el total de ítems'} htmlFor="comboAmount">
             <TextInput
               id="comboAmount"
               prefix="S/"
@@ -65,9 +65,9 @@ export const ComboGeneralSection = ({ combo, draft, categories, updateField }: C
           </Field>
           {combo && (
             <div className={styles.worth}>
-              <span className="hint">Default items à la carte</span>
+              <span className="hint">Ítems predeterminados a la carta</span>
               <span className={styles.regular}>{formatMoney(combo.regularPrice)}</span>
-              <Pill tone={PillTone.Ok}>{`Customer saves ${formatMoney(combo.savings)} · ${combo.savingsPercent}%`}</Pill>
+              <Pill tone={PillTone.Ok}>{`El cliente ahorra ${formatMoney(combo.savings)} · ${combo.savingsPercent}%`}</Pill>
             </div>
           )}
         </FieldGrid>

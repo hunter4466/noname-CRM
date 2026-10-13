@@ -11,15 +11,15 @@ const checkoutDocuments = [DocumentType.Boleta, DocumentType.Factura, DocumentTy
 
 const igvRateOptions = [
   { value: '18', label: '18% · General (16% IGV + 2% IPM)' },
-  { value: '10.5', label: 'Reduced · restaurants & hotels (Ley 31556)' },
+  { value: '10.5', label: 'Reducida · restaurantes y hoteles (Ley 31556)' },
 ];
 
 export const SunatTaxSection = ({ draft, updateField }: SunatSectionProps) => (
   <Card>
-    <SunatSectionHeader number={5} title="Taxes & document rules" />
+    <SunatSectionHeader number={5} title="Impuestos y reglas de comprobantes" />
     <CardBody>
       <FieldGrid>
-        <Field label="IGV rate" htmlFor="igvRate">
+        <Field label="Tasa de IGV" htmlFor="igvRate">
           <Select
             id="igvRate"
             options={igvRateOptions}
@@ -27,7 +27,7 @@ export const SunatTaxSection = ({ draft, updateField }: SunatSectionProps) => (
             onChange={(event) => updateField('igvRate', Number(event.target.value))}
           />
         </Field>
-        <Field label="ICBPER per plastic bag" htmlFor="icbper">
+        <Field label="ICBPER por bolsa plástica" htmlFor="icbper">
           <TextInput
             id="icbper"
             prefix="S/"
@@ -39,7 +39,7 @@ export const SunatTaxSection = ({ draft, updateField }: SunatSectionProps) => (
             onChange={(event) => updateField('icbperAmount', Number(event.target.value))}
           />
         </Field>
-        <Field label="Default document at checkout" htmlFor="defaultDocument">
+        <Field label="Comprobante predeterminado al cobrar" htmlFor="defaultDocument">
           <Select
             id="defaultDocument"
             options={checkoutDocuments}
@@ -50,20 +50,20 @@ export const SunatTaxSection = ({ draft, updateField }: SunatSectionProps) => (
       </FieldGrid>
       <FieldGrid>
         <ToggleRow
-          label="Catalog prices include IGV"
-          hint="IGV is broken out on the comprobante"
+          label="Los precios del catálogo incluyen IGV"
+          hint="El IGV se desglosa en el comprobante"
           checked={draft.pricesIncludeIgv}
           onChange={(value) => updateField('pricesIncludeIgv', value)}
         />
         <ToggleRow
-          label="Ask for DNI on boletas over S/ 700"
-          hint="POS blocks checkout until the customer is identified"
+          label="Pedir DNI en boletas mayores a S/ 700"
+          hint="El POS bloquea el cobro hasta identificar al cliente"
           checked={draft.requireDniOverAmount}
           onChange={(value) => updateField('requireDniOverAmount', value)}
         />
       </FieldGrid>
       <div className="hint">
-        Check the reduced rate&apos;s current percentage and your eligibility with your accountant before switching.
+        Antes de cambiar, confirma con tu contador el porcentaje vigente de la tasa reducida y si aplica a tu negocio.
       </div>
     </CardBody>
   </Card>

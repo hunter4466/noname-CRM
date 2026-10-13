@@ -19,7 +19,7 @@ export const SidebarModuleGroup = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <IconTerminal />
-        Point of Sale
+        Punto de Venta
         <IconChevronDown size={16} className={classNames(styles.chevron, !isOpen && styles.closed)} />
       </button>
       {isOpen && (

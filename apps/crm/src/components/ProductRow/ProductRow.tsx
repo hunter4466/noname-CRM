@@ -14,7 +14,7 @@ export interface ProductRowProps {
 export const ProductRow = ({ product }: ProductRowProps) => (
   <tr>
     <TableCell>
-      <input type="checkbox" aria-label={`Select ${product.name}`} />
+      <input type="checkbox" aria-label={`Seleccionar ${product.name}`} />
     </TableCell>
     <TableCell>
       <NameCell name={product.name} code={product.sku} href={productRoute(product.id)} tone={product.tone} />
@@ -24,7 +24,7 @@ export const ProductRow = ({ product }: ProductRowProps) => (
     <TableCell>
       {product.usedInGroupName ? (
         <span className="hint">
-          Used as option in <Link href={Route.ModifierGroups}>{product.usedInGroupName}</Link>
+          Usado como opción en <Link href={Route.ModifierGroups}>{product.usedInGroupName}</Link>
         </span>
       ) : (
         <ChipList>

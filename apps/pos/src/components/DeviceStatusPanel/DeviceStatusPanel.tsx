@@ -25,9 +25,12 @@ export const DeviceStatusPanel = () => {
         <div className={styles.device}>
           <div className={styles.name}>{`${terminal.locationName} · ${terminal.terminalName}`}</div>
           <StatusDot isOk={terminal.isOnline} label={terminal.syncedLabel} />
-          <StatusDot isOk={terminal.sunatConnected} label={terminal.sunatConnected ? 'SUNAT connected' : 'SUNAT unreachable'} />
-          <StatusDot isOk={!terminal.printerPaperLow} label={`${terminal.printerLabel}${terminal.printerPaperLow ? ' · paper low' : ''}`} />
-          <div className={styles.code}>Device {terminal.deviceCode}</div>
+          <StatusDot isOk={terminal.sunatConnected} label={terminal.sunatConnected ? 'SUNAT conectado' : 'SUNAT no disponible'} />
+          <StatusDot
+            isOk={!terminal.printerPaperLow}
+            label={`${terminal.printerLabel}${terminal.printerPaperLow ? ' · poco papel' : ''}`}
+          />
+          <div className={styles.code}>Equipo {terminal.deviceCode}</div>
         </div>
       )}
     </aside>

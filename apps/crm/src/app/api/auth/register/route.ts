@@ -13,7 +13,7 @@ export const POST = async (request: Request) => {
     return validationError(body.error);
   }
   if (emailExists(body.data.email)) {
-    return jsonError(ApiErrorCode.ValidationFailed, 'An account with this email already exists');
+    return jsonError(ApiErrorCode.ValidationFailed, 'Ya existe una cuenta con este correo');
   }
   const record = registerOwner(body.data);
   return setSessionCookie(NextResponse.json<SessionUser>(record.user, { status: 201 }), record.sessionToken, true);

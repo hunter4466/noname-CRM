@@ -10,9 +10,15 @@ export interface SunatStatusBarProps {
 export const SunatStatusBar = ({ accepted, pending, rejected }: SunatStatusBarProps) => {
   const total = Math.max(1, accepted + pending + rejected);
   const segments = [
-    { key: SunatDocumentStatus.Accepted, count: accepted, className: styles.accepted, label: 'Accepted', valueClass: undefined },
-    { key: SunatDocumentStatus.Queued, count: pending, className: styles.pending, label: 'Pending', valueClass: styles.pendingValue },
-    { key: SunatDocumentStatus.Rejected, count: rejected, className: styles.rejected, label: 'Rejected', valueClass: styles.rejectedValue },
+    { key: SunatDocumentStatus.Accepted, count: accepted, className: styles.accepted, label: 'Aceptados', valueClass: undefined },
+    { key: SunatDocumentStatus.Queued, count: pending, className: styles.pending, label: 'Pendientes', valueClass: styles.pendingValue },
+    {
+      key: SunatDocumentStatus.Rejected,
+      count: rejected,
+      className: styles.rejected,
+      label: 'Rechazado',
+      valueClass: styles.rejectedValue,
+    },
   ];
   let offset = 0;
   return (

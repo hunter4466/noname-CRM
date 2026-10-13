@@ -17,7 +17,7 @@ export const POST = withDevice(async (request, _context, device) => {
   }
   const staff = verifyPin(body.data.staffId, body.data.pin);
   if (!staff) {
-    return jsonError(ApiErrorCode.InvalidCredentials, 'Wrong PIN, try again');
+    return jsonError(ApiErrorCode.InvalidCredentials, 'PIN incorrecto, inténtalo de nuevo');
   }
   const session = createStaffSession(staff.member.id, device.deviceCode, findOpenShift(device.deviceCode)?.id ?? null);
   const response = NextResponse.json<PosSession>({ staff: staff.member, permissions: staff.permissions, shiftId: session.shiftId });

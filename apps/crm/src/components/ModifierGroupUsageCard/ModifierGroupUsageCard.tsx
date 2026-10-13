@@ -10,12 +10,12 @@ export interface ModifierGroupUsageCardProps {
 export const ModifierGroupUsageCard = ({ productNames }: ModifierGroupUsageCardProps) => (
   <Card>
     <CardHeader
-      title={`Used in ${pluralize(productNames.length, 'product')}`}
-      subtitle="Attach or detach this group from each product's editor."
+      title={`Usado en ${pluralize(productNames.length, 'producto')}`}
+      subtitle="Vincula o desvincula este grupo desde el editor de cada producto."
     />
     <CardBody>
       {productNames.length === 0 ? (
-        <span className="hint">Not attached to any product yet.</span>
+        <span className="hint">Aún no está vinculado a ningún producto.</span>
       ) : (
         <ChipList>
           {productNames.slice(0, VISIBLE_PRODUCTS).map((productName) => (

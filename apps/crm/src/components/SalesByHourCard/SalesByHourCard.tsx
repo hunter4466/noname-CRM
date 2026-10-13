@@ -18,14 +18,14 @@ export const SalesByHourCard = ({ hourlySales, peakLabel }: SalesByHourCardProps
   const chartWidth = hourlySales.length * (BAR_WIDTH + BAR_GAP);
   return (
     <Card>
-      <CardHeader title="Sales by hour" actions={<span className="hint">{peakLabel}</span>} />
+      <CardHeader title="Ventas por hora" actions={<span className="hint">{peakLabel}</span>} />
       <CardBody>
         <svg
           className={styles.chart}
           viewBox={`0 0 ${chartWidth} ${CHART_HEIGHT + 20}`}
           preserveAspectRatio="none"
           role="img"
-          aria-label="Sales by hour"
+          aria-label="Ventas por hora"
         >
           {hourlySales.map((sale, index) => {
             const barHeight = (sale.amount / maxAmount) * CHART_HEIGHT;
@@ -48,7 +48,7 @@ export const SalesByHourCard = ({ hourlySales, peakLabel }: SalesByHourCardProps
             );
           })}
         </svg>
-        <div className="hint">Lighter bars: hours still in progress or forecast from last 4 Saturdays.</div>
+        <div className="hint">Barras claras: horas en curso o proyectadas con los últimos 4 sábados.</div>
       </CardBody>
     </Card>
   );

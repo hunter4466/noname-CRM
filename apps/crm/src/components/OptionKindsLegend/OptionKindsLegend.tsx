@@ -3,23 +3,28 @@ import { IconBox, IconLayers, IconLink } from '@noname/ui/icons';
 import styles from './OptionKindsLegend.module.css';
 
 const kinds = [
-  { icon: IconLayers, title: 'Simple option', detail: 'Name + price change. "Ranch", "Extra cheese +3.00".', toneClass: styles.neutral },
+  {
+    icon: IconLayers,
+    title: 'Opción simple',
+    detail: 'Nombre + cambio de precio. "Ranch", "Queso extra +3.00".',
+    toneClass: styles.neutral,
+  },
   {
     icon: IconLink,
-    title: 'Linked product',
-    detail: 'Option is a real product: stock, out-of-stock and sales reports stay correct.',
+    title: 'Producto vinculado',
+    detail: 'La opción es un producto real: el stock, los agotados y los reportes de ventas se mantienen correctos.',
     toneClass: styles.blue,
   },
   {
     icon: IconBox,
-    title: 'Nested group',
-    detail: 'Picking an option asks a follow-up: drink → ice; combo → side.',
+    title: 'Grupo anidado',
+    detail: 'Elegir una opción abre otra pregunta: bebida → hielo; combo → acompañamiento.',
     toneClass: styles.teal,
   },
 ];
 
 export const OptionKindsLegend = () => (
-  <Card ariaLabel="Kinds of options" className={styles.legend}>
+  <Card ariaLabel="Tipos de opciones" className={styles.legend}>
     {kinds.map(({ icon: Icon, title, detail, toneClass }) => (
       <div key={title} className={styles.kind}>
         <span className={classNames(styles.icon, toneClass)}>

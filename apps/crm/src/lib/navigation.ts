@@ -14,26 +14,26 @@ export interface NavItem {
 }
 
 export const posModuleNav: NavItem[] = [
-  { key: NavItemKey.Dashboard, label: 'Dashboard', href: Route.Dashboard, icon: IconDashboard, matchPrefixes: [] },
+  { key: NavItemKey.Dashboard, label: 'Panel', href: Route.Dashboard, icon: IconDashboard, matchPrefixes: [] },
   {
     key: NavItemKey.Products,
-    label: 'Products',
+    label: 'Productos',
     href: Route.Products,
     icon: IconBox,
     matchPrefixes: [Route.Products, Route.Combos, Route.ModifierGroups],
-    section: 'Catalog',
+    section: 'Catálogo',
   },
   {
     key: NavItemKey.Locations,
-    label: 'Locations',
+    label: 'Locales',
     href: Route.Locations,
     icon: IconMapPin,
     matchPrefixes: [Route.Locations],
-    section: 'Setup',
+    section: 'Configuración',
   },
   {
     key: NavItemKey.Configuration,
-    label: 'Configuration',
+    label: 'Configuración',
     href: Route.Configuration,
     icon: IconReceipt,
     matchPrefixes: [Route.Configuration],
@@ -42,9 +42,9 @@ export const posModuleNav: NavItem[] = [
 
 // Not built yet — rendered disabled so the information architecture matches the design.
 export const configurationNav: NavItem[] = [
-  { key: NavItemKey.Users, label: 'Users', href: null, icon: IconUsers, matchPrefixes: [] },
-  { key: NavItemKey.Roles, label: 'Roles & permissions', href: null, icon: IconShield, matchPrefixes: [] },
-  { key: NavItemKey.Company, label: 'Company', href: null, icon: IconBuilding, matchPrefixes: [] },
+  { key: NavItemKey.Users, label: 'Usuarios', href: null, icon: IconUsers, matchPrefixes: [] },
+  { key: NavItemKey.Roles, label: 'Roles y permisos', href: null, icon: IconShield, matchPrefixes: [] },
+  { key: NavItemKey.Company, label: 'Empresa', href: null, icon: IconBuilding, matchPrefixes: [] },
 ];
 
 export const isNavItemActive = (item: NavItem, pathname: string) =>

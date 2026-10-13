@@ -8,9 +8,9 @@ import { Route } from '@/types/Route';
 import styles from './CatalogTabs.module.css';
 
 const tabs = [
-  { key: CatalogTab.Products, label: 'Products', href: Route.Products },
+  { key: CatalogTab.Products, label: 'Productos', href: Route.Products },
   { key: CatalogTab.Combos, label: 'Combos', href: Route.Combos },
-  { key: CatalogTab.ModifierGroups, label: 'Modifier groups', href: Route.ModifierGroups },
+  { key: CatalogTab.ModifierGroups, label: 'Grupos de modificadores', href: Route.ModifierGroups },
 ];
 
 export interface CatalogTabsProps {
@@ -35,7 +35,7 @@ export const CatalogTabs = ({ active, counts }: CatalogTabsProps) => {
         </Link>
       ))}
       <span className={styles.tab} role="tab" aria-selected={false} aria-disabled="true">
-        Categories
+        Categorías
         {categories && <span className={styles.count}>{categories.length}</span>}
       </span>
     </div>

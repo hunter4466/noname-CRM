@@ -11,9 +11,9 @@ export interface PreModifiersCardProps {
 export const PreModifiersCard = ({ draft, onToggle }: PreModifiersCardProps) => (
   <Card>
     <CardHeader
-      title="Pre-modifiers"
-      subtitle="Let the cashier say how much of an option. Best for dressings, sauces and toppings."
-      actions={<Switch checked={draft.preModifiersEnabled} ariaLabel="Enable pre-modifiers" onChange={onToggle} />}
+      title="Premodificadores"
+      subtitle="Permite al cajero indicar cuánto de una opción. Ideal para aderezos, salsas y toppings."
+      actions={<Switch checked={draft.preModifiersEnabled} ariaLabel="Activar premodificadores" onChange={onToggle} />}
     />
     <div className={styles.body}>
       {draft.preModifiers.map((preModifier) => (
@@ -21,7 +21,7 @@ export const PreModifiersCard = ({ draft, onToggle }: PreModifiersCardProps) => 
           {preModifier.priceDelta ? `${preModifier.label} · +${formatMoney(preModifier.priceDelta)}` : preModifier.label}
         </Chip>
       ))}
-      <span className={styles.status}>{draft.preModifiersEnabled ? 'On for this group' : 'Off for this group'}</span>
+      <span className={styles.status}>{draft.preModifiersEnabled ? 'Activado para este grupo' : 'Desactivado para este grupo'}</span>
     </div>
   </Card>
 );

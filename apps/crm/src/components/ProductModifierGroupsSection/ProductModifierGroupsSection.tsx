@@ -20,28 +20,30 @@ export const ProductModifierGroupsSection = ({ links, allGroups, onAttach, onDet
   return (
     <Card>
       <CardHeader
-        title="Modifier groups"
-        subtitle="Shared groups — edit once, every product using them updates. Use the arrows to set the order the cashier sees."
+        title="Grupos de modificadores"
+        subtitle="Grupos compartidos: edítalos una vez y se actualizan en todos los productos que los usan. Usa las flechas para definir el orden que ve el cajero."
         actions={
           <>
             <Select
               className={styles.attach}
-              aria-label="Attach group"
+              aria-label="Vincular grupo"
               value={ATTACH_PLACEHOLDER}
               options={[
-                { value: ATTACH_PLACEHOLDER, label: 'Attach group…' },
+                { value: ATTACH_PLACEHOLDER, label: 'Vincular grupo…' },
                 ...attachable.map((group) => ({ value: group.id, label: group.name })),
               ]}
               onChange={(event) => onAttach(event.target.value)}
             />
             <ButtonLink href={Route.ModifierGroups} size={ButtonSize.Small}>
-              New group
+              Nuevo grupo
             </ButtonLink>
           </>
         }
       />
       <CardBody>
-        {links.length === 0 && <div className="hint">No modifier groups yet — this product is added to the order with one tap.</div>}
+        {links.length === 0 && (
+          <div className="hint">Aún no tiene grupos de modificadores: este producto se agrega al pedido con un toque.</div>
+        )}
         {links.map((link, index) => {
           const group = allGroups.find((candidate) => candidate.id === link.groupId);
           return group ? (

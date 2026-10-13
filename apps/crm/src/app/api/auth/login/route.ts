@@ -14,7 +14,7 @@ export const POST = async (request: Request) => {
   }
   const record = findUserByCredentials(body.data.email, body.data.password);
   if (!record) {
-    return jsonError(ApiErrorCode.InvalidCredentials, 'Email or password is incorrect');
+    return jsonError(ApiErrorCode.InvalidCredentials, 'El correo o la contraseña son incorrectos');
   }
   return setSessionCookie(NextResponse.json<SessionUser>(record.user), record.sessionToken, body.data.keepSignedIn);
 };

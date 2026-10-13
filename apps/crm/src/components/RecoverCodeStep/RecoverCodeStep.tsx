@@ -19,24 +19,24 @@ export const RecoverCodeStep = ({ flow }: RecoverCodeStepProps) => {
   return (
     <>
       <button type="button" className={styles.back} onClick={flow.switchEmail}>
-        ← Use a different email
+        ← Usar otro correo
       </button>
       <AuthHeading
-        title="Enter the code"
+        title="Ingresa el código"
         hint={
           <>
-            We sent a 6-digit code to <b className={styles.email}>{flow.email}</b>. It expires in 10 minutes. (Demo code: 481920)
+            Enviamos un código de 6 dígitos a <b className={styles.email}>{flow.email}</b>. Vence en 10 minutos. (Código de demo: 481920)
           </>
         }
       />
       <CodeInput length={CODE_LENGTH} value={flow.code} onChange={flow.setCode} />
-      <Field label="New password" htmlFor="newPassword" hint={<PasswordRules rules={evaluatePasswordRules(flow.newPassword)} />}>
+      <Field label="Nueva contraseña" htmlFor="newPassword" hint={<PasswordRules rules={evaluatePasswordRules(flow.newPassword)} />}>
         <PasswordInput id="newPassword" autoComplete="new-password" value={flow.newPassword} onChange={flow.setNewPassword} />
       </Field>
       <Field
-        label="Confirm new password"
+        label="Confirma la nueva contraseña"
         htmlFor="confirmPassword"
-        hint={flow.confirmPassword && !flow.passwordsMatch ? "Passwords don't match" : undefined}
+        hint={flow.confirmPassword && !flow.passwordsMatch ? 'Las contraseñas no coinciden' : undefined}
       >
         <PasswordInput id="confirmPassword" autoComplete="new-password" value={flow.confirmPassword} onChange={flow.setConfirmPassword} />
       </Field>
@@ -48,7 +48,7 @@ export const RecoverCodeStep = ({ flow }: RecoverCodeStepProps) => {
         disabled={!canSubmit || flow.resetPassword.isPending}
         onClick={flow.submitNewPassword}
       >
-        Update password
+        Actualizar contraseña
       </Button>
     </>
   );

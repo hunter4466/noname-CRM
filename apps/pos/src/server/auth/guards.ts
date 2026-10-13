@@ -20,7 +20,7 @@ export const withDevice =
   <P = Record<string, never>>(handler: (request: Request, context: RouteContext<P>, device: TerminalRecord) => Promise<Response>) =>
   async (request: Request, context: RouteContext<P>) => {
     const device = await getDevice();
-    return device ? handler(request, context, device) : jsonError(ApiErrorCode.Unauthorized, 'This device is not paired');
+    return device ? handler(request, context, device) : jsonError(ApiErrorCode.Unauthorized, 'Este equipo no está vinculado');
   };
 
 /** Endpoints that need a signed-in staff member holding every listed permission — see .claude/rules/api.md. */
@@ -31,11 +31,11 @@ export const withStaffPermissions = <P = Record<string, never>>(
   withDevice<P>(async (request, context, device) => {
     const result = await getStaffSession(device.deviceCode);
     if (!result) {
-      return jsonError(ApiErrorCode.Unauthorized, 'Enter your PIN to continue');
+      return jsonError(ApiErrorCode.Unauthorized, 'Ingresa tu PIN para continuar');
     }
     const missing = requiredPermissions.filter((permission) => !result.staff.permissions.includes(permission));
     if (missing.length > 0) {
-      return jsonError(ApiErrorCode.Forbidden, `Missing permissions: ${missing.join(', ')}`);
+      return jsonError(ApiErrorCode.Forbidden, `Faltan permisos: ${missing.join(', ')}`);
     }
     return handler(request, context, { device, ...result });
   });

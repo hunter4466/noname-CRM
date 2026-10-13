@@ -28,31 +28,31 @@ export const LoginForm = () => {
 
   return (
     <>
-      <AuthHeading title="Sign in" hint="Welcome back. Use your work account." />
-      <GoogleButton label="Continue with Google" onClick={() => login.mutate({ ...DEMO_CREDENTIALS, keepSignedIn })} />
-      <AuthDivider label="or with email" />
+      <AuthHeading title="Iniciar sesión" hint="Bienvenido de nuevo. Usa tu cuenta de trabajo." />
+      <GoogleButton label="Continuar con Google" onClick={() => login.mutate({ ...DEMO_CREDENTIALS, keepSignedIn })} />
+      <AuthDivider label="o con correo" />
       <form className={styles.form} onSubmit={submit}>
-        <Field label="Work email" htmlFor="email">
+        <Field label="Correo de trabajo" htmlFor="email">
           <TextInput
             id="email"
             large
             type="email"
             autoComplete="email"
-            placeholder="you@company.pe"
+            placeholder="tu@empresa.pe"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
         </Field>
-        <Field label="Password" htmlFor="password" aside={<Link href={Route.Recover}>Forgot password?</Link>}>
+        <Field label="Contraseña" htmlFor="password" aside={<Link href={Route.Recover}>¿Olvidaste tu contraseña?</Link>}>
           <PasswordInput id="password" autoComplete="current-password" value={password} onChange={setPassword} />
         </Field>
         <label className={styles.checkbox}>
           <input type="checkbox" checked={keepSignedIn} onChange={(event) => setKeepSignedIn(event.target.checked)} />
-          Keep me signed in on this device
+          Mantener la sesión iniciada en este equipo
         </label>
         <FormError error={login.error} />
         <Button type="submit" variant={ButtonVariant.Primary} size={ButtonSize.Large} fullWidth disabled={login.isPending}>
-          {login.isPending ? 'Signing in…' : 'Sign in'}
+          {login.isPending ? 'Iniciando sesión…' : 'Iniciar sesión'}
         </Button>
       </form>
       <LoginFooter />

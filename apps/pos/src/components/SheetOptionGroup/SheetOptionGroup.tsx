@@ -4,19 +4,19 @@ import { Badge, BadgeTone, classNames } from '@noname/ui';
 import styles from './SheetOptionGroup.module.css';
 
 const ruleText = (group: MenuModifierGroup, chosenCount: number) => {
-  const base = group.maxSelections === 1 ? 'Pick 1' : `Up to ${group.maxSelections} · ${chosenCount} chosen`;
+  const base = group.maxSelections === 1 ? 'Elige 1' : `Hasta ${group.maxSelections} · ${chosenCount} elegidas`;
   const hasPaidExtras = group.freeSelections > 0 && chosenCount > group.freeSelections;
   return hasPaidExtras ? `${base} · +${formatMoney((chosenCount - group.freeSelections) * group.extraSelectionPrice)}` : base;
 };
 
 const optionNote = (group: MenuModifierGroup, price: number, isOutOfStock: boolean) => {
   if (isOutOfStock) {
-    return 'Out of stock';
+    return 'Agotado';
   }
   if (price) {
     return `+ ${formatMoney(price)}`;
   }
-  return group.freeSelections > 0 ? `First ${group.freeSelections} free` : 'Included';
+  return group.freeSelections > 0 ? `Primeras ${group.freeSelections} gratis` : 'Incluido';
 };
 
 export interface SheetOptionGroupProps {
@@ -30,10 +30,10 @@ export const SheetOptionGroup = ({ group, chosenIds, onToggle }: SheetOptionGrou
   const isFull = group.maxSelections > 1 && chosenIds.length >= group.maxSelections;
   const badge =
     group.minSelections === 0
-      ? { tone: BadgeTone.Optional, label: 'OPTIONAL' }
+      ? { tone: BadgeTone.Optional, label: 'OPCIONAL' }
       : isSatisfied
-        ? { tone: BadgeTone.Done, label: 'DONE' }
-        : { tone: BadgeTone.Required, label: 'REQUIRED' };
+        ? { tone: BadgeTone.Done, label: 'LISTO' }
+        : { tone: BadgeTone.Required, label: 'OBLIGATORIO' };
   return (
     <div className={styles.group}>
       <div className={styles.header}>

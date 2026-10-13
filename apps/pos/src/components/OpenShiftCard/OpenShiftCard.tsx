@@ -23,11 +23,11 @@ export const OpenShiftCard = ({ staffName, onSwitchUser }: OpenShiftCardProps) =
   return (
     <>
       <div>
-        <h1 className={styles.title}>Hi {staffName}, open your shift</h1>
-        <div className="hint">Count the cash drawer before the first sale</div>
+        <h1 className={styles.title}>Hola {staffName}, abre tu turno</h1>
+        <div className="hint">Cuenta el efectivo de la gaveta antes de la primera venta</div>
       </div>
       <div className={styles.card}>
-        <Field label="Opening cash" htmlFor="openingCash" hint={terminal?.lastCloseLabel}>
+        <Field label="Efectivo inicial" htmlFor="openingCash" hint={terminal?.lastCloseLabel}>
           <TextInput
             id="openingCash"
             large
@@ -42,12 +42,12 @@ export const OpenShiftCard = ({ staffName, onSwitchUser }: OpenShiftCardProps) =
         </Field>
         {openShift.error && <div className={styles.error}>{openShift.error.message}</div>}
         <Button variant={ButtonVariant.Primary} size={ButtonSize.Large} fullWidth disabled={openShift.isPending} onClick={start}>
-          Start shift &amp; open register
+          Abrir turno y caja
           <IconArrowRight />
         </Button>
       </div>
       <button type="button" className={styles.switch} onClick={onSwitchUser}>
-        Not you? Switch user
+        ¿No eres tú? Cambiar de usuario
       </button>
     </>
   );

@@ -3,11 +3,11 @@ import { z } from 'zod';
 
 export const sunatConfigInputSchema = z
   .object({
-    ruc: z.string().regex(/^(\d{11})?$/, 'RUC has 11 digits'),
+    ruc: z.string().regex(/^(\d{11})?$/, 'El RUC tiene 11 dígitos'),
     legalName: z.string(),
     commercialName: z.string(),
     fiscalAddress: z.string(),
-    fiscalUbigeo: z.string().regex(/^(\d{6})?$/, 'Ubigeo has 6 digits'),
+    fiscalUbigeo: z.string().regex(/^(\d{6})?$/, 'El ubigeo tiene 6 dígitos'),
     environment: z.enum(SunatEnvironment),
     connectionMode: z.enum(SunatConnectionMode),
     providerName: z.string(),
@@ -19,7 +19,7 @@ export const sunatConfigInputSchema = z
     pricesIncludeIgv: z.boolean(),
     requireDniOverAmount: z.boolean(),
     sendBoletasInSummary: z.boolean(),
-    dailySummaryTime: z.string().regex(/^\d{2}:\d{2}$/, 'Use HH:MM'),
+    dailySummaryTime: z.string().regex(/^\d{2}:\d{2}$/, 'Usa HH:MM'),
     offlineContingency: z.boolean(),
     emailDocuments: z.boolean(),
     alertOnRejection: z.boolean(),

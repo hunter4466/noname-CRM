@@ -40,7 +40,7 @@ export const CodeInput = ({ length, value, onChange }: CodeInputProps) => {
           className={classNames(styles.digit, Boolean(value[index]) && styles.filled)}
           inputMode="numeric"
           maxLength={1}
-          aria-label={`Digit ${index + 1}`}
+          aria-label={`Dígito ${index + 1}`}
           value={value[index] ?? ''}
           onChange={(event) => setDigit(index, event.target.value.replace(/\D/g, ''))}
           onKeyDown={(event) => handleKeyDown(index, event)}

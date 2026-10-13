@@ -16,13 +16,13 @@ export interface LocationCardProps {
 export const LocationCard = ({ location }: LocationCardProps) => {
   const status = locationStatus(location);
   const meta = [
-    { label: 'Est. code', value: location.establishmentCode },
+    { label: 'Cód. estab.', value: location.establishmentCode },
     { label: 'Ubigeo', value: location.ubigeo },
-    { label: 'Coords', value: `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}` },
+    { label: 'Coordenadas', value: `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}` },
   ];
   return (
     <Card className={styles.card}>
-      <MapIllustration label={`Map preview, ${location.name}`} />
+      <MapIllustration label={`Vista del mapa, ${location.name}`} />
       <div className={styles.body}>
         <div className={styles.title}>
           <Link href={locationRoute(location.id)} className={styles.name}>
@@ -46,9 +46,9 @@ export const LocationCard = ({ location }: LocationCardProps) => {
         ))}
       </div>
       <div className={styles.footer}>
-        <span className="hint">{`${pluralize(location.terminals.length, 'POS', 'POS')} · ${pluralize(location.printerCount, 'printer')}`}</span>
+        <span className="hint">{`${pluralize(location.terminals.length, 'POS', 'POS')} · ${pluralize(location.printerCount, 'impresora')}`}</span>
         <ButtonLink href={locationRoute(location.id)} size={ButtonSize.Small}>
-          Manage
+          Gestionar
         </ButtonLink>
       </div>
     </Card>

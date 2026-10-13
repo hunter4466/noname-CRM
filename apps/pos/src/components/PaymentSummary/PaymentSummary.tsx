@@ -3,12 +3,13 @@ import { formatMoney } from '@noname/domain';
 import type { CheckoutState } from '@/hooks/useCheckout';
 import type { OrderCart } from '@/hooks/useOrderCart';
 import { OrderTotals } from '../OrderTotals/OrderTotals';
+import { pluralize } from '@/lib/pluralize';
 import styles from './PaymentSummary.module.css';
 
 const orderTypeLabel: Record<OrderType, string> = {
-  [OrderType.DineIn]: 'Dine in',
-  [OrderType.Takeaway]: 'Takeaway',
-  [OrderType.Curbside]: 'Curbside',
+  [OrderType.DineIn]: 'En salón',
+  [OrderType.Takeaway]: 'Para llevar',
+  [OrderType.Curbside]: 'Recojo',
 };
 
 export interface PaymentSummaryProps {
@@ -20,8 +21,8 @@ export interface PaymentSummaryProps {
 export const PaymentSummary = ({ orderNumber, cart, checkout }: PaymentSummaryProps) => (
   <aside className={styles.summary}>
     <div>
-      <h2 className={styles.title}>Order #{String(orderNumber).padStart(4, '0')}</h2>
-      <div className="hint">{`${orderTypeLabel[checkout.orderType]} · ${cart.itemCount} items`}</div>
+      <h2 className={styles.title}>Pedido #{String(orderNumber).padStart(4, '0')}</h2>
+      <div className="hint">{`${orderTypeLabel[checkout.orderType]} · ${pluralize(cart.itemCount, 'ítem')}`}</div>
     </div>
     <div className={styles.lines}>
       {cart.lines.map((line) => (
@@ -45,7 +46,7 @@ export const PaymentSummary = ({ orderNumber, cart, checkout }: PaymentSummaryPr
       </div>
     )}
     <button type="button" className={styles.confirm} disabled={!checkout.canConfirm} onClick={checkout.confirm}>
-      {checkout.createOrder.isPending ? 'Sending to SUNAT…' : 'Confirm & print'}
+      {checkout.createOrder.isPending ? 'Enviando a SUNAT…' : 'Confirmar e imprimir'}
     </button>
   </aside>
 );

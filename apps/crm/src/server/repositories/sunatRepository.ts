@@ -16,7 +16,7 @@ export const listDocumentSeries = (): DocumentSeries[] => documentSeries();
 export const testSunatConnection = (): TestConnectionResponse => {
   const config = sunatConfig();
   if (!config.ruc) {
-    return { ok: false, message: 'Add the issuer RUC before testing the connection.' };
+    return { ok: false, message: 'Agrega el RUC del emisor antes de probar la conexión.' };
   }
-  return { ok: true, message: `Connected to SUNAT ${config.environment.toLowerCase()} · test boleta accepted with CDR.` };
+  return { ok: true, message: `Conectado a SUNAT ${config.environment.toLowerCase()} · boleta de prueba aceptada con CDR.` };
 };

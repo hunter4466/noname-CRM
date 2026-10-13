@@ -19,12 +19,12 @@ export interface ProductFilters {
 const toLocationsLabel = (record: ProductRecord) => {
   const availableCount = record.locationSettings.filter((setting) => setting.isAvailable).length;
   if (availableCount === record.locationSettings.length) {
-    return 'All';
+    return 'Todos';
   }
   if (availableCount === 1) {
-    return record.locationSettings.find((setting) => setting.isAvailable)?.locationName ?? '1 location';
+    return record.locationSettings.find((setting) => setting.isAvailable)?.locationName ?? '1 local';
   }
-  return `${availableCount} of ${record.locationSettings.length}`;
+  return `${availableCount} de ${record.locationSettings.length}`;
 };
 
 const toProduct = (record: ProductRecord): Product => ({

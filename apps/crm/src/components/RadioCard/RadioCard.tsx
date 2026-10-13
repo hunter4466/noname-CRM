@@ -21,7 +21,7 @@ export const RadioCard = ({ title, detail, isSelected, recommended = false, onSe
     <span className={styles.text}>
       <span className={styles.title}>
         {title}
-        {recommended && <Pill tone={PillTone.Ok}>Recommended</Pill>}
+        {recommended && <Pill tone={PillTone.Ok}>Recomendado</Pill>}
       </span>
       <span className="hint">{detail}</span>
     </span>

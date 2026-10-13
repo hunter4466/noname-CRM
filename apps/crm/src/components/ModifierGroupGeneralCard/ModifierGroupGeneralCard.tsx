@@ -15,8 +15,10 @@ export interface ModifierGroupGeneralCardProps {
 export const ModifierGroupGeneralCard = ({ group, draft, updateField, isDirty, isSaving, onSave }: ModifierGroupGeneralCardProps) => (
   <Card>
     <CardHeader
-      title={<span className={styles.title}>{draft.name || 'New group'}</span>}
-      subtitle={group ? `Used in ${pluralize(group.usedInProductNames.length, 'product')} · ${group.lastEditedLabel}` : 'Not saved yet'}
+      title={<span className={styles.title}>{draft.name || 'Nuevo grupo'}</span>}
+      subtitle={
+        group ? `Usado en ${pluralize(group.usedInProductNames.length, 'producto')} · ${group.lastEditedLabel}` : 'Aún no se ha guardado'
+      }
       actions={
         <Button
           size={ButtonSize.Small}
@@ -24,19 +26,19 @@ export const ModifierGroupGeneralCard = ({ group, draft, updateField, isDirty, i
           disabled={isSaving || !isDirty || !draft.name.trim()}
           onClick={onSave}
         >
-          {isSaving ? 'Saving…' : 'Save group'}
+          {isSaving ? 'Guardando…' : 'Guardar grupo'}
         </Button>
       }
     />
     <CardBody>
       <FieldGrid>
-        <Field label="Group name" htmlFor="groupName">
+        <Field label="Nombre del grupo" htmlFor="groupName">
           <TextInput id="groupName" value={draft.name} onChange={(event) => updateField('name', event.target.value)} />
         </Field>
-        <Field label="Name on comanda" htmlFor="groupTicketName">
+        <Field label="Nombre en la comanda" htmlFor="groupTicketName">
           <TextInput id="groupTicketName" value={draft.ticketName} onChange={(event) => updateField('ticketName', event.target.value)} />
         </Field>
-        <Field label="Cashier prompt" htmlFor="groupPrompt">
+        <Field label="Sugerencia para el cajero" htmlFor="groupPrompt">
           <TextInput id="groupPrompt" value={draft.cashierPrompt} onChange={(event) => updateField('cashierPrompt', event.target.value)} />
         </Field>
       </FieldGrid>

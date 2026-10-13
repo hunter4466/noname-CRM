@@ -22,7 +22,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
   // The phone menu closes by itself on navigation: it is only open for the path it was opened on.
   const isMenuOpen = openedOnPath === pathname;
   return (
-    <nav className={styles.rail} aria-label="Main navigation">
+    <nav className={styles.rail} aria-label="Navegación principal">
       <div className={styles.brand}>
         <BrandLogo />
         <button
@@ -32,18 +32,18 @@ export const Sidebar = ({ user }: SidebarProps) => {
           aria-controls="main-nav-content"
           onClick={() => setOpenedOnPath(isMenuOpen ? null : pathname)}
         >
-          {isMenuOpen ? 'Close' : 'Menu'}
+          {isMenuOpen ? 'Cerrar' : 'Menú'}
         </button>
       </div>
       <div id="main-nav-content" className={classNames(styles.content, isMenuOpen && styles.open)}>
-        <div className={styles.section}>My modules</div>
+        <div className={styles.section}>Mis módulos</div>
         <SidebarModuleGroup />
         <span className={styles.addModule} aria-disabled="true">
           <IconPlus />
-          Add module
+          Agregar módulo
         </span>
         <div className={styles.footer}>
-          <div className={styles.section}>Configuration</div>
+          <div className={styles.section}>Configuración</div>
           {configurationNav.map((item) => (
             <SidebarLink key={item.key} item={item} />
           ))}

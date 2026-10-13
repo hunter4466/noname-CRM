@@ -13,7 +13,8 @@ const toModifierGroup = (record: ModifierGroupRecord): ModifierGroup => ({
     .map((product) => product.name),
 });
 
-export const findModifierGroupName = (groupId: string) => modifierGroups().find((group) => group.id === groupId)?.name ?? 'Unknown group';
+export const findModifierGroupName = (groupId: string) =>
+  modifierGroups().find((group) => group.id === groupId)?.name ?? 'Grupo desconocido';
 
 export const listModifierGroups = (search?: string): ModifierGroup[] => {
   const query = search?.trim().toLowerCase();
@@ -28,7 +29,7 @@ export const findModifierGroup = (groupId: string): ModifierGroup | null => {
 };
 
 export const createModifierGroup = (input: ModifierGroupInput): ModifierGroup => {
-  const record: ModifierGroupRecord = { ...input, id: createMockId('mg'), lastEditedLabel: 'Created just now' };
+  const record: ModifierGroupRecord = { ...input, id: createMockId('mg'), lastEditedLabel: 'Creado recién' };
   modifierGroups().push(record);
   return toModifierGroup(record);
 };
@@ -38,6 +39,6 @@ export const updateModifierGroup = (groupId: string, input: Partial<ModifierGrou
   if (!record) {
     return null;
   }
-  Object.assign(record, input, { lastEditedLabel: 'Last edited just now' });
+  Object.assign(record, input, { lastEditedLabel: 'Editado recién' });
   return toModifierGroup(record);
 };

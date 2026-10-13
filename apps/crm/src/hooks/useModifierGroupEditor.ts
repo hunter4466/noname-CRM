@@ -3,11 +3,11 @@ import { useDraft } from './useDraft';
 import { useSaveModifierGroup } from './useSaveModifierGroup';
 
 const DEFAULT_PRE_MODIFIERS = [
-  { id: 'pre_no', label: 'No', priceDelta: 0 },
-  { id: 'pre_light', label: 'Light', priceDelta: 0 },
-  { id: 'pre_regular', label: 'Regular', priceDelta: 0 },
+  { id: 'pre_no', label: 'Sin', priceDelta: 0 },
+  { id: 'pre_light', label: 'Poco', priceDelta: 0 },
+  { id: 'pre_regular', label: 'Normal', priceDelta: 0 },
   { id: 'pre_extra', label: 'Extra', priceDelta: 1.5 },
-  { id: 'pre_side', label: 'On the side', priceDelta: 0 },
+  { id: 'pre_side', label: 'Aparte', priceDelta: 0 },
 ];
 
 export const emptyModifierGroup: ModifierGroupInput = {
@@ -54,7 +54,7 @@ export const useModifierGroupEditor = (group: ModifierGroup | null, onCreated: (
       {
         id: newOptionId(),
         kind: ModifierOptionKind.Simple,
-        label: 'New option',
+        label: 'Nueva opción',
         priceDelta: 0,
         linkedProductSku: null,
         followUpGroupName: null,

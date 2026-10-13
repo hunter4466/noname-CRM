@@ -5,12 +5,13 @@ import type { CheckoutState } from '@/hooks/useCheckout';
 import type { OrderCart } from '@/hooks/useOrderCart';
 import { OrderLineRow } from '../OrderLineRow/OrderLineRow';
 import { OrderTotals } from '../OrderTotals/OrderTotals';
+import { pluralize } from '@/lib/pluralize';
 import styles from './OrderPanel.module.css';
 
 const orderTypes = [
-  { value: OrderType.DineIn, label: 'Dine in' },
-  { value: OrderType.Takeaway, label: 'Takeaway' },
-  { value: OrderType.Curbside, label: 'Curbside' },
+  { value: OrderType.DineIn, label: 'En salón' },
+  { value: OrderType.Takeaway, label: 'Para llevar' },
+  { value: OrderType.Curbside, label: 'Recojo' },
 ];
 
 export interface OrderPanelProps {
@@ -20,19 +21,25 @@ export interface OrderPanelProps {
 }
 
 export const OrderPanel = ({ orderNumber, cart, checkout }: OrderPanelProps) => (
-  <aside className={styles.order} aria-label="Current order">
+  <aside className={styles.order} aria-label="Pedido actual">
     <div className={styles.header}>
       <div className={styles.titleRow}>
-        <h2 className={styles.title}>Order #{String(orderNumber).padStart(4, '0')}</h2>
-        <span className="hint">{cart.itemCount} items</span>
+        <h2 className={styles.title}>Pedido #{String(orderNumber).padStart(4, '0')}</h2>
+        <span className="hint">{pluralize(cart.itemCount, 'ítem')}</span>
       </div>
-      <SegmentedControl ariaLabel="Order type" options={orderTypes} value={checkout.orderType} onChange={checkout.setOrderType} stretch />
+      <SegmentedControl
+        ariaLabel="Tipo de pedido"
+        options={orderTypes}
+        value={checkout.orderType}
+        onChange={checkout.setOrderType}
+        stretch
+      />
     </div>
     <div className={styles.lines}>
       {cart.lines.length === 0 && (
         <div className={styles.empty}>
-          <strong>No items yet</strong>
-          <span>Tap a product to start the order</span>
+          <strong>Aún no hay ítems</strong>
+          <span>Toca un producto para empezar el pedido</span>
         </div>
       )}
       {cart.lines.map((line) => (
@@ -48,10 +55,10 @@ export const OrderPanel = ({ orderNumber, cart, checkout }: OrderPanelProps) => 
       <OrderTotals breakdown={cart.breakdown} />
       <div className={styles.buttons}>
         <button type="button" className={styles.clear} disabled={cart.lines.length === 0} onClick={cart.clear}>
-          Clear
+          Limpiar
         </button>
         <button type="button" className={styles.charge} disabled={cart.lines.length === 0} onClick={checkout.goToPayment}>
-          <span>Charge</span>
+          <span>Cobrar</span>
           <span className="mono">{formatMoney(cart.total)}</span>
         </button>
       </div>

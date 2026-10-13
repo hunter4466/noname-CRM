@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { DashboardScreen } from '@/components/DashboardScreen/DashboardScreen';
 
-export const metadata: Metadata = { title: 'Dashboard' };
+export const metadata: Metadata = { title: 'Panel' };
 
 const DashboardPage = () => <DashboardScreen />;
 

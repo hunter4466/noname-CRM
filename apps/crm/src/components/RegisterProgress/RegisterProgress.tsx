@@ -3,9 +3,9 @@ import { RegisterStep } from '@/types/RegisterStep';
 import styles from './RegisterProgress.module.css';
 
 const steps = [
-  { step: RegisterStep.Account, label: 'Account' },
-  { step: RegisterStep.Business, label: 'Business' },
-  { step: RegisterStep.FirstLocation, label: 'First location' },
+  { step: RegisterStep.Account, label: 'Cuenta' },
+  { step: RegisterStep.Business, label: 'Negocio' },
+  { step: RegisterStep.FirstLocation, label: 'Primer local' },
 ];
 
 export interface RegisterProgressProps {
@@ -13,7 +13,7 @@ export interface RegisterProgressProps {
 }
 
 export const RegisterProgress = ({ step }: RegisterProgressProps) => (
-  <div className={styles.steps} aria-label="Progress">
+  <div className={styles.steps} aria-label="Progreso">
     {steps.map((item) => (
       <div key={item.step} className={classNames(styles.step, item.step === step && styles.current, item.step < step && styles.done)}>
         <i className={styles.bar} />

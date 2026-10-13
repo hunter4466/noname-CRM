@@ -19,13 +19,15 @@ export const RegisterBusinessStep = ({ request, updateField, onBack, onNext }: R
   const rucIsValid = RUC_PATTERN.test(request.ruc);
   return (
     <>
-      <AuthHeading title="Your business" hint="We use your RUC to fill in your SUNAT details." />
+      <AuthHeading title="Tu negocio" hint="Usamos tu RUC para completar tus datos de SUNAT." />
       <Field
         label="RUC"
         htmlFor="ruc"
         hint={
           rucChecked &&
-          (rucIsValid ? 'RUC format is valid. SUNAT details load after sign-up.' : 'RUC must be 11 digits starting with 10 or 20.')
+          (rucIsValid
+            ? 'El formato del RUC es válido. Los datos de SUNAT se cargan después del registro.'
+            : 'El RUC debe tener 11 dígitos y empezar con 10 o 20.')
         }
       >
         <div className={styles.rucRow}>
@@ -39,15 +41,15 @@ export const RegisterBusinessStep = ({ request, updateField, onBack, onNext }: R
             onChange={(event) => updateField('ruc', event.target.value.replace(/\D/g, '').slice(0, 11))}
           />
           <Button size={ButtonSize.Large} onClick={() => setRucChecked(true)}>
-            Validate
+            Validar
           </Button>
         </div>
       </Field>
-      <Field label="Commercial name" htmlFor="commercialName">
+      <Field label="Nombre comercial" htmlFor="commercialName">
         <TextInput
           id="commercialName"
           large
-          placeholder="Name customers see on receipts"
+          placeholder="Nombre que ven los clientes en los comprobantes"
           value={request.commercialName}
           onChange={(event) => updateField('commercialName', event.target.value)}
         />
@@ -61,7 +63,7 @@ export const RegisterBusinessStep = ({ request, updateField, onBack, onNext }: R
           disabled={!rucIsValid || !request.commercialName.trim()}
           onClick={onNext}
         >
-          Continue
+          Continuar
         </Button>
       </RegisterStepButtons>
     </>

@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono'
 
 export const metadata: Metadata = {
   title: { default: 'CRM', template: '%s · CRM' },
-  description: 'Point of sale, SUNAT e-invoicing and every location, managed from one dashboard.',
+  description: 'Punto de venta, facturación electrónica SUNAT y todos tus locales, gestionados desde un solo panel.',
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   // Render per request so runtime env (CRM_URL, POS_URL) is read on Cloud Run, not frozen at build time.
   await connection();
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="es" className={`${geist.variable} ${geistMono.variable}`}>
       <body>
         <PublicConfigProvider config={getPublicConfig()}>
           <QueryProvider>{children}</QueryProvider>

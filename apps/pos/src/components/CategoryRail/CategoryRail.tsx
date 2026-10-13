@@ -1,6 +1,7 @@
 import type { MenuCategory, MenuItem } from '@noname/types';
 import { classNames } from '@noname/ui';
 import { MenuFilter } from '@/types/MenuFilter';
+import { pluralize } from '@/lib/pluralize';
 import styles from './CategoryRail.module.css';
 
 export interface CategoryRailProps {
@@ -12,11 +13,11 @@ export interface CategoryRailProps {
 
 export const CategoryRail = ({ categories, items, selectedId, onSelect }: CategoryRailProps) => {
   const entries = [
-    { id: MenuFilter.All as string, name: 'All', count: items.length },
+    { id: MenuFilter.All as string, name: 'Todos', count: items.length },
     ...categories.map((category) => ({ ...category, count: items.filter((item) => item.categoryId === category.id).length })),
   ];
   return (
-    <nav className={styles.rail} aria-label="Categories">
+    <nav className={styles.rail} aria-label="Categorías">
       {entries.map((entry) => (
         <button
           key={entry.id}
@@ -26,7 +27,7 @@ export const CategoryRail = ({ categories, items, selectedId, onSelect }: Catego
           onClick={() => onSelect(entry.id)}
         >
           {entry.name}
-          <small className={styles.count}>{entry.count} items</small>
+          <small className={styles.count}>{pluralize(entry.count, 'ítem')}</small>
         </button>
       ))}
     </nav>

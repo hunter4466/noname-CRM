@@ -18,7 +18,7 @@ export const SidebarLink = ({ item, nested = false, badge }: SidebarLinkProps) =
   const className = classNames(styles.link, nested && styles.nested);
   if (!item.href) {
     return (
-      <span className={className} aria-disabled="true" title="Coming soon">
+      <span className={className} aria-disabled="true" title="Próximamente">
         <Icon size={nested ? 16 : 18} />
         {item.label}
       </span>

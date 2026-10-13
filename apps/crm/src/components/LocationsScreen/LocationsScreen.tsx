@@ -19,14 +19,14 @@ export const LocationsScreen = () => {
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Locations' }]}
-        title="Locations"
-        lede="Each location is a SUNAT establishment with its own address, map pin and points of sale."
+        breadcrumbs={[{ label: 'Punto de Venta', href: Route.Dashboard }, { label: 'Locales' }]}
+        title="Locales"
+        lede="Cada local es un establecimiento SUNAT con su propia dirección, ubicación en el mapa y puntos de venta."
         actions={
           <>
-            <SearchInput value={search} onChange={setSearch} placeholder="Search locations" ariaLabel="Search locations" />
+            <SearchInput value={search} onChange={setSearch} placeholder="Buscar locales" ariaLabel="Buscar locales" />
             <ButtonLink href={locationRoute(NEW_ENTITY_ID)} variant={ButtonVariant.Primary}>
-              New location
+              Nuevo local
             </ButtonLink>
           </>
         }

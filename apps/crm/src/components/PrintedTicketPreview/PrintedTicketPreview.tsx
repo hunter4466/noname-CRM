@@ -4,9 +4,9 @@ import { classNames } from '@noname/ui';
 import styles from './PrintedTicketPreview.module.css';
 
 const sampleLines = [
-  { label: '1 Caesar salad', amount: 24 },
+  { label: '1 Ensalada César', amount: 24 },
   { label: '+ Extra Ranch', amount: 1.5 },
-  { label: '+ Grilled chicken', amount: 8 },
+  { label: '+ Pollo a la plancha', amount: 8 },
 ];
 
 export interface PrintedTicketPreviewProps {
@@ -25,8 +25,8 @@ export const PrintedTicketPreview = ({ config }: PrintedTicketPreviewProps) => {
     { label: 'TOTAL S/', value: formatAmount(totals.total), isRule: false },
   ];
   return (
-    <div className={classNames(styles.ticket, config.ticketPaperWidthMm === 58 && styles.narrow)} aria-label="Ticket preview">
-      <div className={styles.center}>{config.commercialName || '[YOUR BRAND]'}</div>
+    <div className={classNames(styles.ticket, config.ticketPaperWidthMm === 58 && styles.narrow)} aria-label="Vista previa del ticket">
+      <div className={styles.center}>{config.commercialName || '[TU MARCA]'}</div>
       <div className={styles.center}>{config.legalName || '[RAZÓN SOCIAL S.A.C.]'}</div>
       <div className={styles.center}>RUC {config.ruc || '20XXXXXXXXX'}</div>
       <div className={styles.center}>{config.fiscalAddress || 'Av. José Larco 812, Miraflores'}</div>

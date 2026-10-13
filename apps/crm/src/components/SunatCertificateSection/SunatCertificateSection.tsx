@@ -13,10 +13,10 @@ export const SunatCertificateSection = ({ config }: SunatCertificateSectionProps
   <Card>
     <SunatSectionHeader
       number={3}
-      title="Digital certificate"
+      title="Certificado digital"
       actions={
         <Pill tone={config.hasCertificate ? PillTone.Ok : PillTone.Warn} withDot>
-          {config.hasCertificate ? 'Uploaded' : 'Not uploaded'}
+          {config.hasCertificate ? 'Subido' : 'No subido'}
         </Pill>
       }
     />
@@ -26,23 +26,23 @@ export const SunatCertificateSection = ({ config }: SunatCertificateSectionProps
           <IconUpload />
         </span>
         <div className={styles.text}>
-          <div className={styles.title}>Drop your .pfx or .p12 certificate</div>
-          <div className="hint">Issued for your RUC. We store it encrypted and warn you 30 days before it expires.</div>
+          <div className={styles.title}>Suelta tu certificado .pfx o .p12</div>
+          <div className="hint">Emitido para tu RUC. Lo guardamos cifrado y te avisamos 30 días antes de que venza.</div>
         </div>
-        <Button disabled title="Coming soon">
-          Choose file
+        <Button disabled title="Próximamente">
+          Elegir archivo
         </Button>
       </div>
       <FieldGrid>
-        <Field label="Certificate password" htmlFor="certificatePassword">
+        <Field label="Contraseña del certificado" htmlFor="certificatePassword">
           <TextInput id="certificatePassword" type="password" placeholder="••••••••" disabled />
         </Field>
-        <Field label="Expires" htmlFor="certificateExpires">
+        <Field label="Vence" htmlFor="certificateExpires">
           <TextInput
             id="certificateExpires"
             monospace
             readOnly
-            placeholder="Read from certificate"
+            placeholder="Se lee del certificado"
             value={config.certificateExpiresAt ?? ''}
           />
         </Field>

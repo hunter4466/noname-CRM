@@ -19,7 +19,7 @@ const request = async <T>(method: HttpMethod, path: string, body?: unknown): Pro
   });
   if (!response.ok) {
     const payload = (await response.json().catch(() => null)) as ApiError | null;
-    throw new ApiRequestError(payload?.error.message ?? `Request failed (${response.status})`, response.status);
+    throw new ApiRequestError(payload?.error.message ?? `La solicitud falló (${response.status})`, response.status);
   }
   return (await response.json()) as T;
 };

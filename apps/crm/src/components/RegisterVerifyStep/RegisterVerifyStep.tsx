@@ -16,20 +16,20 @@ export const RegisterVerifyStep = ({ email, onRestart }: RegisterVerifyStepProps
       <IconCheck size={30} />
     </span>
     <AuthHeading
-      title="Check your inbox"
+      title="Revisa tu correo"
       hint={
         <>
-          We sent a verification link to <b className={styles.email}>{email}</b>. Open it to activate your account.
+          Enviamos un enlace de verificación a <b className={styles.email}>{email}</b>. Ábrelo para activar tu cuenta.
         </>
       }
     />
     <ButtonLink href={Route.Dashboard} variant={ButtonVariant.Primary} size={ButtonSize.Large} fullWidth>
-      I&apos;ve verified, go to my dashboard
+      Ya verifiqué, ir a mi panel
     </ButtonLink>
     <div className="hint">
-      Wrong email?{' '}
+      ¿Correo incorrecto?{' '}
       <button type="button" className={styles.link} onClick={onRestart}>
-        Start over
+        Empezar de nuevo
       </button>
     </div>
   </>

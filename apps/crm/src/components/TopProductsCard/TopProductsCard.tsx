@@ -12,10 +12,10 @@ export interface TopProductsCardProps {
 export const TopProductsCard = ({ products }: TopProductsCardProps) => (
   <Card>
     <CardHeader
-      title="Top products"
+      title="Productos más vendidos"
       actions={
         <Link href={Route.Products} className={styles.link}>
-          All products
+          Todos los productos
         </Link>
       }
     />

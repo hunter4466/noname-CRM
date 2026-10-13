@@ -15,16 +15,16 @@ export const SetupProgressCard = ({ steps }: SetupProgressCardProps) => {
     return null;
   }
   return (
-    <Card ariaLabel="Setup progress" className={styles.card}>
+    <Card ariaLabel="Progreso de la configuración" className={styles.card}>
       <div className={styles.header}>
         <div>
-          <div className={styles.title}>Finish setting up Point of Sale</div>
+          <div className={styles.title}>Termina de configurar el Punto de Venta</div>
           <div className="hint">
-            {doneCount} of {steps.length} steps done · electronic receipts are in SUNAT Beta until the certificate is uploaded
+            {doneCount} de {steps.length} pasos completados · los comprobantes electrónicos están en SUNAT Beta hasta subir el certificado
           </div>
         </div>
         <ButtonLink href={Route.Configuration} size={ButtonSize.Small}>
-          Continue setup
+          Continuar configuración
         </ButtonLink>
       </div>
       <div className={styles.steps}>

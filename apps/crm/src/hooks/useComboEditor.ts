@@ -11,8 +11,8 @@ export const emptyCombo = (categoryId: string): ComboInput => ({
   pricingMode: ComboPricingMode.FixedPrice,
   price: 0,
   discount: 0,
-  availabilityLabel: 'All day',
-  locationsLabel: 'All',
+  availabilityLabel: 'Todo el día',
+  locationsLabel: 'Todos',
   isActive: true,
   receiptMode: ComboReceiptMode.SingleLine,
   routeItemsToStations: true,
@@ -50,7 +50,7 @@ export const useComboEditor = (combo: Combo | null, categoryId: string) => {
   const addSlot = (isRequired: boolean) =>
     updateField('slots', [
       ...draft.slots,
-      { id: newSlotId(), name: isRequired ? 'New slot' : 'Dessert', isRequired, hint: 'Pick 1', items: [] },
+      { id: newSlotId(), name: isRequired ? 'Nuevo paso' : 'Postre', isRequired, hint: 'Elige 1', items: [] },
     ]);
   const addItem = (slotId: string, product: ProductSummary) => {
     const slot = draft.slots.find((candidate) => candidate.id === slotId);

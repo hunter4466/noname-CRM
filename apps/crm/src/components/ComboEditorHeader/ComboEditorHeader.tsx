@@ -13,12 +13,12 @@ export interface ComboEditorHeaderProps {
 }
 
 export const ComboEditorHeader = ({ combo, draft, isSaving, isDirty, onSave }: ComboEditorHeaderProps) => {
-  const title = draft.name || 'New combo';
+  const title = draft.name || 'Nuevo combo';
   return (
     <PageHeader
       breadcrumbs={[
-        { label: 'Point of Sale', href: Route.Dashboard },
-        { label: 'Products', href: Route.Products },
+        { label: 'Punto de Venta', href: Route.Dashboard },
+        { label: 'Productos', href: Route.Products },
         { label: 'Combos', href: Route.Combos },
         { label: title },
       ]}
@@ -27,16 +27,16 @@ export const ComboEditorHeader = ({ combo, draft, isSaving, isDirty, onSave }: C
       meta={
         <>
           <Pill tone={draft.isActive ? PillTone.Ok : PillTone.Neutral} withDot>
-            {draft.isActive ? 'Active' : 'Inactive'}
+            {draft.isActive ? 'Activo' : 'Inactivo'}
           </Pill>
-          <span className="hint mono">{draft.sku || 'No SKU yet'}</span>
+          <span className="hint mono">{draft.sku || 'Sin SKU'}</span>
         </>
       }
       actions={
         <>
-          <ButtonLink href={Route.Combos}>Cancel</ButtonLink>
+          <ButtonLink href={Route.Combos}>Cancelar</ButtonLink>
           <Button variant={ButtonVariant.Primary} disabled={isSaving || (!isDirty && combo !== null)} onClick={onSave}>
-            {isSaving ? 'Saving…' : 'Save combo'}
+            {isSaving ? 'Guardando…' : 'Guardar combo'}
           </Button>
         </>
       }

@@ -15,11 +15,11 @@ export const LocationTerminalsSection = ({ location }: LocationTerminalsSectionP
   return (
     <Card>
       <CardHeader
-        title="Points of sale"
-        subtitle="Each POS is one device. Give it a name and say where it is, so staff know which terminal is which."
+        title="Puntos de venta"
+        subtitle="Cada POS es un equipo. Ponle un nombre e indica dónde está, para que el personal sepa cuál es cuál."
         actions={
           <Button size={ButtonSize.Small} variant={ButtonVariant.Primary} disabled={isAdding} onClick={() => setIsAdding(true)}>
-            Add POS
+            Agregar POS
           </Button>
         }
       />

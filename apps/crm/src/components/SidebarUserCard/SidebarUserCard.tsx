@@ -22,7 +22,7 @@ export const SidebarUserCard = ({ user }: SidebarUserCardProps) => {
       </div>
       <button type="button" className={styles.logout} onClick={() => logout.mutate()} disabled={logout.isPending}>
         <IconLogout />
-        Log out
+        Cerrar sesión
       </button>
     </>
   );

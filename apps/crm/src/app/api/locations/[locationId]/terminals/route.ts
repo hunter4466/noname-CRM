@@ -14,5 +14,5 @@ export const POST = withPermissions<Params>([PermissionKey.LocationsManage], asy
     return validationError(body.error);
   }
   const terminal = addTerminal((await params).locationId, body.data);
-  return terminal ? NextResponse.json<Terminal>(terminal, { status: 201 }) : notFound('Location');
+  return terminal ? NextResponse.json<Terminal>(terminal, { status: 201 }) : notFound('Local');
 });

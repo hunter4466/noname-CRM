@@ -50,7 +50,11 @@ export const ProductEditorForm = ({ product, emptyInput, categories, modifierGro
           </>
         }
         aside={
-          <PosPreviewCard preview={preview} subtitle="Try it — this is what the cashier taps" ticketTitle="Prints on comanda & boleta as" />
+          <PosPreviewCard
+            preview={preview}
+            subtitle="Pruébalo: esto es lo que toca el cajero"
+            ticketTitle="Se imprime en la comanda y la boleta como"
+          />
         }
       />
     </>

@@ -6,8 +6,8 @@ import { SunatStatusBar } from '../SunatStatusBar/SunatStatusBar';
 import styles from './SunatSummaryCard.module.css';
 
 const alertPill: Partial<Record<SunatDocumentStatus, { tone: PillTone; label: string }>> = {
-  [SunatDocumentStatus.Rejected]: { tone: PillTone.Bad, label: 'Rejected' },
-  [SunatDocumentStatus.Queued]: { tone: PillTone.Warn, label: 'Queued' },
+  [SunatDocumentStatus.Rejected]: { tone: PillTone.Bad, label: 'Rechazado' },
+  [SunatDocumentStatus.Queued]: { tone: PillTone.Warn, label: 'En cola' },
 };
 
 export interface SunatSummaryCardProps {
@@ -20,7 +20,7 @@ export const SunatSummaryCard = ({ sunat }: SunatSummaryCardProps) => (
       title="SUNAT · comprobantes"
       actions={
         <Link href={Route.Configuration} className={styles.link}>
-          Settings
+          Ajustes
         </Link>
       }
     />

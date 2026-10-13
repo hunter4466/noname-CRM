@@ -8,7 +8,7 @@ import { createOrderSchema } from '@/server/validation/posSchemas';
 
 export const POST = withStaffPermissions([PermissionKey.PosSell], async (request, _context, { device, session }) => {
   if (!session.shiftId) {
-    return jsonError(ApiErrorCode.ValidationFailed, 'Open a shift before selling');
+    return jsonError(ApiErrorCode.ValidationFailed, 'Abre un turno antes de vender');
   }
   const body = await parseBody(request, createOrderSchema);
   if (!body.success) {

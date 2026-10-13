@@ -10,7 +10,10 @@ export interface ProductTaxSectionProps {
 
 export const ProductTaxSection = ({ draft, updateField }: ProductTaxSectionProps) => (
   <Card>
-    <CardHeader title="Tax & SUNAT" subtitle="Used on boletas and facturas. Priced modifiers are added to this line's total." />
+    <CardHeader
+      title="Impuestos y SUNAT"
+      subtitle="Se usa en boletas y facturas. Los modificadores con precio se suman al total de esta línea."
+    />
     <CardBody>
       <FieldGrid>
         <Field label="Tipo de afectación del IGV" htmlFor="igvAffectation" fullRow>
@@ -40,7 +43,7 @@ export const ProductTaxSection = ({ draft, updateField }: ProductTaxSectionProps
       </FieldGrid>
       <label className={styles.checkbox}>
         <input type="checkbox" checked={draft.appliesIcbper} onChange={(event) => updateField('appliesIcbper', event.target.checked)} />
-        Applies ICBPER (plastic bag tax)
+        Aplica ICBPER (impuesto a las bolsas plásticas)
       </label>
     </CardBody>
   </Card>

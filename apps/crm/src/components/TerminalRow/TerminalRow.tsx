@@ -11,9 +11,9 @@ export interface TerminalRowProps {
 export const TerminalRow = ({ terminal }: TerminalRowProps) => {
   const status = terminalStatus(terminal.status, terminal.paperLow);
   const meta = [
-    { label: 'Device', value: terminal.deviceCode, isMonospace: true },
-    { label: 'Series', value: `${terminal.boletaSeries} · ${terminal.facturaSeries}`, isMonospace: true },
-    { label: 'Printers', value: terminal.printerLabel, isMonospace: false },
+    { label: 'Equipo', value: terminal.deviceCode, isMonospace: true },
+    { label: 'Serie', value: `${terminal.boletaSeries} · ${terminal.facturaSeries}`, isMonospace: true },
+    { label: 'Impresoras', value: terminal.printerLabel, isMonospace: false },
   ];
   return (
     <div className={styles.row}>

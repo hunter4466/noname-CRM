@@ -7,7 +7,7 @@ export interface PinDotsProps {
 }
 
 export const PinDots = ({ length, filled }: PinDotsProps) => (
-  <div className={styles.dots} aria-label={`${filled} of ${length} digits entered`}>
+  <div className={styles.dots} aria-label={`${filled} de ${length} dígitos ingresados`}>
     {Array.from({ length }, (_, index) => (
       <span key={index} className={classNames(styles.dot, index < filled && styles.filled)} />
     ))}

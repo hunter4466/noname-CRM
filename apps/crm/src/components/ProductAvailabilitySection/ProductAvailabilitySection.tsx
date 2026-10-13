@@ -13,17 +13,17 @@ export interface ProductAvailabilitySectionProps {
 export const ProductAvailabilitySection = ({ settings, basePrice, onChange }: ProductAvailabilitySectionProps) => (
   <Card>
     <CardHeader
-      title="Availability & kitchen routing"
-      subtitle="Turn a product off per location, override its price, and choose which printer gets the comanda."
+      title="Disponibilidad y envío a cocina"
+      subtitle="Desactiva un producto por local, cambia su precio y elige qué impresora recibe la comanda."
     />
-    <Table columns={[{ label: 'Location' }, { label: 'Available' }, { label: 'Price override' }, { label: 'Prints to' }]}>
+    <Table columns={[{ label: 'Local' }, { label: 'Disponible' }, { label: 'Precio especial' }, { label: 'Imprime en' }]}>
       {settings.map((setting) => (
         <tr key={setting.locationId}>
           <TableCell strong>{setting.locationName}</TableCell>
           <TableCell>
             <Switch
               checked={setting.isAvailable}
-              ariaLabel={`Available in ${setting.locationName}`}
+              ariaLabel={`Disponible en ${setting.locationName}`}
               onChange={(isAvailable) => onChange(setting.locationId, { isAvailable })}
             />
           </TableCell>

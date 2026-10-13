@@ -16,8 +16,8 @@ export interface PinSignInProps {
 export const PinSignIn = ({ entry }: PinSignInProps) => (
   <>
     <div>
-      <h1 className={styles.title}>Who&apos;s working?</h1>
-      <div className="hint">Tap your name and enter your 4-digit PIN (demo PINs: Mario 1234 · Ana 1111)</div>
+      <h1 className={styles.title}>¿Quién atiende?</h1>
+      <div className="hint">Toca tu nombre e ingresa tu PIN de 4 dígitos (PIN de demo: Mario 1234 · Ana 1111)</div>
     </div>
     <StaffPicker selectedId={entry.staffId} onSelect={entry.selectStaff} />
     <PinDots length={PIN_LENGTH} filled={entry.pin.length} />
@@ -26,7 +26,7 @@ export const PinSignIn = ({ entry }: PinSignInProps) => (
         {entry.pinLogin.error.message}
       </div>
     )}
-    <Keypad keys={PIN_KEYS} ariaLabel="PIN keypad" disabled={!entry.staffId || entry.pinLogin.isPending} onPress={entry.pressKey} />
+    <Keypad keys={PIN_KEYS} ariaLabel="Teclado del PIN" disabled={!entry.staffId || entry.pinLogin.isPending} onPress={entry.pressKey} />
     <PinSignInLinks />
   </>
 );

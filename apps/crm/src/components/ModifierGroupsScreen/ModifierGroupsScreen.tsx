@@ -37,15 +37,15 @@ export const ModifierGroupsScreen = () => {
     <>
       <PageHeader
         breadcrumbs={[
-          { label: 'Point of Sale', href: Route.Dashboard },
-          { label: 'Products', href: Route.Products },
-          { label: 'Modifier groups' },
+          { label: 'Punto de Venta', href: Route.Dashboard },
+          { label: 'Productos', href: Route.Products },
+          { label: 'Grupos de modificadores' },
         ]}
-        title="Modifier groups"
-        lede="Reusable sets of choices — dressings, sides, drinks, cooking points. Rules decide what the cashier must pick; each option can be plain text, a real product, or open another group."
+        title="Grupos de modificadores"
+        lede="Conjuntos de opciones reutilizables: aderezos, acompañamientos, bebidas, términos. Las reglas definen qué debe elegir el cajero; cada opción puede ser texto, un producto real o abrir otro grupo."
         actions={
           <Button variant={ButtonVariant.Primary} onClick={() => setSelectedId(NEW_GROUP)}>
-            New group
+            Nuevo grupo
           </Button>
         }
       />

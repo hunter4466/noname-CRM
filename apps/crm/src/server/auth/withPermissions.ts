@@ -16,11 +16,11 @@ export const withPermissions =
   async (request: Request, context: RouteContext<P>) => {
     const session = await getSession();
     if (!session) {
-      return jsonError(ApiErrorCode.Unauthorized, 'Sign in required');
+      return jsonError(ApiErrorCode.Unauthorized, 'Debes iniciar sesión');
     }
     const missingPermissions = requiredPermissions.filter((permission) => !session.permissions.includes(permission));
     if (missingPermissions.length > 0) {
-      return jsonError(ApiErrorCode.Forbidden, `Missing permissions: ${missingPermissions.join(', ')}`);
+      return jsonError(ApiErrorCode.Forbidden, `Faltan permisos: ${missingPermissions.join(', ')}`);
     }
     return handler(request, context, session);
   };

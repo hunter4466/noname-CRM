@@ -15,10 +15,10 @@ export interface ProductEditorHeaderProps {
 }
 
 export const ProductEditorHeader = ({ product, draft, isSaving, isDirty, onSave }: ProductEditorHeaderProps) => {
-  const title = draft.name || 'New product';
+  const title = draft.name || 'Nuevo producto';
   return (
     <PageHeader
-      breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Products', href: Route.Products }, { label: title }]}
+      breadcrumbs={[{ label: 'Punto de Venta', href: Route.Dashboard }, { label: 'Productos', href: Route.Products }, { label: title }]}
       title={title}
       leading={<Thumb initials={toInitials(title) || 'NP'} tone={product?.tone} size={ThumbSize.Large} />}
       meta={
@@ -28,14 +28,14 @@ export const ProductEditorHeader = ({ product, draft, isSaving, isDirty, onSave 
               {productStatusLabel[product.status]}
             </Pill>
           )}
-          <span className="hint mono">{draft.sku || 'No SKU yet'}</span>
+          <span className="hint mono">{draft.sku || 'Sin SKU'}</span>
         </>
       }
       actions={
         <>
-          <ButtonLink href={Route.Products}>Cancel</ButtonLink>
+          <ButtonLink href={Route.Products}>Cancelar</ButtonLink>
           <Button variant={ButtonVariant.Primary} disabled={isSaving || (!isDirty && product !== null)} onClick={onSave}>
-            {isSaving ? 'Saving…' : 'Save product'}
+            {isSaving ? 'Guardando…' : 'Guardar producto'}
           </Button>
         </>
       }

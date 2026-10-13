@@ -5,7 +5,7 @@ import { getDevice } from '@/server/auth/getDevice';
 import { getStaffSession } from '@/server/auth/getStaffSession';
 import { Route } from '@/types/Route';
 
-export const metadata: Metadata = { title: 'Register' };
+export const metadata: Metadata = { title: 'Caja' };
 
 const RegisterPage = async () => {
   const device = await getDevice();

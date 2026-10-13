@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const pinLoginSchema = z.object({
   staffId: z.string().min(1),
-  pin: z.string().regex(/^\d{4}$/, 'PIN has 4 digits'),
+  pin: z.string().regex(/^\d{4}$/, 'El PIN tiene 4 dígitos'),
 });
 
 export const openShiftSchema = z.object({
@@ -25,8 +25,8 @@ export const createOrderSchema = z
           selectedOptionIds: z.record(z.string(), z.array(z.string())),
         }),
       )
-      .min(1, 'The order is empty'),
+      .min(1, 'El pedido está vacío'),
   })
   .refine((order) => order.documentType !== DocumentType.Factura || /^(10|20)\d{9}$/.test(order.customerDocument), {
-    message: 'A factura needs the customer RUC (11 digits)',
+    message: 'La factura necesita el RUC del cliente (11 dígitos)',
   });

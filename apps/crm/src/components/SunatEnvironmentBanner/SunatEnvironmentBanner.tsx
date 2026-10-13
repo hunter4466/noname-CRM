@@ -16,16 +16,16 @@ export const SunatEnvironmentBanner = ({ config, testResult }: SunatEnvironmentB
       </Pill>
       <div className={styles.text}>
         <div className={styles.title}>
-          {isBeta ? "Documents are being sent to SUNAT's test environment" : 'Documents are being sent to SUNAT production'}
+          {isBeta ? 'Los comprobantes se envían al entorno de pruebas de SUNAT' : 'Los comprobantes se envían a SUNAT producción'}
         </div>
         <div className="hint">
           {testResult
             ? testResult.message
-            : `${config.lastTestLabel} ${config.hasCertificate ? '' : 'Upload the digital certificate to go live.'}`}
+            : `${config.lastTestLabel} ${config.hasCertificate ? '' : 'Sube el certificado digital para pasar a producción.'}`}
         </div>
       </div>
-      <Button disabled={!config.hasCertificate} title={config.hasCertificate ? undefined : 'Upload the certificate first'}>
-        Go to production
+      <Button disabled={!config.hasCertificate} title={config.hasCertificate ? undefined : 'Primero sube el certificado'}>
+        Pasar a producción
       </Button>
     </div>
   );

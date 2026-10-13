@@ -3,8 +3,8 @@ import { KeypadKey } from '@/types/KeypadKey';
 import styles from './Keypad.module.css';
 
 const keyLabels: Record<string, { label: string; ariaLabel: string }> = {
-  [KeypadKey.Clear]: { label: 'Clear', ariaLabel: 'Clear' },
-  [KeypadKey.Delete]: { label: '⌫', ariaLabel: 'Delete' },
+  [KeypadKey.Clear]: { label: 'Limpiar', ariaLabel: 'Limpiar' },
+  [KeypadKey.Delete]: { label: '⌫', ariaLabel: 'Borrar' },
 };
 
 export interface KeypadProps {

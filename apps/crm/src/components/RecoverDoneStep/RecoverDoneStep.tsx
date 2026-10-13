@@ -11,11 +11,11 @@ export const RecoverDoneStep = () => (
       <IconCheck size={30} />
     </span>
     <AuthHeading
-      title="Password updated"
-      hint="You've been signed out on other devices. Registers stay signed in, since they use staff PINs."
+      title="Contraseña actualizada"
+      hint="Se cerró tu sesión en otros equipos. Las cajas siguen activas porque usan el PIN del personal."
     />
     <ButtonLink href={Route.Login} variant={ButtonVariant.Primary} size={ButtonSize.Large} fullWidth>
-      Sign in
+      Iniciar sesión
     </ButtonLink>
   </>
 );

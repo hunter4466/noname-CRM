@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { RecoverFlow } from '@/components/RecoverFlow/RecoverFlow';
 
-export const metadata: Metadata = { title: 'Reset password' };
+export const metadata: Metadata = { title: 'Restablecer contraseña' };
 
 const RecoverPage = () => <RecoverFlow />;
 

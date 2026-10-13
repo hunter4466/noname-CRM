@@ -8,21 +8,21 @@ export interface LocationDetailsSectionProps {
 
 export const LocationDetailsSection = ({ draft, updateField }: LocationDetailsSectionProps) => (
   <Card>
-    <CardHeader title="Details" />
+    <CardHeader title="Datos" />
     <CardBody>
       <FieldGrid>
-        <Field label="Location name" htmlFor="locationName">
+        <Field label="Nombre del local" htmlFor="locationName">
           <TextInput id="locationName" value={draft.name} onChange={(event) => updateField('name', event.target.value)} />
         </Field>
-        <Field label="Name printed on receipts" htmlFor="receiptName">
+        <Field label="Nombre impreso en los comprobantes" htmlFor="receiptName">
           <TextInput
             id="receiptName"
-            placeholder={`[YOUR BRAND] ${draft.name}`}
+            placeholder={`[TU MARCA] ${draft.name}`}
             value={draft.receiptName}
             onChange={(event) => updateField('receiptName', event.target.value)}
           />
         </Field>
-        <Field label="Phone" htmlFor="locationPhone">
+        <Field label="Teléfono" htmlFor="locationPhone">
           <TextInput
             id="locationPhone"
             type="tel"
@@ -31,7 +31,7 @@ export const LocationDetailsSection = ({ draft, updateField }: LocationDetailsSe
             onChange={(event) => updateField('phone', event.target.value)}
           />
         </Field>
-        <Field label="Opening hours" htmlFor="locationHours">
+        <Field label="Horario de atención" htmlFor="locationHours">
           <TextInput id="locationHours" value={draft.openingHours} onChange={(event) => updateField('openingHours', event.target.value)} />
         </Field>
       </FieldGrid>

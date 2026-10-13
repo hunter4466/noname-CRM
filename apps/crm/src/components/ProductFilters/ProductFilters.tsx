@@ -10,7 +10,7 @@ import { SearchInput } from '../shared/SearchInput/SearchInput';
 import { Toolbar } from '../shared/Toolbar/Toolbar';
 
 const statusOptions = [
-  { value: FilterValue.All, label: 'Any status' },
+  { value: FilterValue.All, label: 'Cualquier estado' },
   ...Object.values(ProductStatus).map((status) => ({ value: status, label: productStatusLabel[status] })),
 ];
 
@@ -22,7 +22,7 @@ export const ProductFilters = ({ filters }: ProductFiltersProps) => {
   const categories = useCategories();
   const locations = useLocations();
   const categoryOptions = [
-    { value: FilterValue.All, label: 'All categories' },
+    { value: FilterValue.All, label: 'Todas las categorías' },
     ...(categories.data ?? []).map((category) => ({ value: category.id, label: category.name })),
   ];
   return (
@@ -30,23 +30,23 @@ export const ProductFilters = ({ filters }: ProductFiltersProps) => {
       <SearchInput
         value={filters.query.search}
         onChange={(value) => filters.setFilter('search', value)}
-        placeholder="Search by name or SKU"
-        ariaLabel="Search products"
+        placeholder="Buscar por nombre o SKU"
+        ariaLabel="Buscar productos"
       />
       <Select
-        aria-label="Category"
+        aria-label="Categoría"
         options={categoryOptions}
         value={filters.query.categoryId}
         onChange={(event) => filters.setFilter('categoryId', event.target.value)}
       />
       <Select
-        aria-label="Location"
+        aria-label="Local"
         options={toLocationOptions(locations.data?.items)}
         value={filters.query.locationId}
         onChange={(event) => filters.setFilter('locationId', event.target.value)}
       />
       <Select
-        aria-label="Status"
+        aria-label="Estado"
         options={statusOptions}
         value={filters.query.status}
         onChange={(event) => filters.setStatus(event.target.value as ProductStatus | FilterValue.All)}

@@ -14,7 +14,7 @@ export const ComboSlotItemRow = ({ item, onUpdate, onRemove }: ComboSlotItemRowP
     <span className="hint mono">{item.sku}</span>
     <label className={styles.default}>
       <input type="radio" checked={item.isDefault} onChange={() => onUpdate({ isDefault: true })} />
-      Default
+      Predeterminado
     </label>
     <div className={styles.upcharge}>
       <TextInput
@@ -28,8 +28,8 @@ export const ComboSlotItemRow = ({ item, onUpdate, onRemove }: ComboSlotItemRowP
         onChange={(event) => onUpdate({ upcharge: Number(event.target.value) })}
       />
     </div>
-    {item.isOutOfStock && <span className="hint">Out of stock</span>}
-    <Button size={ButtonSize.Small} variant={ButtonVariant.Ghost} aria-label={`Remove ${item.productName}`} onClick={onRemove}>
+    {item.isOutOfStock && <span className="hint">Agotado</span>}
+    <Button size={ButtonSize.Small} variant={ButtonVariant.Ghost} aria-label={`Quitar ${item.productName}`} onClick={onRemove}>
       ×
     </Button>
   </div>

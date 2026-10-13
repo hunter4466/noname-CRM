@@ -12,7 +12,7 @@ export interface BreadcrumbsProps {
 }
 
 export const Breadcrumbs = ({ items }: BreadcrumbsProps) => (
-  <nav className={styles.crumbs} aria-label="Breadcrumb">
+  <nav className={styles.crumbs} aria-label="Ruta de navegación">
     {items.map((item, index) => (
       <Fragment key={item.label}>
         {index > 0 && <span aria-hidden="true">/</span>}

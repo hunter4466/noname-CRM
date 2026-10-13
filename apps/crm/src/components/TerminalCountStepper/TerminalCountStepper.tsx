@@ -10,12 +10,12 @@ export interface TerminalCountStepperProps {
 
 export const TerminalCountStepper = ({ value, onChange }: TerminalCountStepperProps) => (
   <div className={styles.field}>
-    <span className={styles.label}>How many registers (POS)?</span>
+    <span className={styles.label}>¿Cuántas cajas (POS)?</span>
     <div className={styles.stepper}>
       <button
         type="button"
         className={styles.button}
-        aria-label="Fewer"
+        aria-label="Menos"
         disabled={value <= MIN_TERMINALS}
         onClick={() => onChange(value - 1)}
       >
@@ -25,13 +25,13 @@ export const TerminalCountStepper = ({ value, onChange }: TerminalCountStepperPr
       <button
         type="button"
         className={styles.button}
-        aria-label="More"
+        aria-label="Más"
         disabled={value >= MAX_TERMINALS}
         onClick={() => onChange(value + 1)}
       >
         +
       </button>
-      <span className="hint">Named Counter POS, POS 2… rename them anytime</span>
+      <span className="hint">Se llaman Caja mostrador, Caja 2… puedes renombrarlas cuando quieras</span>
     </div>
   </div>
 );

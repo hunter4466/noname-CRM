@@ -29,7 +29,7 @@ export const PasswordInput = ({ id, value, onChange, autoComplete }: PasswordInp
       <button
         type="button"
         className={styles.toggle}
-        aria-label={isVisible ? 'Hide password' : 'Show password'}
+        aria-label={isVisible ? 'Ocultar contraseña' : 'Mostrar contraseña'}
         onClick={() => setIsVisible(!isVisible)}
       >
         <IconEye />

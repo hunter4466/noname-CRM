@@ -10,7 +10,7 @@ type Params = { groupId: string };
 
 export const GET = withPermissions<Params>([PermissionKey.CatalogView], async (_request, { params }) => {
   const group = findModifierGroup((await params).groupId);
-  return group ? NextResponse.json<ModifierGroup>(group) : notFound('Modifier group');
+  return group ? NextResponse.json<ModifierGroup>(group) : notFound('Grupo de modificadores');
 });
 
 export const PATCH = withPermissions<Params>([PermissionKey.CatalogManage], async (request, { params }) => {
@@ -19,5 +19,5 @@ export const PATCH = withPermissions<Params>([PermissionKey.CatalogManage], asyn
     return validationError(body.error);
   }
   const group = updateModifierGroup((await params).groupId, body.data);
-  return group ? NextResponse.json<ModifierGroup>(group) : notFound('Modifier group');
+  return group ? NextResponse.json<ModifierGroup>(group) : notFound('Grupo de modificadores');
 });

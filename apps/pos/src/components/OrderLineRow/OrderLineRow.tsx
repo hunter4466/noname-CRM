@@ -24,7 +24,7 @@ export const OrderLineRow = ({ line, onQuantityChange, onRemove }: OrderLineRowP
     <div className={styles.price}>{formatMoney(line.unitPrice * line.quantity)}</div>
     <QuantityStepper value={line.quantity} onChange={onQuantityChange} />
     <button type="button" className={styles.remove} onClick={onRemove}>
-      Remove
+      Quitar
     </button>
   </div>
 );

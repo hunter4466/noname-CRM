@@ -10,7 +10,7 @@ type Params = { locationId: string };
 
 export const GET = withPermissions<Params>([PermissionKey.LocationsView], async (_request, { params }) => {
   const location = findLocation((await params).locationId);
-  return location ? NextResponse.json<Location>(location) : notFound('Location');
+  return location ? NextResponse.json<Location>(location) : notFound('Local');
 });
 
 export const PATCH = withPermissions<Params>([PermissionKey.LocationsManage], async (request, { params }) => {
@@ -19,5 +19,5 @@ export const PATCH = withPermissions<Params>([PermissionKey.LocationsManage], as
     return validationError(body.error);
   }
   const location = updateLocation((await params).locationId, body.data);
-  return location ? NextResponse.json<Location>(location) : notFound('Location');
+  return location ? NextResponse.json<Location>(location) : notFound('Local');
 });

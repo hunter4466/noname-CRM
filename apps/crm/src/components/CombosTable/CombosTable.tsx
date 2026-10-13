@@ -11,13 +11,13 @@ import { TableFooter } from '../shared/TableFooter/TableFooter';
 
 const columns = [
   { label: 'Combo' },
-  { label: 'Slots' },
-  { label: 'Price', alignEnd: true },
-  { label: 'Customer saves' },
-  { label: 'Available' },
-  { label: 'Locations' },
-  { label: 'Status' },
-  { label: <span className="visually-hidden">Actions</span> },
+  { label: 'Pasos' },
+  { label: 'Precio', alignEnd: true },
+  { label: 'El cliente ahorra' },
+  { label: 'Disponible' },
+  { label: 'Locales' },
+  { label: 'Estado' },
+  { label: <span className="visually-hidden">Acciones</span> },
 ];
 
 export interface CombosTableProps {
@@ -50,17 +50,17 @@ export const CombosTable = ({ combos }: CombosTableProps) => (
           <TableCell muted>{combo.locationsLabel}</TableCell>
           <TableCell>
             <Pill tone={combo.isActive ? PillTone.Ok : PillTone.Neutral} withDot>
-              {combo.isActive ? 'Active' : 'Inactive'}
+              {combo.isActive ? 'Activo' : 'Inactivo'}
             </Pill>
           </TableCell>
           <TableCell alignEnd>
-            <ButtonLink href={comboRoute(combo.id)} size={ButtonSize.Small} ariaLabel={`Edit ${combo.name}`}>
-              Edit
+            <ButtonLink href={comboRoute(combo.id)} size={ButtonSize.Small} ariaLabel={`Editar ${combo.name}`}>
+              Editar
             </ButtonLink>
           </TableCell>
         </tr>
       ))}
     </Table>
-    <TableFooter summary={`${combos.length} combos · savings are compared with the default items at their regular price`} />
+    <TableFooter summary={`${combos.length} combos · el ahorro se compara con los ítems predeterminados a su precio regular`} />
   </>
 );

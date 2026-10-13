@@ -22,18 +22,18 @@ export const MenuPanel = ({ menu, onPick }: MenuPanelProps) => {
   return (
     <>
       <CategoryRail categories={menu.categories} items={menu.items} selectedId={categoryId} onSelect={setCategoryId} />
-      <section className={styles.menu} aria-label="Products">
+      <section className={styles.menu} aria-label="Productos">
         <div className={styles.top}>
           <input
             type="search"
             className={styles.search}
-            aria-label="Search products"
-            placeholder="Search or scan barcode"
+            aria-label="Buscar productos"
+            placeholder="Buscar o escanear código de barras"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
-          <button type="button" className={styles.tickets} disabled title="Coming soon">
-            Open tickets <b>{menu.openTicketCount}</b>
+          <button type="button" className={styles.tickets} disabled title="Próximamente">
+            Tickets abiertos <b>{menu.openTicketCount}</b>
           </button>
         </div>
         <div className={styles.grid}>

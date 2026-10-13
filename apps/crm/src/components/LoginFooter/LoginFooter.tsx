@@ -10,10 +10,10 @@ export const LoginFooter = () => {
   return (
     <>
       <div className={styles.alternative}>
-        New to CRM? <Link href={Route.Register}>Create an account</Link>
+        ¿Nuevo en CRM? <Link href={Route.Register}>Crea una cuenta</Link>
       </div>
       <div className={styles.posHint}>
-        Working at a register? <a href={posUrl}>Open the POS sign-in</a>
+        ¿Trabajas en caja? <a href={posUrl}>Abrir el ingreso al POS</a>
       </div>
     </>
   );

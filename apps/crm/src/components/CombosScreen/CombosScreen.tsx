@@ -18,9 +18,9 @@ import { SearchInput } from '../shared/SearchInput/SearchInput';
 import { Toolbar } from '../shared/Toolbar/Toolbar';
 
 const activeOptions = [
-  { value: ActiveFilter.Any, label: 'Any status' },
-  { value: ActiveFilter.Active, label: 'Active' },
-  { value: ActiveFilter.Inactive, label: 'Inactive' },
+  { value: ActiveFilter.Any, label: 'Cualquier estado' },
+  { value: ActiveFilter.Active, label: 'Activo' },
+  { value: ActiveFilter.Inactive, label: 'Inactivo' },
 ];
 
 export const CombosScreen = () => {
@@ -33,12 +33,16 @@ export const CombosScreen = () => {
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Products', href: Route.Products }, { label: 'Combos' }]}
+        breadcrumbs={[
+          { label: 'Punto de Venta', href: Route.Dashboard },
+          { label: 'Productos', href: Route.Products },
+          { label: 'Combos' },
+        ]}
         title="Combos"
-        lede="Bundles built from your existing products. Each slot lets the customer pick one product; stock, kitchen tickets and sales still count on each product inside."
+        lede="Paquetes armados con tus productos. En cada paso el cliente elige un producto; el stock, las comandas y las ventas se siguen contando en cada producto."
         actions={
           <ButtonLink href={comboRoute(NEW_ENTITY_ID)} variant={ButtonVariant.Primary}>
-            New combo
+            Nuevo combo
           </ButtonLink>
         }
       />
@@ -51,9 +55,9 @@ export const CombosScreen = () => {
         }}
       />
       <Toolbar>
-        <SearchInput value={search} onChange={setSearch} placeholder="Search combos" ariaLabel="Search combos" />
+        <SearchInput value={search} onChange={setSearch} placeholder="Buscar combos" ariaLabel="Buscar combos" />
         <Select
-          aria-label="Status"
+          aria-label="Estado"
           options={activeOptions}
           value={active}
           onChange={(event) => setActive(event.target.value as ActiveFilter)}

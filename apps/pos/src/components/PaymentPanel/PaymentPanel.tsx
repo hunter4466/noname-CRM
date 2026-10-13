@@ -20,10 +20,10 @@ export const PaymentPanel = ({ orderNumber, cart, checkout }: PaymentPanelProps)
   <div className={styles.overlay}>
     <div className={styles.left}>
       <button type="button" className={styles.back} onClick={checkout.backToOrder}>
-        <IconArrowLeft size={16} /> Back to order
+        <IconArrowLeft size={16} /> Volver al pedido
       </button>
       <section className={styles.section}>
-        <h3 className={styles.heading}>Document</h3>
+        <h3 className={styles.heading}>Comprobante</h3>
         <div className={styles.choices}>
           {documentChoices.map((choice) => (
             <ChoiceCard
@@ -42,7 +42,7 @@ export const PaymentPanel = ({ orderNumber, cart, checkout }: PaymentPanelProps)
         onChange={checkout.setCustomerDocument}
       />
       <section className={styles.section}>
-        <h3 className={styles.heading}>Payment</h3>
+        <h3 className={styles.heading}>Pago</h3>
         <div className={styles.choices}>
           {paymentChoices.map((choice) => (
             <ChoiceCard

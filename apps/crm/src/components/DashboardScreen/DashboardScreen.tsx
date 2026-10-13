@@ -14,10 +14,10 @@ import { PageHeader } from '../shared/PageHeader/PageHeader';
 import { QueryState } from '../shared/QueryState/QueryState';
 
 const dateRangeOptions = [
-  { value: DateRange.Today, label: 'Today' },
-  { value: DateRange.Yesterday, label: 'Yesterday' },
-  { value: DateRange.LastSevenDays, label: 'Last 7 days' },
-  { value: DateRange.ThisMonth, label: 'This month' },
+  { value: DateRange.Today, label: 'Hoy' },
+  { value: DateRange.Yesterday, label: 'Ayer' },
+  { value: DateRange.LastSevenDays, label: 'Últimos 7 días' },
+  { value: DateRange.ThisMonth, label: 'Este mes' },
 ];
 
 export const DashboardScreen = () => {
@@ -29,26 +29,26 @@ export const DashboardScreen = () => {
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale' }, { label: 'Dashboard' }]}
-        title="Dashboard"
+        breadcrumbs={[{ label: 'Punto de Venta' }, { label: 'Panel' }]}
+        title="Panel"
         lede={dashboard.data?.dateLabel}
         actions={
           <>
             <Select
-              aria-label="Location"
+              aria-label="Local"
               options={toLocationOptions(locations.data?.items)}
               value={locationId}
               onChange={(event) => setLocationId(event.target.value)}
             />
             <Select
-              aria-label="Date range"
+              aria-label="Rango de fechas"
               options={dateRangeOptions}
               value={dateRange}
               onChange={(event) => setDateRange(event.target.value as DateRange)}
             />
             <a className={getButtonClassName({ variant: ButtonVariant.Primary })} href={posUrl}>
               <IconTerminal size={16} />
-              Open POS
+              Abrir POS
             </a>
           </>
         }

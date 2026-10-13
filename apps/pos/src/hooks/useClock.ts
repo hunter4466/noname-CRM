@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 
 const formatTime = (date: Date) => date.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', hour12: false });
-const formatDate = (date: Date) => date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+const formatDate = (date: Date) => {
+  const label = date.toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long' });
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
 
 /** Wall clock for the register chrome; empty until mounted so server and client markup match. */
 export const useClock = () => {

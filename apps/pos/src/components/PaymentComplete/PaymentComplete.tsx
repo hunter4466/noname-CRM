@@ -16,31 +16,31 @@ export const PaymentComplete = ({ order, onNewOrder }: PaymentCompleteProps) => 
         <IconCheck size={30} />
       </span>
       <div>
-        <div className={styles.title}>Payment complete</div>
+        <div className={styles.title}>Pago completado</div>
         <div className="hint">
-          {order.documentLabel} <span className="mono">{order.documentNumber}</span> · printing on {order.printerLabel}
+          {order.documentLabel} <span className="mono">{order.documentNumber}</span> · imprimiendo en {order.printerLabel}
         </div>
       </div>
       {order.sunatStatus === SunatDocumentStatus.Accepted ? (
-        <Pill tone={PillTone.Ok}>Sent to SUNAT · CDR accepted</Pill>
+        <Pill tone={PillTone.Ok}>Enviado a SUNAT · CDR aceptado</Pill>
       ) : (
-        <Pill>Internal document · not sent to SUNAT</Pill>
+        <Pill>Documento interno · no se envía a SUNAT</Pill>
       )}
       {order.change > 0 && (
         <div className={styles.change}>
-          <span className="hint">Change to give</span>
+          <span className="hint">Vuelto a entregar</span>
           <span className={styles.changeAmount}>{formatMoney(order.change)}</span>
         </div>
       )}
       <div className={styles.buttons}>
-        <button type="button" className={styles.secondary} disabled title="Coming soon">
-          Print again
+        <button type="button" className={styles.secondary} disabled title="Próximamente">
+          Imprimir de nuevo
         </button>
-        <button type="button" className={styles.secondary} disabled title="Coming soon">
-          Send by email / WhatsApp
+        <button type="button" className={styles.secondary} disabled title="Próximamente">
+          Enviar por correo / WhatsApp
         </button>
         <button type="button" className={styles.primary} onClick={onNewOrder}>
-          New order
+          Nuevo pedido
         </button>
       </div>
     </div>

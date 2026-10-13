@@ -8,13 +8,13 @@ export interface LocationsSummaryCardProps {
 
 export const LocationsSummaryCard = ({ summary }: LocationsSummaryCardProps) => {
   const figures = [
-    { label: 'Locations', value: summary.locationCount },
-    { label: 'Points of sale', value: summary.terminalCount },
-    { label: 'Online now', value: summary.onlineCount },
-    { label: 'Printers paired', value: summary.printerCount },
+    { label: 'Locales', value: summary.locationCount },
+    { label: 'Puntos de venta', value: summary.terminalCount },
+    { label: 'En línea ahora', value: summary.onlineCount },
+    { label: 'Impresoras vinculadas', value: summary.printerCount },
   ];
   return (
-    <Card ariaLabel="Summary" className={styles.summary}>
+    <Card ariaLabel="Resumen" className={styles.summary}>
       {figures.map((figure) => (
         <div key={figure.label} className={styles.figure}>
           <b className={styles.value}>{figure.value}</b>

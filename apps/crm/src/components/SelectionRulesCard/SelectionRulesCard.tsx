@@ -13,16 +13,16 @@ const toCount = (value: string) => Math.max(0, Math.floor(Number(value) || 0));
 
 export const SelectionRulesCard = ({ draft, updateField, onRequiredChange }: SelectionRulesCardProps) => (
   <Card>
-    <CardHeader title="Selection rules" />
+    <CardHeader title="Reglas de selección" />
     <CardBody>
       <FieldGrid>
         <ToggleRow
-          label="Required"
-          hint="Can't add the item without a choice"
+          label="Obligatorio"
+          hint="No se puede agregar el ítem sin elegir"
           checked={draft.minSelections > 0}
           onChange={onRequiredChange}
         />
-        <Field label="Minimum" htmlFor="groupMin">
+        <Field label="Mínimo" htmlFor="groupMin">
           <TextInput
             id="groupMin"
             monospace
@@ -32,7 +32,7 @@ export const SelectionRulesCard = ({ draft, updateField, onRequiredChange }: Sel
             onChange={(event) => updateField('minSelections', toCount(event.target.value))}
           />
         </Field>
-        <Field label="Maximum" htmlFor="groupMax">
+        <Field label="Máximo" htmlFor="groupMax">
           <TextInput
             id="groupMax"
             monospace
@@ -42,7 +42,7 @@ export const SelectionRulesCard = ({ draft, updateField, onRequiredChange }: Sel
             onChange={(event) => updateField('maxSelections', Math.max(1, toCount(event.target.value)))}
           />
         </Field>
-        <Field label="Free choices" htmlFor="groupFree">
+        <Field label="Elecciones gratis" htmlFor="groupFree">
           <TextInput
             id="groupFree"
             monospace
@@ -54,13 +54,13 @@ export const SelectionRulesCard = ({ draft, updateField, onRequiredChange }: Sel
         </Field>
       </FieldGrid>
       <ToggleRow
-        label="Same option more than once"
-        hint={'e.g. "2 × Inca Kola" inside one combo'}
+        label="Misma opción más de una vez"
+        hint={'p. ej. "2 × Inca Kola" dentro de un combo'}
         checked={draft.allowRepeats}
         onChange={(allowRepeats) => updateField('allowRepeats', allowRepeats)}
       />
       <div className={styles.summary}>
-        <strong>Reads as:</strong> {describeSelectionRules(draft)}
+        <strong>Se lee así:</strong> {describeSelectionRules(draft)}
       </div>
     </CardBody>
   </Card>

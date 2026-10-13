@@ -7,8 +7,8 @@ export const PinSignInLinks = () => {
   const { crmUrl } = usePublicConfig();
   return (
     <div className={styles.links}>
-      <a href={`${crmUrl}/login`}>Manager? Sign in with email or Google</a>
-      <span className="hint">Forgot your PIN? A manager can reset it.</span>
+      <a href={`${crmUrl}/login`}>¿Administrador? Inicia sesión con correo o Google</a>
+      <span className="hint">¿Olvidaste tu PIN? Un administrador puede restablecerlo.</span>
     </div>
   );
 };

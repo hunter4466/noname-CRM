@@ -31,7 +31,7 @@ export const registerOwner = (request: RegisterRequest): MockUserRecord => {
       fullName: request.fullName,
       initials: toInitials(request.fullName),
       email: request.email,
-      roleName: 'Owner',
+      roleName: 'Propietario',
       companyId: createMockId('cmp'),
       companyName: request.commercialName,
       permissions: owner?.user.permissions ?? [],

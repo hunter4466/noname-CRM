@@ -38,14 +38,14 @@ const priceLines = (request: CreateOrderRequest) =>
   request.lines.map((line) => {
     const item = findMenuItem(line.menuItemId);
     if (!item || item.isOutOfStock) {
-      throw new OrderValidationError(`${item?.name ?? line.menuItemId} is not available`);
+      throw new OrderValidationError(`${item?.name ?? line.menuItemId} no está disponible`);
     }
     const groups: SelectableGroup[] = findMenuGroups(item.modifierGroupIds).map((group) => ({
       ...group,
       options: group.options.map((option) => ({ id: option.id, price: option.price, isOutOfStock: option.isOutOfStock })),
     }));
     if (missingRequiredGroups(groups, line.selectedOptionIds).length > 0) {
-      throw new OrderValidationError(`${item.name} is missing a required choice`);
+      throw new OrderValidationError(`A ${item.name} le falta una elección obligatoria`);
     }
     return unitPriceWithModifiers(item.price, groups, line.selectedOptionIds) * line.quantity;
   });
@@ -61,7 +61,7 @@ export const createOrder = (terminal: TerminalRecord, request: CreateOrderReques
   const total = roundMoney(priceLines(request).reduce((sum, lineTotal) => sum + lineTotal, 0));
   const isCash = request.paymentMethod === PaymentMethod.Cash;
   if (isCash && (request.amountTendered ?? 0) < total) {
-    throw new OrderValidationError('Cash received is less than the total');
+    throw new OrderValidationError('El efectivo recibido es menor que el total');
   }
   const series = seriesFor(terminal, request.documentType);
   const documentNumber = nextNumber(counters().documentNumbers, series, FIRST_DOCUMENT_NUMBER);

@@ -7,6 +7,8 @@ import { FilterValue } from '@/types/FilterValue';
 import { ComboEditorForm } from '../ComboEditorForm/ComboEditorForm';
 import { QueryState } from '../shared/QueryState/QueryState';
 
+const COMBOS_CATEGORY_ID = 'cat_combos';
+
 export interface ComboEditorScreenProps {
   comboId: string | null;
 }
@@ -27,7 +29,8 @@ export const ComboEditorScreen = ({ comboId }: ComboEditorScreenProps) => {
   return (
     <QueryState data={data} isLoading={isLoading} error={combo.error ?? categories.error ?? products.error}>
       {(loaded) => {
-        const comboCategoryId = loaded.categories.find((category) => category.name === 'Combos')?.id ?? loaded.categories[0]?.id ?? '';
+        const comboCategoryId =
+          loaded.categories.find((category) => category.id === COMBOS_CATEGORY_ID)?.id ?? loaded.categories[0]?.id ?? '';
         return (
           <ComboEditorForm
             key={combo.data?.id ?? 'new'}

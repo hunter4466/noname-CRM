@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ModifierGroupsScreen } from '@/components/ModifierGroupsScreen/ModifierGroupsScreen';
 
-export const metadata: Metadata = { title: 'Modifier groups' };
+export const metadata: Metadata = { title: 'Grupos de modificadores' };
 
 const ModifierGroupsPage = () => <ModifierGroupsScreen />;
 

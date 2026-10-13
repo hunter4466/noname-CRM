@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LocationDetailScreen } from '@/components/LocationDetailScreen/LocationDetailScreen';
 import { NEW_ENTITY_ID } from '@/types/Route';
 
-export const metadata: Metadata = { title: 'Location' };
+export const metadata: Metadata = { title: 'Local' };
 
 const LocationDetailPage = async ({ params }: PageProps<'/locations/[locationId]'>) => {
   const { locationId } = await params;

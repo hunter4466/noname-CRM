@@ -47,9 +47,9 @@ export const ComboEditorForm = ({ combo, categories, products, defaultCategoryId
         aside={
           <PosPreviewCard
             preview={preview}
-            subtitle="Tap to build the combo like a cashier"
-            ticketTitle="Prints on the boleta as"
-            ticketNote={`Kitchen gets ${editor.draft.slots.length} tickets, one per item, when station routing is on.`}
+            subtitle="Toca para armar el combo como el cajero"
+            ticketTitle="Se imprime en la boleta como"
+            ticketNote={`Cocina recibe ${editor.draft.slots.length} comandas, una por ítem, cuando el envío por estación está activo.`}
           />
         }
       />

@@ -23,7 +23,7 @@ export const ModifierSheet = ({ sheet }: ModifierSheetProps) => {
             <h3 className={styles.title}>{item.name}</h3>
             <div className="hint mono">{formatMoney(item.price)}</div>
           </div>
-          <button type="button" className={styles.close} aria-label="Close" onClick={sheet.close}>
+          <button type="button" className={styles.close} aria-label="Cerrar" onClick={sheet.close}>
             <IconClose />
           </button>
         </div>
@@ -41,7 +41,7 @@ export const ModifierSheet = ({ sheet }: ModifierSheetProps) => {
         <div className={styles.footer}>
           <QuantityStepper value={quantity} minimum={1} onChange={sheet.changeQuantity} />
           <button type="button" className={styles.add} disabled={isBlocked} onClick={sheet.confirm}>
-            <span>Add to order</span>
+            <span>Agregar al pedido</span>
             <span className="mono">{formatMoney(sheet.unitPrice * quantity)}</span>
           </button>
         </div>

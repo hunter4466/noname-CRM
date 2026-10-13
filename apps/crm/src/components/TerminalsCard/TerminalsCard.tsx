@@ -14,14 +14,14 @@ export interface TerminalsCardProps {
 export const TerminalsCard = ({ terminals }: TerminalsCardProps) => (
   <Card>
     <CardHeader
-      title="Terminals"
+      title="Cajas"
       actions={
         <Link href={Route.Locations} className={styles.link}>
-          Manage locations
+          Gestionar locales
         </Link>
       }
     />
-    <Table columns={[{ label: 'Terminal' }, { label: 'Status' }, { label: 'Printer' }, { label: 'Sales today', alignEnd: true }]}>
+    <Table columns={[{ label: 'Caja' }, { label: 'Estado' }, { label: 'Impresora' }, { label: 'Ventas de hoy', alignEnd: true }]}>
       {terminals.map((terminal) => (
         <tr key={terminal.id}>
           <TableCell>
@@ -33,7 +33,7 @@ export const TerminalsCard = ({ terminals }: TerminalsCardProps) => (
               {terminal.statusLabel}
             </Pill>
           </TableCell>
-          <TableCell muted>{terminal.paperLow ? <Pill tone={PillTone.Warn}>Paper low</Pill> : terminal.printerLabel}</TableCell>
+          <TableCell muted>{terminal.paperLow ? <Pill tone={PillTone.Warn}>Poco papel</Pill> : terminal.printerLabel}</TableCell>
           <TableCell money>{formatMoney(terminal.salesToday)}</TableCell>
         </tr>
       ))}

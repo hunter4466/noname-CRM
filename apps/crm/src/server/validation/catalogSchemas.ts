@@ -4,8 +4,8 @@ import { z } from 'zod';
 const money = z.number().min(0).multipleOf(0.01);
 
 export const productInputSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  sku: z.string().min(1, 'SKU is required'),
+  name: z.string().min(1, 'El nombre es obligatorio'),
+  sku: z.string().min(1, 'El SKU es obligatorio'),
   categoryId: z.string().min(1),
   price: money,
   description: z.string(),
@@ -40,7 +40,7 @@ const modifierOptionSchema = z.object({
 
 export const modifierGroupInputSchema = z
   .object({
-    name: z.string().min(1, 'Group name is required'),
+    name: z.string().min(1, 'El nombre del grupo es obligatorio'),
     ticketName: z.string(),
     cashierPrompt: z.string(),
     minSelections: z.number().int().min(0),
@@ -53,7 +53,7 @@ export const modifierGroupInputSchema = z
     isNested: z.boolean(),
     options: z.array(modifierOptionSchema),
   })
-  .refine((group) => group.minSelections <= group.maxSelections, { message: 'Minimum cannot exceed maximum' });
+  .refine((group) => group.minSelections <= group.maxSelections, { message: 'El mínimo no puede superar al máximo' });
 
 const comboSlotSchema = z.object({
   id: z.string(),
@@ -73,7 +73,7 @@ const comboSlotSchema = z.object({
 });
 
 export const comboInputSchema = z.object({
-  name: z.string().min(1, 'Combo name is required'),
+  name: z.string().min(1, 'El nombre del combo es obligatorio'),
   sku: z.string().min(1),
   categoryId: z.string(),
   pricingMode: z.enum(ComboPricingMode),

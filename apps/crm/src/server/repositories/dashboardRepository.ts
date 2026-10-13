@@ -12,7 +12,7 @@ export const getDashboard = (locationId?: string): DashboardResponse => ({
       name: terminal.name,
       locationName,
       status: terminal.status,
-      statusLabel: terminal.status === TerminalStatus.Online ? 'Online' : 'Offline 1 h',
+      statusLabel: terminal.status === TerminalStatus.Online ? 'En línea' : 'Sin conexión 1 h',
       printerLabel: terminal.printerLabel,
       paperLow: terminal.paperLow,
       salesToday: terminal.salesToday,

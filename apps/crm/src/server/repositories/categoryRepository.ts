@@ -7,7 +7,7 @@ import { listProductRecords } from './productRepository';
 const categories = () => getMockSlice('categories', createCategoriesMock);
 
 export const findCategoryName = (categoryId: string) =>
-  categories().find((category) => category.id === categoryId)?.name ?? 'Uncategorized';
+  categories().find((category) => category.id === categoryId)?.name ?? 'Sin categoría';
 
 export const listCategories = (): Category[] => {
   const products = listProductRecords();

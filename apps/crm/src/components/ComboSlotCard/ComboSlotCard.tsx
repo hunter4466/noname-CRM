@@ -35,14 +35,14 @@ export const ComboSlotCard = ({ slot, number, products, onUpdate, onRemove, onAd
         <ComboSlotNumber number={number} />
         <TextInput
           className={styles.name}
-          aria-label="Slot name"
+          aria-label="Nombre del paso"
           value={slot.name}
           onChange={(event) => onUpdate({ name: event.target.value })}
         />
-        <Badge tone={slot.isRequired ? BadgeTone.Required : BadgeTone.Optional}>{slot.isRequired ? 'REQUIRED' : 'OPTIONAL'}</Badge>
+        <Badge tone={slot.isRequired ? BadgeTone.Required : BadgeTone.Optional}>{slot.isRequired ? 'OBLIGATORIO' : 'OPCIONAL'}</Badge>
         <span className="hint">{slot.hint}</span>
         <Button size={ButtonSize.Small} variant={ButtonVariant.Ghost} onClick={onRemove}>
-          Remove slot
+          Quitar paso
         </Button>
       </div>
       <div className={styles.items}>
@@ -55,10 +55,10 @@ export const ComboSlotCard = ({ slot, number, products, onUpdate, onRemove, onAd
           />
         ))}
         <Select
-          aria-label={`Add product to ${slot.name}`}
+          aria-label={`Agregar producto a ${slot.name}`}
           value={ADD_PLACEHOLDER}
           options={[
-            { value: ADD_PLACEHOLDER, label: 'Add a product…' },
+            { value: ADD_PLACEHOLDER, label: 'Agregar un producto…' },
             ...addable.map((product) => ({ value: product.id, label: `${product.name} · ${product.sku}` })),
           ]}
           onChange={(event) => addProductById(event.target.value)}

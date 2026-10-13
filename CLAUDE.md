@@ -31,6 +31,15 @@ repositories, mocks — server-only).
   internals for `getPrisma()` to go live — signatures stay the same.
 - Terraform and pipelines are written but **have never been applied** (see `.claude/rules/infra.md`).
 
+## Language
+
+- Everything users see is **Spanish (Peru)**: UI copy, placeholders, aria labels, API error and validation
+  messages, mock data. `<html lang="es">`, dates with `es-PE`. Money stays `S/ 1,330.00` (comma thousands,
+  dot decimals, as on SUNAT comprobantes).
+- Code stays **English**: identifiers, enum members/values, comments, commit messages, docs.
+- Terms in use: local (location), caja (register/terminal), turno (shift), vuelto (change), comprobante,
+  para llevar / en salón / recojo, término (cooking point), grupo de modificadores, paso (combo slot).
+
 ## Commands (repo root)
 
 ```bash

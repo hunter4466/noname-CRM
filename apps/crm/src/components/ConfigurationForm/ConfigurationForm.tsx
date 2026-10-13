@@ -23,16 +23,16 @@ export const ConfigurationForm = ({ config }: ConfigurationFormProps) => {
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: 'Point of Sale', href: Route.Dashboard }, { label: 'Configuration' }]}
-        title="Configuration"
-        lede="Electronic invoicing with SUNAT: who issues, how documents are sent, numbering per POS, taxes and the printed ticket."
+        breadcrumbs={[{ label: 'Punto de Venta', href: Route.Dashboard }, { label: 'Configuración' }]}
+        title="Configuración"
+        lede="Facturación electrónica con SUNAT: quién emite, cómo se envían los comprobantes, la numeración por POS, los impuestos y el ticket impreso."
         actions={
           <>
             <Button disabled={editor.testConnection.isPending} onClick={() => editor.testConnection.mutate()}>
-              Test connection
+              Probar conexión
             </Button>
             <Button variant={ButtonVariant.Primary} disabled={editor.save.isPending || !editor.isDirty} onClick={editor.submit}>
-              {editor.save.isPending ? 'Saving…' : 'Save configuration'}
+              {editor.save.isPending ? 'Guardando…' : 'Guardar configuración'}
             </Button>
           </>
         }

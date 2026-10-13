@@ -16,9 +16,9 @@ export interface ModifierGroupListProps {
 export const ModifierGroupList = ({ groups, search, onSearch, activeId, onSelect }: ModifierGroupListProps) => {
   const visible = groups.filter((group) => group.name.toLowerCase().includes(search.trim().toLowerCase()));
   return (
-    <Card ariaLabel="Groups" className={styles.list}>
+    <Card ariaLabel="Grupos" className={styles.list}>
       <div className={styles.search}>
-        <SearchInput value={search} onChange={onSearch} placeholder="Search groups" ariaLabel="Search groups" />
+        <SearchInput value={search} onChange={onSearch} placeholder="Buscar grupos" ariaLabel="Buscar grupos" />
       </div>
       {visible.map((group) => (
         <button
@@ -30,7 +30,7 @@ export const ModifierGroupList = ({ groups, search, onSearch, activeId, onSelect
         >
           <span className={styles.top}>
             {group.name}
-            {group.minSelections > 0 && <Pill tone={PillTone.Warn}>Required</Pill>}
+            {group.minSelections > 0 && <Pill tone={PillTone.Warn}>Obligatorio</Pill>}
             <span className="hint">{group.isNested ? 'nested' : pluralize(group.usedInProductNames.length, 'product')}</span>
           </span>
           <span className="hint">{describeGroupRules(group)}</span>

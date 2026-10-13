@@ -6,13 +6,13 @@ import { TableFooter } from '../shared/TableFooter/TableFooter';
 import styles from './ProductsTable.module.css';
 
 const columns = [
-  { label: <input type="checkbox" aria-label="Select all" /> },
-  { label: 'Product' },
-  { label: 'Category' },
-  { label: 'Price', alignEnd: true },
-  { label: 'Modifier groups', wide: true },
-  { label: 'Locations' },
-  { label: 'Status' },
+  { label: <input type="checkbox" aria-label="Seleccionar todo" /> },
+  { label: 'Producto' },
+  { label: 'Categoría' },
+  { label: 'Precio', alignEnd: true },
+  { label: 'Grupos de modificadores', wide: true },
+  { label: 'Locales' },
+  { label: 'Estado' },
 ];
 
 export interface ProductsTableProps {
@@ -30,16 +30,16 @@ export const ProductsTable = ({ page, onPageChange }: ProductsTableProps) => {
           <ProductRow key={product.id} product={product} />
         ))}
       </Table>
-      {page.items.length === 0 && <div className={styles.empty}>No products match these filters.</div>}
+      {page.items.length === 0 && <div className={styles.empty}>Ningún producto coincide con estos filtros.</div>}
       <TableFooter
-        summary={`Showing ${firstIndex}–${lastIndex} of ${page.total} · prices include IGV`}
+        summary={`Mostrando ${firstIndex}–${lastIndex} de ${page.total} · precios con IGV`}
         actions={
           <>
             <Button size={ButtonSize.Small} disabled={page.page <= 1} onClick={() => onPageChange(page.page - 1)}>
-              Previous
+              Anterior
             </Button>
             <Button size={ButtonSize.Small} disabled={lastIndex >= page.total} onClick={() => onPageChange(page.page + 1)}>
-              Next
+              Siguiente
             </Button>
           </>
         }

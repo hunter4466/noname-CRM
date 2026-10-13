@@ -20,7 +20,7 @@ export const ModifierOptionRow = ({ option, onUpdate, onSetDefault, onRemove }: 
             <Chip variant={ChipVariant.Linked}>Linked · {option.linkedProductSku}</Chip>
           </>
         ) : (
-          <TextInput aria-label="Option name" value={option.label} onChange={(event) => onUpdate({ label: event.target.value })} />
+          <TextInput aria-label="Nombre de la opción" value={option.label} onChange={(event) => onUpdate({ label: event.target.value })} />
         )}
         {option.availabilityNote && <span className="hint">{option.availabilityNote}</span>}
       </div>
@@ -41,14 +41,20 @@ export const ModifierOptionRow = ({ option, onUpdate, onSetDefault, onRemove }: 
     </TableCell>
     <TableCell muted>{option.followUpGroupName ? <Chip>{option.followUpGroupName}</Chip> : '—'}</TableCell>
     <TableCell>
-      <input type="radio" name="defaultOption" aria-label={`Default ${option.label}`} checked={option.isDefault} onChange={onSetDefault} />
+      <input
+        type="radio"
+        name="defaultOption"
+        aria-label={`Predeterminado ${option.label}`}
+        checked={option.isDefault}
+        onChange={onSetDefault}
+      />
     </TableCell>
     <TableCell>
       <Switch checked={option.isAvailable} ariaLabel={`${option.label} available`} onChange={(isAvailable) => onUpdate({ isAvailable })} />
     </TableCell>
     <TableCell alignEnd>
       <Button size={ButtonSize.Small} variant={ButtonVariant.Ghost} onClick={onRemove}>
-        Remove
+        Quitar
       </Button>
     </TableCell>
   </tr>

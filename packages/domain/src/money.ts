@@ -1,6 +1,6 @@
 export const roundMoney = (amount: number) => Math.round(amount * 100) / 100;
 
-/** "S/ 1,330.00" */
+/** "S/ 1,330.00" — Peruvian convention (comma thousands, dot decimals), same as SUNAT comprobantes. */
 export const formatMoney = (amount: number) =>
   `S/ ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 

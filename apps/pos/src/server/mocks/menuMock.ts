@@ -25,15 +25,15 @@ const group = (
 });
 
 export const createMenuGroupsMock = (): MenuModifierGroup[] => [
-  group('cook', 'Cooking point', 1, 1, [
+  group('cook', 'Término', 1, 1, [
     ['jugoso', 'Jugoso', 0],
     ['tres', 'Tres cuartos', 0],
     ['bien', 'Bien cocido', 0],
   ]),
-  group('extras', 'Burger extras', 0, 3, [
-    ['cheese', 'Cheese', 3],
-    ['bacon', 'Bacon', 5],
-    ['egg', 'Fried egg', 3],
+  group('extras', 'Extras de hamburguesa', 0, 3, [
+    ['cheese', 'Queso', 3],
+    ['bacon', 'Tocino', 5],
+    ['egg', 'Huevo frito', 3],
     ['platano', 'Plátano frito', 3],
   ]),
   group(
@@ -50,54 +50,54 @@ export const createMenuGroupsMock = (): MenuModifierGroup[] => [
     ],
     { freeSelections: 2, extraSelectionPrice: 1 },
   ),
-  group('dressing', 'Dressing', 1, 1, [
-    ['caesar', 'Caesar', 0],
+  group('dressing', 'Aderezo', 1, 1, [
+    ['caesar', 'César', 0],
     ['ranch', 'Ranch', 0],
-    ['balsamic', 'Balsamic', 0],
-    ['lemon', 'Olive oil & lemon', 0],
+    ['balsamic', 'Balsámico', 0],
+    ['lemon', 'Aceite de oliva y limón', 0],
   ]),
-  group('protein', 'Add protein', 0, 2, [
-    ['chicken', 'Grilled chicken', 8],
-    ['shrimp', 'Shrimp', 12],
-    ['bacon_p', 'Bacon', 5],
+  group('protein', 'Agregar proteína', 0, 2, [
+    ['chicken', 'Pollo a la plancha', 8],
+    ['shrimp', 'Langostinos', 12],
+    ['bacon_p', 'Tocino', 5],
   ]),
-  group('drink', 'Add a drink', 0, 1, [
+  group('drink', 'Agregar bebida', 0, 1, [
     ['inca', 'Inca Kola 500 ml', 5],
     ['chicha', 'Chicha morada 500 ml', 6],
     ['agua', 'Agua mineral 625 ml', 3.5, true],
   ]),
-  group('side', 'Side', 1, 1, [
+  group('side', 'Acompañamiento', 1, 1, [
     ['papas', 'Papas fritas', 0],
     ['ensalada', 'Ensalada', 0],
     ['chaufa', 'Arroz chaufa', 3],
   ]),
   group(
     'cburger',
-    'Burger',
+    'Hamburguesa',
     1,
     1,
     [
-      ['classic', 'Classic burger', 0],
-      ['cheese_b', 'Cheese burger', 3],
-      ['crispy', 'Crispy chicken', 2],
+      ['classic', 'Hamburguesa clásica', 0],
+      ['cheese_b', 'Hamburguesa con queso', 3],
+      ['crispy', 'Pollo crispy', 2],
     ],
     { defaultOptionId: 'classic' },
   ),
   group(
     'cside',
-    'Side',
+    'Acompañamiento',
     1,
     1,
     [
       ['papas_c', 'Papas fritas', 0],
       ['camote', 'Camote frito', 1.5],
-      ['salad', 'Side salad', 0],
+      ['salad', 'Ensalada personal', 0],
     ],
     { defaultOptionId: 'papas_c' },
   ),
   group(
     'cdrink',
-    'Drink',
+    'Bebida',
     1,
     1,
     [
@@ -144,25 +144,25 @@ export const createMenuGroupsMock = (): MenuModifierGroup[] => [
 ];
 
 export const createMenuCategoriesMock = (): MenuCategory[] => [
-  { id: 'burgers', name: 'Burgers' },
-  { id: 'mains', name: 'Mains' },
-  { id: 'salads', name: 'Salads' },
-  { id: 'sides', name: 'Sides' },
-  { id: 'drinks', name: 'Drinks' },
+  { id: 'burgers', name: 'Hamburguesas' },
+  { id: 'mains', name: 'Platos de fondo' },
+  { id: 'salads', name: 'Ensaladas' },
+  { id: 'sides', name: 'Acompañamientos' },
+  { id: 'drinks', name: 'Bebidas' },
   { id: 'combos', name: 'Combos' },
 ];
 
 type ItemSeed = [id: string, name: string, categoryId: string, price: number, groupIds: string[], isOutOfStock?: boolean];
 
 const itemSeeds: ItemSeed[] = [
-  ['classic', 'Classic burger', 'burgers', 29, ['cook', 'extras']],
-  ['cheese_burger', 'Cheese burger', 'burgers', 32, ['cook', 'extras']],
-  ['crispy', 'Crispy chicken burger', 'burgers', 31, ['extras']],
+  ['classic', 'Hamburguesa clásica', 'burgers', 29, ['cook', 'extras']],
+  ['cheese_burger', 'Hamburguesa con queso', 'burgers', 32, ['cook', 'extras']],
+  ['crispy', 'Hamburguesa de pollo crispy', 'burgers', 31, ['extras']],
   ['lomo', 'Lomo saltado', 'mains', 35, ['cook', 'cremas']],
   ['pollo', 'Pollo a la brasa ¼', 'mains', 22, ['side', 'cremas']],
   ['aji_gallina', 'Ají de gallina', 'mains', 28, []],
-  ['caesar', 'Caesar salad', 'salads', 24, ['dressing', 'protein', 'drink']],
-  ['quinoa', 'Quinoa salad', 'salads', 26, ['dressing']],
+  ['caesar', 'Ensalada César', 'salads', 24, ['dressing', 'protein', 'drink']],
+  ['quinoa', 'Ensalada de quinua', 'salads', 26, ['dressing']],
   ['papas', 'Papas fritas', 'sides', 9, ['cremas']],
   ['camote', 'Camote frito', 'sides', 10, []],
   ['yuca', 'Yuca frita', 'sides', 9, ['cremas']],
@@ -170,7 +170,7 @@ const itemSeeds: ItemSeed[] = [
   ['chicha', 'Chicha morada 500 ml', 'drinks', 6, []],
   ['limonada', 'Limonada', 'drinks', 8, []],
   ['agua', 'Agua mineral 625 ml', 'drinks', 3.5, [], true],
-  ['combo_burger', 'Combo Burger', 'combos', 32, ['cburger', 'cside', 'cdrink']],
+  ['combo_burger', 'Combo Hamburguesa', 'combos', 32, ['cburger', 'cside', 'cdrink']],
   ['menu', 'Menú del día', 'combos', 18, ['entrada', 'segundo', 'refresco']],
 ];
 

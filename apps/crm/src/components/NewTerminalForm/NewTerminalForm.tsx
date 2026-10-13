@@ -16,20 +16,20 @@ export const NewTerminalForm = ({ locationId, printerOptions, nextIndex, onClose
   return (
     <div className={styles.form}>
       <div>
-        <strong>New point of sale</strong>
-        <div className="hint">After saving you get a pairing code to enter on the device</div>
+        <strong>Nuevo punto de venta</strong>
+        <div className="hint">Al guardar recibirás un código de vinculación para ingresar en el equipo</div>
       </div>
       <NewTerminalFields input={form.input} updateField={form.updateField} printerOptions={printerOptions} />
       <ToggleRow
-        label="Allow offline sales (contingency)"
+        label="Permitir ventas sin conexión (contingencia)"
         checked={form.input.allowOfflineSales}
         onChange={(value) => form.updateField('allowOfflineSales', value)}
       />
       <FormError error={form.addTerminal.error} />
       <div className={styles.actions}>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Cancelar</Button>
         <Button variant={ButtonVariant.Primary} disabled={form.addTerminal.isPending || !form.input.name.trim()} onClick={form.submit}>
-          Add POS
+          Agregar POS
         </Button>
       </div>
     </div>
