@@ -1,0 +1,28 @@
+{
+  "name": "noname-crm",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:crm": "turbo run dev --filter=@noname/crm",
+    "dev:pos": "turbo run dev --filter=@noname/pos",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "prisma:generate": "pnpm --filter @noname/db prisma:generate",
+    "prisma:migrate": "pnpm --filter @noname/db prisma:migrate",
+    "prisma:migrate:deploy": "pnpm --filter @noname/db prisma:migrate:deploy",
+    "format": "prettier --write \"apps/*/src/**/*.{ts,tsx,css}\" \"packages/*/src/**/*.{ts,tsx,css}\" \"packages/*/*.ts\"",
+    "format:check": "prettier --check \"apps/*/src/**/*.{ts,tsx,css}\" \"packages/*/src/**/*.{ts,tsx,css}\" \"packages/*/*.ts\""
+  },
+  "devDependencies": {
+    "turbo": "^2.11.7",
+    "typescript": "^5.9.3",
+    "prettier": "^3.6.2"
+  }
+}

@@ -1,0 +1,15 @@
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.error {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bad-bg);
+  color: var(--color-bad-fg);
+  font-weight: 500;
+  text-align: center;
+}

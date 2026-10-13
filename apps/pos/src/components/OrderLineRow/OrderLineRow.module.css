@@ -1,0 +1,33 @@
+.line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-divider-soft);
+}
+
+.name {
+  font-weight: 600;
+}
+
+.modifiers {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-muted);
+  font-size: var(--text-md);
+}
+
+.price {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-align: right;
+}
+
+.remove {
+  justify-self: end;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-bad-fg);
+  font-size: var(--text-md);
+}

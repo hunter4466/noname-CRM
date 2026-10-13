@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS sign in</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#111315}
+.pl *{box-sizing:border-box}
+.pl{position:relative;display:flex;flex-wrap:wrap;overflow:auto;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.4;color:#15171A;background:#111315}
+.pl button{font:inherit;cursor:pointer}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+.side{flex:1 1 380px;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:40px;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;color:#FFFFFF;font-weight:700;font-size:18px}
+.mark{width:34px;height:34px;border-radius:9px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.time{font-family:'Geist Mono',ui-monospace,monospace;font-size:88px;font-weight:500;color:#FFFFFF;letter-spacing:-0.04em;line-height:1}
+.date{font-size:20px;color:#C9CDD2;margin-top:8px}
+.dev{display:flex;flex-direction:column;gap:10px}
+.dl{display:flex;align-items:center;gap:10px}
+.dl i{width:8px;height:8px;border-radius:999px;background:#3DBE9F}
+.main{flex:1 1 560px;display:flex;align-items:center;justify-content:center;padding:32px;background:#F4F5F2;border-radius:28px 0 0 28px}
+.box{width:min(520px,100%);display:flex;flex-direction:column;gap:22px}
+.box h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-0.02em}
+.hint{font-size:13px;color:#5B6068}
+.staff{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sp{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border:1.5px solid #E3E5E0;border-radius:14px;background:#FFFFFF;color:#15171A}
+.sp .av{width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:700;background:#EEF0EC;color:#3D4249}
+.sp small{font-size:12px;color:#5B6068}
+.sp.on{border-color:#0F766E;box-shadow:inset 0 0 0 1px #0F766E;background:#F7FBFA}
+.sp.on .av{background:#0F766E;color:#FFFFFF}
+.dots{display:flex;justify-content:center;gap:16px;padding:6px 0}
+.dot{width:16px;height:16px;border-radius:999px;border:2px solid #8B9098}
+.dot.f{background:#15171A;border-color:#15171A}
+.pad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.key{height:64px;border:1px solid #E3E5E0;border-radius:14px;background:#FFFFFF;font-size:24px !important;font-weight:500;color:#15171A}
+.key:active{background:#EEF0EC}
+.key.fn{font-size:15px !important;color:#3D4249}
+.links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13.5px}
+.links a{color:#0B5F58;font-weight:500}
+.okb{display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:16px;background:#FFFFFF;border:1px solid #E3E5E0}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{font-size:13px;font-weight:500;color:#3D4249}
+.pre{display:flex;align-items:center;height:52px;border:1px solid #D5D8D2;border-radius:12px;overflow:hidden;background:#FFFFFF}
+.pre span{padding:0 14px;align-self:stretch;display:flex;align-items:center;background:#FAFAF8;border-right:1px solid #E3E5E0;color:#5B6068}
+.pre input{flex:1;min-width:0;height:100%;border:0;padding:0 14px;font:inherit;font-size:18px;font-family:'Geist Mono',ui-monospace,monospace;color:#15171A}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;height:56px;border-radius:12px;background:#0F766E;color:#FFFFFF;font-weight:600;font-size:16px;text-decoration:none}
+.go:hover{background:#0B5F58;color:#FFFFFF}
+.sw{border:0;background:transparent;color:#5B6068;text-decoration:underline;padding:0;align-self:flex-start}
+</style>
+</helmet>
+<div class="pl" style="height: {{rootH}}">
+<aside class="side">
+<div class="brand"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM POS</div>
+<div><div class="time">13:42</div><div class="date">Tuesday, 6 October</div></div>
+<div class="dev">
+<div style="color: #FFFFFF; font-weight: 600; font-size: 16px">Miraflores · Counter POS</div>
+<div class="dl"><i></i>Online · synced 1 min ago</div>
+<div class="dl"><i></i>SUNAT connected</div>
+<div class="dl"><i style="background: #E0A23B"></i>Epson TM-T20III · paper low</div>
+<div class="mono" style="font-size: 12px; color: #8B9098">Device POS-MIR-01</div>
+</div>
+</aside>
+<main class="main">
+<div class="box">
+<sc-if value="{{notIn}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div><h1>Who&#39;s working?</h1><div class="hint" style="margin-top: 4px">Tap your name and enter your 4-digit PIN</div></div>
+<div class="staff">
+<sc-for list="{{staff}}" as="p" hint-placeholder-count="4">
+<button type="button" class="sp {{p.cls}}" aria-pressed="{{p.pressed}}" onClick="{{p.pick}}"><span class="av">{{p.ini}}</span><span style="font-weight: 600">{{p.name}}</span><small>{{p.role}}</small></button>
+</sc-for>
+</div>
+<div class="dots" aria-label="{{pinAria}}">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="4"><span class="dot {{d.cls}}"></span></sc-for>
+</div>
+<div class="pad" role="group" aria-label="PIN keypad">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12"><button type="button" class="key {{k.cls}}" aria-label="{{k.aria}}" onClick="{{k.press}}">{{k.label}}</button></sc-for>
+</div>
+<div class="links"><a href="Login.dc.html">Manager? Sign in with email or Google</a><span class="hint">Forgot your PIN? A manager can reset it.</span></div>
+</div>
+</sc-if>
+<sc-if value="{{isIn}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div><h1>Hi {{who}}, open your shift</h1><div class="hint" style="margin-top: 4px">Count the cash drawer before the first sale</div></div>
+<div class="okb">
+<div class="fld"><label for="open">Opening cash</label><div class="pre"><span>S/</span><input id="open" value="200.00"></div></div>
+<div class="hint">Last close: S/ 200.00 · Counter POS · yesterday 23:08</div>
+<a class="go" href="POS.dc.html">Start shift &amp; open register<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+<button type="button" class="sw" onClick="{{reset}}">Not you? Switch user</button>
+</div>
+</sc-if>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"h":{"editor":null},"$preview":{"width":1440,"height":900}}'>
+var STAFF = [['mc', 'Mario C.', 'Owner'], ['ap', 'Ana P.', 'Cashier'], ['lr', 'Luis R.', 'Cashier'], ['rm', 'Rosa M.', 'Supervisor']];
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var who = st.who || 'ap';
+    var pin = st.pin === undefined ? '12' : st.pin;
+    var signed = pin.length >= 4;
+    var staff = STAFF.map(function (s) {
+      return { ini: s[1].split(' ').map(function (w) { return w[0]; }).join(''), name: s[1], role: s[2], cls: who === s[0] ? 'on' : '', pressed: who === s[0] ? 'true' : 'false', pick: function () { self.setState({ who: s[0], pin: '' }); } };
+    });
+    var dots = [0, 1, 2, 3].map(function (i) { return { cls: i < pin.length ? 'f' : '' }; });
+    var KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'clear', '0', 'del'];
+    var keys = KEYS.map(function (k) {
+      return {
+        label: k === 'del' ? '⌫' : (k === 'clear' ? 'Clear' : k),
+        aria: k === 'del' ? 'Delete' : (k === 'clear' ? 'Clear' : k),
+        cls: (k === 'del' || k === 'clear') ? 'fn' : '',
+        press: function () {
+          var p = (self.state && self.state.pin !== undefined) ? self.state.pin : pin;
+          if (k === 'del') p = p.slice(0, -1);
+          else if (k === 'clear') p = '';
+          else if (p.length < 4) p = p + k;
+          self.setState({ pin: p });
+        }
+      };
+    });
+    var name = STAFF.filter(function (s) { return s[0] === who; })[0][1].split(' ')[0];
+    return {
+      rootH: this.props.h || '100vh',
+      staff: staff, dots: dots, keys: keys,
+      pinAria: pin.length + ' of 4 digits entered',
+      notIn: !signed, isIn: signed, who: name,
+      reset: function () { self.setState({ pin: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tender {
+  display: flex;
+  flex: 1 1 260px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 30px;
+}
+
+.quick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quickButton {
+  min-height: 48px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.change {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-ok-bg);
+  color: var(--color-ok-fg);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.short {
+  background: var(--color-warn-bg);
+  color: var(--color-warn-fg);
+}
+
+.pad {
+  flex: 1 1 260px;
+}

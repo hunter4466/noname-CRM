@@ -1,0 +1,18 @@
+.link {
+  font-size: var(--text-md);
+}
+
+.alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-divider-soft);
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}

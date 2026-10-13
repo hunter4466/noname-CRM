@@ -1,0 +1,30 @@
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.key {
+  height: 64px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 24px;
+  font-weight: 500;
+  touch-action: manipulation;
+}
+
+.key:active {
+  background: var(--color-surface-pressed);
+}
+
+.key:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.function {
+  color: var(--color-text);
+  font-size: 15px;
+}

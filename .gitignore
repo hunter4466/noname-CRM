@@ -1,0 +1,33 @@
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+coverage/
+
+# env files — only the examples are committed
+.env
+.env.*
+!.env.example
+
+# prisma generated client
+packages/db/src/generated/
+
+# terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+
+# IDE / OS
+.idea/
+.DS_Store
+
+# claude local settings
+.claude/settings.local.json

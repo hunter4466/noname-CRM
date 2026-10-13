@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS Combo editor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+a{color:#0B5F58}a:hover{color:#084A44}
+.app *{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap;align-items:stretch;min-height:100vh;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.45;color:#15171A;background:#F4F5F2}
+.app svg{flex:none}
+.rail{flex:1 1 256px;display:flex;flex-direction:column;gap:2px;padding:20px 12px;background:#111315;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;color:#FFFFFF;font-weight:700;font-size:18px;letter-spacing:-0.01em;text-decoration:none}
+.brand:hover{color:#FFFFFF}
+.mark{width:30px;height:30px;border-radius:8px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.sect{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:14px 10px 6px}
+.ri{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#C9CDD2;text-decoration:none;font:inherit;font-weight:500;text-align:left;cursor:pointer}
+.ri:hover{background:#1C1F23;color:#FFFFFF}
+.ri.on{background:#23282C;color:#FFFFFF}
+.ri .tag{margin-left:auto;font-size:11px;padding:1px 8px;border-radius:999px;background:#0F766E;color:#FFFFFF}
+.ri.add{border:1px dashed #3A3F45;color:#9AA0A7}
+.cfg{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:8px}
+.me{display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 10px;border-top:1px solid #24282C}
+.av{width:32px;height:32px;border-radius:999px;background:#2B3035;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+.grp{color:#FFFFFF}
+.grp .chev{margin-left:auto;color:#8B9098;transition:transform .15s}
+.grp .chev.shut{transform:rotate(-90deg)}
+.nest{display:flex;flex-direction:column;gap:2px;margin:2px 0 6px 19px;padding-left:10px;border-left:1px solid #2A2F34}
+.nsect{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:10px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 10px;border-radius:8px;color:#B4B9BF;text-decoration:none;font-weight:500;font-size:13.5px}
+.ni:hover{background:#1C1F23;color:#FFFFFF}
+.ni.on{background:#1D3B37;color:#FFFFFF}
+.ni.on svg{color:#5FC4B6}
+.ni small{margin-left:auto;font-size:11px;color:#8B9098;font-weight:500}
+.sub{flex:1 1 212px;display:flex;flex-direction:column;gap:2px;padding:22px 12px;background:#FFFFFF;border-right:1px solid #E3E5E0}
+.subh{display:flex;align-items:center;gap:10px;padding:2px 10px 14px}
+.modi{width:34px;height:34px;border-radius:9px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center;flex:none}
+.sect2{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B7078;padding:16px 10px 6px}
+.si{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:8px;color:#3D4249;text-decoration:none;font-weight:500}
+.si:hover{background:#F1F3EF;color:#15171A}
+.si.on{background:#E6F2F0;color:#0B5F58}
+.si small{margin-left:auto;font-size:11px;color:#6B7078;font-weight:500}
+.main{flex:999 1 560px;min-width:0;padding:28px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:#5B6068}
+.crumbs a{color:#5B6068;text-decoration:none}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.ph h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-0.02em}
+.lede{margin:4px 0 0;color:#5B6068;max-width:640px}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:8px;border:1px solid #D5D8D2;background:#FFFFFF;color:#15171A;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:#F6F7F4;color:#15171A}
+.btn.pri{background:#0F766E;border-color:#0F766E;color:#FFFFFF}
+.btn.pri:hover{background:#0B5F58;color:#FFFFFF}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.card{background:#FFFFFF;border:1px solid #E3E5E0;border-radius:12px;min-width:0}
+.scroll{overflow-x:auto}
+.app table{width:100%;border-collapse:collapse;min-width:860px}
+.app th{text-align:left;font-size:12px;font-weight:600;color:#5B6068;padding:11px 12px;border-bottom:1px solid #E3E5E0;background:#FAFAF8;white-space:nowrap}
+.app td{padding:12px 12px;border-bottom:1px solid #EEF0EC;vertical-align:middle}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-size:13px}
+.muted{color:#5B6068}
+.hint{font-size:12px;color:#5B6068}
+.pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;background:#EEF0EC;color:#3D4249;white-space:nowrap}
+.pill.ok{background:#E3F3EE;color:#0B5F58}
+.pill.warn{background:#FDF0DC;color:#8A4205}
+.dot{width:7px;height:7px;border-radius:999px;background:currentColor}
+.app select,.app input{font:inherit;min-height:40px;padding:0 12px;border:1px solid #D5D8D2;border-radius:8px;background:#FFFFFF;color:#15171A}
+.app input[type=checkbox]{width:18px;height:18px;min-height:0;padding:0;accent-color:#0F766E}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid #E3E5E0}
+.tab{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;margin-bottom:-1px;border-bottom:2px solid transparent;color:#5B6068;text-decoration:none;font-weight:500}
+.tab:hover{color:#15171A}
+.tab.on{color:#15171A;border-bottom-color:#0F766E}
+.tab .n{font-size:12px;padding:1px 7px;border-radius:999px;background:#EEF0EC;color:#3D4249}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:6px;border:1px solid #E3E5E0;background:#FAFAF8;font-size:12px;font-weight:500;color:#3D4249;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.thumb{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex:none}
+.pn{display:flex;align-items:center;gap:12px;min-width:200px}
+.pn a{color:#15171A;font-weight:500;text-decoration:none}
+.pn a:hover{color:#0B5F58;text-decoration:underline}
+.srch{position:relative;flex:1 1 280px}
+.srch svg{position:absolute;left:12px;top:12px;color:#5B6068}
+.srch input{width:100%;padding-left:38px}
+.ch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #EEF0EC}
+.ch h2{margin:0;font-size:16px;font-weight:600}
+.cb{padding:20px;display:flex;flex-direction:column;gap:16px}
+.pill.info{background:#E6EEF7;color:#24476E}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;align-items:end}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:500;color:#3D4249}
+.field input,.field select{width:100%;min-height:42px}
+.pre{display:flex;align-items:center;border:1px solid #D5D8D2;border-radius:8px;background:#FFFFFF;overflow:hidden}
+.pre span{padding:0 10px;color:#5B6068;border-right:1px solid #E3E5E0;align-self:stretch;display:flex;align-items:center;background:#FAFAF8}
+.pre input{border:0 !important;border-radius:0 !important}
+.app input.sw{appearance:none;-webkit-appearance:none;position:relative;width:38px;height:22px;min-height:0;padding:0;border:0;border-radius:999px;background:#C9CDC6;cursor:pointer;flex:none}
+.app input.sw::before{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:999px;background:#FFFFFF}
+.app input.sw:checked{background:#0F766E}
+.app input.sw:checked::before{left:19px}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;border:1px solid #E3E5E0;border-radius:10px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px}
+.cc{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:12px;border:1px solid #E3E5E0;background:#FFFFFF;color:#15171A;text-decoration:none}
+.cc:hover{border-color:#9FCFC8;color:#15171A}
+.cc.on{border-color:#0F766E;box-shadow:inset 0 0 0 1px #0F766E;background:#F7FBFA}
+.cct{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.segs2{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;background:#F1F3EF;border-radius:10px;align-self:flex-start}
+.seg2{min-height:36px;padding:0 14px;border:0;border-radius:7px;background:transparent;font:inherit;font-weight:500;color:#3D4249;cursor:pointer}
+.seg2.on{background:#FFFFFF;color:#15171A;box-shadow:0 1px 3px rgba(17,19,21,.14)}
+.worth{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:42px}
+.slot{border:1px solid #E3E5E0;border-radius:10px;overflow:hidden}
+.sh{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 14px;background:#FAFAF8;border-bottom:1px solid #EEF0EC}
+.sn{width:22px;height:22px;border-radius:999px;background:#15171A;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.handle{color:#8B9098;cursor:grab;display:flex}
+.items{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:minmax(0,1fr) 90px 110px;align-items:center;gap:12px;padding:10px 14px 10px 50px;border-top:1px solid #F1F3EF}
+.it:first-child{border-top:0}
+.it .up{justify-self:end;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px}
+.it .up.incl{font-family:inherit;font-size:12px;color:#0B5F58;font-weight:500}
+.it.off{color:#6B7078}
+.addslot{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border:1.5px dashed #C9CDC6;border-radius:10px;background:transparent;font:inherit;font-weight:500;color:#3D4249;cursor:pointer}
+.addslot:hover{border-color:#0F766E;color:#0B5F58}
+.badge{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge.req{background:#FDF0DC;color:#8A4205}
+.pv{display:flex;flex-direction:column;gap:18px;padding:18px;background:#F4F5F2;border-radius:12px}
+.pg{display:flex;flex-direction:column;gap:10px}
+.pgh{display:flex;align-items:center;gap:8px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:56px;padding:9px 12px;border-radius:10px;border:1.5px solid #D5D8D2;background:#FFFFFF;font:inherit;color:#15171A;text-align:left;cursor:pointer}
+.opt:hover{border-color:#8B9098}
+.opt small{font-size:12px;color:#5B6068}
+.opt.on{border-color:#0F766E;background:#E6F2F0;box-shadow:inset 0 0 0 1px #0F766E}
+.opt.on small{color:#0B5F58}
+.opt.off{background:#EEF0EC;color:#6B7078;cursor:not-allowed;border-style:dashed}
+.addb{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:52px;padding:0 18px;border:0;border-radius:10px;background:#0F766E;color:#FFFFFF;font:inherit;font-weight:600;font-size:15px;cursor:pointer}
+.tkt{font-family:'Geist Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;background:#FFFFFF;padding:16px 18px;border:1px dashed #C9CDC6;border-radius:6px}
+.tl{display:flex;justify-content:space-between;gap:12px}
+.tl.mod{padding-left:16px;color:#3D4249}
+.tl.tot{border-top:1px dashed #C9CDC6;margin-top:8px;padding-top:8px;font-weight:600}
+.back{width:40px;height:40px;border-radius:8px;border:1px solid #D5D8D2;background:#FFFFFF;color:#15171A;display:flex;align-items:center;justify-content:center;flex:none}
+.back:hover{background:#F6F7F4;color:#15171A}
+</style>
+</helmet>
+<div class="app">
+<nav class="rail" aria-label="Main navigation">
+<a class="brand" href="Main.dc.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM</a>
+<div class="sect">My modules</div>
+<button class="ri grp" type="button" aria-expanded="{{navExpanded}}" aria-controls="pos-nav" onClick="{{toggleNav}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg>Point of Sale<svg class="chev {{navChev}}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}">
+<div class="nest" id="pos-nav">
+<a class="ni" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Dashboard</a>
+<div class="nsect">Catalog</div>
+<a class="ni on" href="Products.dc.html" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"></path><path d="M3 8l9 5 9-5M12 13v8"></path></svg>Products<small>48</small></a>
+<div class="nsect">Setup</div>
+<a class="ni" href="Locations.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Locations<small>3</small></a>
+<a class="ni" href="Sunat.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg>Configuration<small>SUNAT</small></a>
+</div>
+</sc-if>
+<a class="ri add" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add module</a>
+<div class="cfg">
+<div class="sect">Configuration</div>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Users</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>Roles &amp; permissions</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"></path></svg>Company</a>
+<div class="me"><span class="av">MC</span><div style="display: flex; flex-direction: column; min-width: 0"><span style="color: #FFFFFF; font-weight: 500">Mario C.</span><span style="font-size: 12px; color: #8B9098">Owner</span></div></div>
+<a class="ri" href="Login.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5v16h4M15 8l4 4-4 4M19 12H9"></path></svg>Log out</a>
+</div>
+</nav>
+<main class="main">
+<div class="crumbs"><a href="Main.dc.html">Point of Sale</a><span aria-hidden="true">/</span><a href="Products.dc.html">Products</a><span aria-hidden="true">/</span><a href="Combos.dc.html">Combos</a><span aria-hidden="true">/</span><span style="color: #15171A">Combo Burger</span></div>
+<div class="ph">
+<div style="display: flex; align-items: center; gap: 14px">
+<a class="back" href="Combos.dc.html" aria-label="Back to combos"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+<span class="thumb" style="width: 52px; height: 52px; border-radius: 10px; background: #15171A; color: #FFFFFF">CO</span>
+<div><h1>Combo Burger</h1><div style="display: flex; gap: 8px; align-items: center; margin-top: 2px"><span class="pill ok"><span class="dot"></span>Active</span><span class="hint mono">COMBO-001</span></div></div>
+</div>
+<div class="acts"><a class="btn" href="Combos.dc.html">Cancel</a><button class="btn" type="button">Duplicate</button><button class="btn pri" type="button">Save combo</button></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+
+<section class="card">
+<div class="ch"><h2>General</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="cname">Combo name</label><input id="cname" value="Combo Burger"></div>
+<div class="field"><label for="csku">SKU</label><input id="csku" class="mono" value="COMBO-001"></div>
+<div class="field"><label for="ccat">Category</label><select id="ccat"><option>Combos</option><option>Burgers</option></select></div>
+</div>
+<div class="field"><span class="lbl">Pricing</span>
+<div class="segs2" role="group" aria-label="Pricing mode"><button type="button" class="seg2 {{fixedCls}}" onClick="{{setFixed}}">Fixed combo price</button><button type="button" class="seg2 {{discCls}}" onClick="{{setDisc}}">Items total − discount</button></div>
+</div>
+<div class="fg">
+<sc-if value="{{isFixed}}" hint-placeholder-val="{{ true }}">
+<div class="field"><label for="cprice">Combo price (IGV included)</label><div class="pre"><span>S/</span><input id="cprice" class="mono" value="32.00"></div></div>
+</sc-if>
+<sc-if value="{{isDisc}}" hint-placeholder-val="{{ false }}">
+<div class="field"><label for="cdisc">Discount on items total</label><div class="pre"><span>S/</span><input id="cdisc" class="mono" value="6.00"></div></div>
+</sc-if>
+<div class="worth"><span class="hint">Default items à la carte</span><span class="mono" style="text-decoration: line-through; color: #5B6068">S/ 38.00</span><span class="pill ok">Customer saves S/ 6.00 · 16%</span></div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><div><h2>Slots</h2><div class="hint" style="margin-top: 2px">Each slot is one choice the cashier makes. Items are real products; upcharges add to the combo price.</div></div><button class="btn sm" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add slot</button></div>
+<div class="cb" style="gap: 12px">
+
+<div class="slot">
+<div class="sh"><span class="handle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></span><span class="sn">1</span><strong>Burger</strong><span class="badge req">REQUIRED</span><span class="hint">Pick 1 · keeps each burger&#39;s own modifiers (cooking point, extras)</span><button class="btn sm" type="button" style="margin-left: auto">Edit</button></div>
+<div class="items">
+<div class="it"><span>Classic burger</span><span class="hint mono">BUR-001</span><span class="up incl">Default</span></div>
+<div class="it"><span>Cheese burger</span><span class="hint mono">BUR-002</span><span class="up">+ S/ 3.00</span></div>
+<div class="it"><span>Crispy chicken burger</span><span class="hint mono">BUR-005</span><span class="up">+ S/ 2.00</span></div>
+</div>
+</div>
+
+<div class="slot">
+<div class="sh"><span class="handle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></span><span class="sn">2</span><strong>Side</strong><span class="badge req">REQUIRED</span><span class="hint">Pick 1</span><button class="btn sm" type="button" style="margin-left: auto">Edit</button></div>
+<div class="items">
+<div class="it"><span>Papas fritas</span><span class="hint mono">SIDE-001</span><span class="up incl">Default</span></div>
+<div class="it"><span>Camote frito</span><span class="hint mono">SIDE-003</span><span class="up">+ S/ 1.50</span></div>
+<div class="it"><span>Side salad</span><span class="hint mono">SIDE-006</span><span class="up incl">Included</span></div>
+</div>
+</div>
+
+<div class="slot">
+<div class="sh"><span class="handle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></span><span class="sn">3</span><strong>Drink</strong><span class="badge req">REQUIRED</span><span class="hint">Pick 1 · uses the &quot;Add a drink&quot; products</span><button class="btn sm" type="button" style="margin-left: auto">Edit</button></div>
+<div class="items">
+<div class="it"><span>Inca Kola 500 ml</span><span class="hint mono">BEV-001</span><span class="up incl">Default</span></div>
+<div class="it"><span>Chicha morada 500 ml</span><span class="hint mono">BEV-003</span><span class="up">+ S/ 1.00</span></div>
+<div class="it off"><span>Agua mineral 625 ml</span><span class="hint mono">BEV-005</span><span class="up">Out of stock</span></div>
+</div>
+</div>
+
+<button class="addslot" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add an optional slot, e.g. &quot;Dessert +S/ 5.00&quot;</button>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2>Rules</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="cav">Available</label><select id="cav"><option>All day</option><option>Time window…</option></select></div>
+<div class="field"><label for="cloc">Locations</label><select id="cloc"><option>All locations</option><option>Choose locations…</option></select></div>
+<div class="field"><label for="csun">On the boleta / factura</label><select id="csun"><option>One line at combo price</option><option>One line per item (price split)</option></select></div>
+</div>
+<div class="fg">
+<div class="tgl"><div><div class="lbl">Send each item to its own kitchen station</div><div class="hint">Burger to grill, drink to bar</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Route items to stations"></div>
+<div class="tgl"><div><div class="lbl">Deduct stock from each item</div><div class="hint">Combo sales count in each product&#39;s reports</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Deduct stock per item"></div>
+</div>
+</div>
+</section>
+</div>
+
+<aside class="card" style="flex: 1 1 380px" aria-label="POS preview">
+<div class="ch"><div><h2>POS preview</h2><div class="hint" style="margin-top: 2px">Tap to build the combo like a cashier</div></div><span class="pill info">Live</span></div>
+<div class="cb">
+<div class="pv">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><strong style="font-size: 17px">Combo Burger</strong><span class="mono">{{basePrice}}</span></div>
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="3">
+<div class="pg">
+<div class="pgh"><span class="sn">{{s.n}}</span><strong>{{s.name}}</strong><span class="hint" style="margin-left: auto">Pick 1</span></div>
+<div class="opts">
+<sc-for list="{{s.options}}" as="o" hint-placeholder-count="3">
+<button type="button" class="opt {{o.cls}}" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}"><span style="font-weight: 500">{{o.label}}</span><small>{{o.note}}</small></button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<button type="button" class="addb"><span>Add to order</span><span class="mono" style="font-size: 15px">{{total}}</span></button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="hint" style="font-weight: 600; letter-spacing: .06em; text-transform: uppercase">Prints on the boleta as</div>
+<div class="tkt">
+<div class="tl"><span>1 Combo Burger</span><span>{{totalPlain}}</span></div>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+<div class="tl mod"><span>{{l.label}}</span><span>{{l.price}}</span></div>
+</sc-for>
+<div class="tl tot"><span>Total (IGV incl.)</span><span>{{totalPlain}}</span></div>
+</div>
+<div class="hint">Kitchen gets 3 tickets: burger → grill, side → fryer, drink → bar.</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1760}}'>
+class Component extends DCLogic {
+  navVals() {
+    var self = this;
+    var st = this.state || {};
+    var open = st.navOpen === undefined ? true : st.navOpen;
+    return {
+      navOpen: open,
+      navExpanded: open ? 'true' : 'false',
+      navChev: open ? '' : 'shut',
+      toggleNav: function () { self.setState({ navOpen: !open }); }
+    };
+  }
+  renderVals() {
+    return Object.assign({}, this.pageVals(), this.navVals());
+  }
+  pageVals() {
+    var self = this;
+    var st = this.state || {};
+    var mode = st.mode || 'fixed';
+    var sel = st.sel || { burger: 'classic', side: 'fries', drink: 'inca' };
+    var fmt = function (n) { return n.toFixed(2); };
+    var base = 32;
+    var defs = [
+      { id: 'burger', n: 1, name: 'Burger', options: [
+        { id: 'classic', label: 'Classic burger', up: 0 },
+        { id: 'cheese', label: 'Cheese burger', up: 3 },
+        { id: 'chicken', label: 'Crispy chicken', up: 2 }
+      ] },
+      { id: 'side', n: 2, name: 'Side', options: [
+        { id: 'fries', label: 'Papas fritas', up: 0 },
+        { id: 'camote', label: 'Camote frito', up: 1.5 },
+        { id: 'salad', label: 'Side salad', up: 0 }
+      ] },
+      { id: 'drink', n: 3, name: 'Drink', options: [
+        { id: 'inca', label: 'Inca Kola 500 ml', up: 0 },
+        { id: 'chicha', label: 'Chicha morada 500 ml', up: 1 },
+        { id: 'water', label: 'Agua mineral 625 ml', up: 0, out: true }
+      ] }
+    ];
+    var total = base;
+    var lines = [];
+    var slots = defs.map(function (s) {
+      return {
+        n: s.n, name: s.name,
+        options: s.options.map(function (o) {
+          var on = sel[s.id] === o.id;
+          if (on) {
+            total += o.up;
+            lines.push({ label: '+ ' + o.label, price: o.up ? '+' + fmt(o.up) : '' });
+          }
+          return {
+            label: o.label,
+            note: o.out ? 'Out of stock' : (o.up ? '+ S/ ' + fmt(o.up) : 'Included'),
+            cls: o.out ? 'off' : (on ? 'on' : ''),
+            pressed: on ? 'true' : 'false',
+            pick: function () {
+              if (o.out) return;
+              var next = Object.assign({}, sel);
+              next[s.id] = o.id;
+              self.setState({ sel: next });
+            }
+          };
+        })
+      };
+    });
+    return {
+      slots: slots, lines: lines,
+      basePrice: 'S/ ' + fmt(base),
+      total: 'S/ ' + fmt(total), totalPlain: fmt(total),
+      isFixed: mode === 'fixed', isDisc: mode === 'disc',
+      fixedCls: mode === 'fixed' ? 'on' : '', discCls: mode === 'disc' ? 'on' : '',
+      setFixed: function () { self.setState({ mode: 'fixed' }); },
+      setDisc: function () { self.setState({ mode: 'disc' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

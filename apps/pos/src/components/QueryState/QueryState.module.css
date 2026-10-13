@@ -1,0 +1,18 @@
+.loading,
+.error {
+  padding: 32px 20px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.loading {
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-divider);
+}
+
+.error {
+  background: var(--color-bad-bg);
+  color: var(--color-bad-fg);
+  font-weight: 500;
+}

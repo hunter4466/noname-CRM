@@ -1,0 +1,76 @@
+# Build → migrate → deploy for dev and staging.
+# Trigger: push to `develop` (dev) / `main` (staging). Prod never builds — it promotes the staging image (promote.yaml).
+#
+# Images are tagged with the commit SHA only (no moving `latest` tag). Together with the Artifact Registry
+# cleanup policies and the revision pruning steps below, nothing accumulates release after release.
+substitutions:
+  _ENV: staging
+  _REGION: southamerica-west1
+  _KEEP_REVISIONS: "3"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+  dynamicSubstitutions: true
+
+timeout: 1800s
+
+steps:
+  - id: build-crm
+    name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "infra/docker/next-app.Dockerfile", "--build-arg", "APP=crm", "-t", "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/crm:${SHORT_SHA}", "."]
+    waitFor: ["-"]
+
+  - id: build-pos
+    name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "infra/docker/next-app.Dockerfile", "--build-arg", "APP=pos", "-t", "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/pos:${SHORT_SHA}", "."]
+    waitFor: ["-"]
+
+  - id: build-migrator
+    name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "infra/docker/migrator.Dockerfile", "-t", "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/migrator:${SHORT_SHA}", "."]
+    waitFor: ["-"]
+
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        for image in crm pos migrator; do
+          docker push "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/$${image}:${SHORT_SHA}"
+        done
+    waitFor: ["build-crm", "build-pos", "build-migrator"]
+
+  - id: migrate
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud run jobs update "noname-${_ENV}-migrate" --region "${_REGION}" \
+          --image "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/migrator:${SHORT_SHA}"
+        gcloud run jobs execute "noname-${_ENV}-migrate" --region "${_REGION}" --wait
+
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        for app in crm pos; do
+          gcloud run deploy "noname-${_ENV}-$${app}" --region "${_REGION}" \
+            --image "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/$${app}:${SHORT_SHA}" \
+            --to-latest
+        done
+
+  - id: prune
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        for app in crm pos; do
+          bash infra/scripts/prune-cloud-run-revisions.sh "noname-${_ENV}-$${app}" "${_REGION}" "${_KEEP_REVISIONS}"
+        done
+        bash infra/scripts/prune-job-executions.sh "noname-${_ENV}-migrate" "${_REGION}"

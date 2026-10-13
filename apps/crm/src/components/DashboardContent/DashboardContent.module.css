@@ -1,0 +1,24 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.wide {
+  display: flex;
+  flex: 2 1 520px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.narrow {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wide > section,
+.narrow > section {
+  flex: 1;
+}

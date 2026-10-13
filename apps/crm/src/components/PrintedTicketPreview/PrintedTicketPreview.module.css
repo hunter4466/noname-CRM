@@ -1,0 +1,49 @@
+.ticket {
+  display: flex;
+  flex: 0 1 300px;
+  flex-direction: column;
+  gap: 3px;
+  padding: 18px 16px;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.08);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.narrow {
+  flex-basis: 230px;
+  font-size: 11px;
+}
+
+.center {
+  text-align: center;
+}
+
+.rule {
+  margin: 6px 0;
+  border-top: 1px dashed var(--color-border);
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ruled {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.qr {
+  width: 84px;
+  height: 84px;
+  margin: 10px auto;
+  background:
+    repeating-linear-gradient(90deg, var(--color-ink) 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(0deg, var(--color-ink) 0 4px, transparent 4px 8px);
+  opacity: 0.8;
+}

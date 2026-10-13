@@ -1,0 +1,41 @@
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.kind {
+  display: flex;
+  flex: 1 1 240px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.neutral {
+  background: var(--tone-neutral-bg);
+  color: var(--tone-neutral-fg);
+}
+
+.blue {
+  background: var(--tone-blue-bg);
+  color: var(--tone-blue-fg);
+}
+
+.teal {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-hover);
+}
+
+.title {
+  font-weight: 600;
+}

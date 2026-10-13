@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS sign in on tablet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1274px; height: 914px; box-sizing: border-box; padding: 40px; border-radius: 48px; background: #1A1C1F; font-family: 'Geist', system-ui, sans-serif">
+<div style="width: 1194px; height: 834px; border-radius: 18px; overflow: hidden; background: #111315">
+<dc-import name="POSLogin" h="834px" hint-size="1194px,834px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1274,"height":914}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

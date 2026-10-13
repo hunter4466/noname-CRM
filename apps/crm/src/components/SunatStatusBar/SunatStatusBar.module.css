@@ -1,0 +1,37 @@
+.bar {
+  width: 100%;
+  height: 10px;
+  border-radius: var(--radius-pill);
+}
+
+.accepted {
+  fill: var(--color-brand);
+}
+
+.pending {
+  fill: var(--color-warn-strong);
+}
+
+.rejected {
+  fill: var(--color-bad-strong);
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.value {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.pendingValue {
+  color: var(--color-warn-fg);
+}
+
+.rejectedValue {
+  color: var(--color-bad-fg);
+}

@@ -1,0 +1,90 @@
+/* Design tokens — extracted from the "CRM Core — POS Module" Claude Design project. */
+:root {
+  /* brand */
+  --color-brand: #0f766e;
+  --color-brand-hover: #0b5f58;
+  --color-brand-pressed: #084a44;
+  --color-brand-soft: #e6f2f0;
+  --color-brand-tint: #f7fbfa;
+  --color-brand-muted: #9fcfc8;
+  --color-brand-on-dark: #5fc4b6;
+
+  /* text */
+  --color-ink: #15171a;
+  --color-text: #3d4249;
+  --color-muted: #5b6068;
+  --color-subtle: #6b7078;
+  --color-faint: #8b9098;
+  --color-on-brand: #ffffff;
+
+  /* surfaces */
+  --color-bg: #f4f5f2;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fafaf8;
+  --color-surface-hover: #f6f7f4;
+  --color-surface-pressed: #eef0ec;
+  --color-border: #d5d8d2;
+  --color-divider: #e3e5e0;
+  --color-divider-soft: #eef0ec;
+
+  /* dark rail / POS chrome */
+  --color-rail: #111315;
+  --color-rail-raised: #1a1c1f;
+  --color-rail-hover: #1c1f23;
+  --color-rail-active: #23282c;
+  --color-rail-border: #24282c;
+  --color-rail-text: #c9cdd2;
+  --color-rail-text-strong: #ffffff;
+  --color-rail-accent: #1d3b37;
+
+  /* status */
+  --color-ok-bg: #e3f3ee;
+  --color-ok-fg: #0b5f58;
+  --color-ok-dot: #3dbe9f;
+  --color-warn-bg: #fdf0dc;
+  --color-warn-fg: #8a4205;
+  --color-warn-strong: #d97706;
+  --color-bad-bg: #fbe7e5;
+  --color-bad-fg: #9a1c12;
+  --color-bad-strong: #b42318;
+  --color-info-bg: #e6eef7;
+  --color-info-fg: #24476e;
+
+  /* thumbnail tones */
+  --tone-neutral-bg: #eef0ec;
+  --tone-neutral-fg: #3d4249;
+  --tone-teal-bg: #e3f3ee;
+  --tone-teal-fg: #0b5f58;
+  --tone-amber-bg: #fdf0dc;
+  --tone-amber-fg: #8a4205;
+  --tone-red-bg: #fbe7e5;
+  --tone-red-fg: #9a1c12;
+  --tone-violet-bg: #ece6f5;
+  --tone-violet-fg: #4a2f7a;
+  --tone-yellow-bg: #fdf6d8;
+  --tone-yellow-fg: #6b5300;
+  --tone-blue-bg: #e6eef7;
+  --tone-blue-fg: #24476e;
+  --tone-ink-bg: #15171a;
+  --tone-ink-fg: #ffffff;
+
+  /* type */
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 13px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 28px;
+
+  /* shape */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-pill: 999px;
+  --control-height: 40px;
+  --control-height-lg: 48px;
+}

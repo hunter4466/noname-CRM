@@ -1,0 +1,57 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 10px;
+  border-top: 1px solid var(--color-rail-border);
+}
+
+.avatar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: #2b3035;
+  color: var(--color-rail-text-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  color: var(--color-rail-text-strong);
+  font-weight: 500;
+}
+
+.role {
+  color: var(--color-faint);
+  font-size: var(--text-sm);
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-rail-text);
+  font-weight: 500;
+  text-align: left;
+}
+
+.logout:hover {
+  background: var(--color-rail-hover);
+  color: var(--color-rail-text-strong);
+}

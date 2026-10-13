@@ -1,0 +1,95 @@
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 132px;
+  padding: 12px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  text-align: left;
+  touch-action: manipulation;
+}
+
+.tile:active {
+  transform: scale(0.98);
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--tone-neutral-bg);
+  color: var(--tone-neutral-fg);
+  font-weight: 700;
+}
+
+.burgers .swatch {
+  background: var(--tone-amber-bg);
+  color: var(--tone-amber-fg);
+}
+
+.mains .swatch {
+  background: var(--tone-red-bg);
+  color: var(--tone-red-fg);
+}
+
+.salads .swatch {
+  background: var(--tone-teal-bg);
+  color: var(--tone-teal-fg);
+}
+
+.drinks .swatch {
+  background: var(--tone-violet-bg);
+  color: var(--tone-violet-fg);
+}
+
+.combos .swatch {
+  background: var(--tone-ink-bg);
+  color: var(--tone-ink-fg);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-pressed);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.price {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+}
+
+.out {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.out .badge {
+  background: var(--color-warn-bg);
+  color: var(--color-warn-fg);
+}

@@ -1,0 +1,12 @@
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-soft);
+  color: var(--color-brand-hover);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}

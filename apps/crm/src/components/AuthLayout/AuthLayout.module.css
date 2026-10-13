@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+.formPanel {
+  display: flex;
+  flex: 1 1 520px;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(420px, 100%);
+}

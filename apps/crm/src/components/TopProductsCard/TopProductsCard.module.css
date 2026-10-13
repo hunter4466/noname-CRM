@@ -1,0 +1,33 @@
+.link {
+  font-size: var(--text-md);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--color-divider-soft);
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.rank {
+  width: 18px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+}
+
+.name {
+  flex: 1;
+}
+
+.revenue {
+  width: 92px;
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  text-align: right;
+}

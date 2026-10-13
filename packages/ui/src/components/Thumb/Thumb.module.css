@@ -1,0 +1,60 @@
+.thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-weight: 600;
+}
+
+.small {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.large {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+}
+
+.neutral {
+  background: var(--tone-neutral-bg);
+  color: var(--tone-neutral-fg);
+}
+
+.teal {
+  background: var(--tone-teal-bg);
+  color: var(--tone-teal-fg);
+}
+
+.amber {
+  background: var(--tone-amber-bg);
+  color: var(--tone-amber-fg);
+}
+
+.red {
+  background: var(--tone-red-bg);
+  color: var(--tone-red-fg);
+}
+
+.violet {
+  background: var(--tone-violet-bg);
+  color: var(--tone-violet-fg);
+}
+
+.yellow {
+  background: var(--tone-yellow-bg);
+  color: var(--tone-yellow-fg);
+}
+
+.blue {
+  background: var(--tone-blue-bg);
+  color: var(--tone-blue-fg);
+}
+
+.ink {
+  background: var(--tone-ink-bg);
+  color: var(--tone-ink-fg);
+}

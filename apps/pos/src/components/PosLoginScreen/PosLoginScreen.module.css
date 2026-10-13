@@ -1,0 +1,30 @@
+.screen {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background: var(--color-rail);
+}
+
+.main {
+  display: flex;
+  flex: 1 1 560px;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border-radius: 28px 0 0 28px;
+  background: var(--color-bg);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: min(520px, 100%);
+}
+
+@media (max-width: 760px) {
+  .main {
+    border-radius: 0;
+    padding: 20px 16px;
+  }
+}

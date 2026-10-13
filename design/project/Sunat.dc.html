@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS SUNAT configuration</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+a{color:#0B5F58}a:hover{color:#084A44}
+.app *{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap;align-items:stretch;min-height:100vh;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.45;color:#15171A;background:#F4F5F2}
+.app svg{flex:none}
+.rail{flex:1 1 256px;display:flex;flex-direction:column;gap:2px;padding:20px 12px;background:#111315;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;color:#FFFFFF;font-weight:700;font-size:18px;letter-spacing:-0.01em;text-decoration:none}
+.brand:hover{color:#FFFFFF}
+.mark{width:30px;height:30px;border-radius:8px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.sect{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:14px 10px 6px}
+.ri{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#C9CDD2;text-decoration:none;font:inherit;font-weight:500;text-align:left;cursor:pointer}
+.ri:hover{background:#1C1F23;color:#FFFFFF}
+.ri.on{background:#23282C;color:#FFFFFF}
+.ri .tag{margin-left:auto;font-size:11px;padding:1px 8px;border-radius:999px;background:#0F766E;color:#FFFFFF}
+.ri.add{border:1px dashed #3A3F45;color:#9AA0A7}
+.cfg{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:8px}
+.me{display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 10px;border-top:1px solid #24282C}
+.av{width:32px;height:32px;border-radius:999px;background:#2B3035;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+.grp{color:#FFFFFF}
+.grp .chev{margin-left:auto;color:#8B9098;transition:transform .15s}
+.grp .chev.shut{transform:rotate(-90deg)}
+.nest{display:flex;flex-direction:column;gap:2px;margin:2px 0 6px 19px;padding-left:10px;border-left:1px solid #2A2F34}
+.nsect{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:10px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 10px;border-radius:8px;color:#B4B9BF;text-decoration:none;font-weight:500;font-size:13.5px}
+.ni:hover{background:#1C1F23;color:#FFFFFF}
+.ni.on{background:#1D3B37;color:#FFFFFF}
+.ni.on svg{color:#5FC4B6}
+.ni small{margin-left:auto;font-size:11px;color:#8B9098;font-weight:500}
+.sub{flex:1 1 212px;display:flex;flex-direction:column;gap:2px;padding:22px 12px;background:#FFFFFF;border-right:1px solid #E3E5E0}
+.subh{display:flex;align-items:center;gap:10px;padding:2px 10px 14px}
+.modi{width:34px;height:34px;border-radius:9px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center;flex:none}
+.sect2{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B7078;padding:16px 10px 6px}
+.si{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:8px;color:#3D4249;text-decoration:none;font-weight:500}
+.si:hover{background:#F1F3EF;color:#15171A}
+.si.on{background:#E6F2F0;color:#0B5F58}
+.si small{margin-left:auto;font-size:11px;color:#6B7078;font-weight:500}
+.main{flex:999 1 560px;min-width:0;padding:28px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:#5B6068}
+.crumbs a{color:#5B6068;text-decoration:none}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.ph h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-0.02em}
+.lede{margin:4px 0 0;color:#5B6068;max-width:680px}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:8px;border:1px solid #D5D8D2;background:#FFFFFF;color:#15171A;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:#F6F7F4;color:#15171A}
+.btn.pri{background:#0F766E;border-color:#0F766E;color:#FFFFFF}
+.btn.pri:hover{background:#0B5F58;color:#FFFFFF}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.btn.dis{background:#EEF0EC;color:#5B6068;border-color:#E3E5E0;cursor:not-allowed}
+.card{background:#FFFFFF;border:1px solid #E3E5E0;border-radius:12px;min-width:0}
+.ch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #EEF0EC}
+.ch h2{margin:0;font-size:16px;font-weight:600}
+.num{display:inline-flex;width:24px;height:24px;border-radius:999px;background:#15171A;color:#FFFFFF;font-size:12px;font-weight:600;align-items:center;justify-content:center;margin-right:10px;flex:none}
+.cb{padding:20px;display:flex;flex-direction:column;gap:16px}
+.scroll{overflow-x:auto}
+.app table{width:100%;border-collapse:collapse;min-width:640px}
+.app th{text-align:left;font-size:12px;font-weight:600;color:#5B6068;padding:11px 16px;border-bottom:1px solid #E3E5E0;background:#FAFAF8;white-space:nowrap}
+.app td{padding:11px 16px;border-bottom:1px solid #EEF0EC;vertical-align:middle}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-size:13px}
+.muted{color:#5B6068}
+.hint{font-size:12px;color:#5B6068}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:500;background:#EEF0EC;color:#3D4249;white-space:nowrap}
+.pill.ok{background:#E3F3EE;color:#0B5F58}
+.pill.warn{background:#FDF0DC;color:#8A4205}
+.pill.info{background:#E6EEF7;color:#24476E}
+.dot{width:7px;height:7px;border-radius:999px;background:currentColor}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:500;color:#3D4249}
+.app input,.app select,.app textarea{font:inherit;width:100%;min-height:42px;padding:0 12px;border:1px solid #D5D8D2;border-radius:8px;background:#FFFFFF;color:#15171A}
+.app textarea{padding:10px 12px;min-height:72px;resize:vertical}
+.app input.sw{appearance:none;-webkit-appearance:none;position:relative;width:38px;height:22px;min-height:0;padding:0;border:0;border-radius:999px;background:#C9CDC6;cursor:pointer;flex:none}
+.app input.sw::before{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:999px;background:#FFFFFF}
+.app input.sw:checked{background:#0F766E}
+.app input.sw:checked::before{left:19px}
+.banner{display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:16px 20px;border-radius:12px;border:1px solid #F3D9A8;background:#FDF6EA}
+.segs{display:inline-flex;gap:4px;padding:4px;background:#F1F3EF;border-radius:10px}
+.seg{min-height:36px;padding:0 16px;border:0;border-radius:7px;background:transparent;font:inherit;font-weight:500;color:#3D4249;cursor:pointer}
+.seg.on{background:#FFFFFF;color:#15171A;box-shadow:0 1px 3px rgba(17,19,21,.14)}
+.rc{flex:1 1 260px;display:flex;gap:12px;align-items:flex-start;padding:16px;border:1.5px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font:inherit;color:#15171A;text-align:left;cursor:pointer}
+.rc.on{border-color:#0F766E;background:#F7FBFA;box-shadow:inset 0 0 0 1px #0F766E}
+.rdo{width:20px;height:20px;border-radius:999px;border:2px solid #8B9098;flex:none;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.rc.on .rdo{border-color:#0F766E}
+.rc.on .rdo::after{content:'';width:10px;height:10px;border-radius:999px;background:#0F766E}
+.drop{display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:22px;border:2px dashed #C9CDC6;border-radius:12px;background:#FAFAF8}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;border:1px solid #E3E5E0;border-radius:10px}
+.tkt{font-family:'Geist Mono',ui-monospace,monospace;font-size:11.5px;line-height:1.55;background:#FFFFFF;color:#15171A;padding:18px 16px;border-radius:4px;box-shadow:0 2px 14px rgba(17,19,21,.12);display:flex;flex-direction:column;gap:2px;margin:0 auto}
+.tl{display:flex;justify-content:space-between;gap:10px}
+.hr{border-top:1px dashed #8B9098;margin:6px 0}
+.ctr{text-align:center}
+</style>
+</helmet>
+<div class="app">
+<nav class="rail" aria-label="Main navigation">
+<a class="brand" href="Main.dc.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM</a>
+<div class="sect">My modules</div>
+<button class="ri grp" type="button" aria-expanded="{{navExpanded}}" aria-controls="pos-nav" onClick="{{toggleNav}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg>Point of Sale<svg class="chev {{navChev}}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}">
+<div class="nest" id="pos-nav">
+<a class="ni" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Dashboard</a>
+<div class="nsect">Catalog</div>
+<a class="ni" href="Products.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"></path><path d="M3 8l9 5 9-5M12 13v8"></path></svg>Products<small>48</small></a>
+<div class="nsect">Setup</div>
+<a class="ni" href="Locations.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Locations<small>3</small></a>
+<a class="ni on" href="Sunat.dc.html" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg>Configuration<small>SUNAT</small></a>
+</div>
+</sc-if>
+<a class="ri add" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add module</a>
+<div class="cfg">
+<div class="sect">Configuration</div>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Users</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>Roles &amp; permissions</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"></path></svg>Company</a>
+<div class="me"><span class="av">MC</span><div style="display: flex; flex-direction: column; min-width: 0"><span style="color: #FFFFFF; font-weight: 500">Mario C.</span><span style="font-size: 12px; color: #8B9098">Owner</span></div></div>
+<a class="ri" href="Login.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5v16h4M15 8l4 4-4 4M19 12H9"></path></svg>Log out</a>
+</div>
+</nav>
+<main class="main">
+<div class="crumbs"><a href="Main.dc.html">Point of Sale</a><span aria-hidden="true">/</span><span style="color: #15171A">Configuration</span></div>
+<div class="ph">
+<div><h1>Configuration</h1><p class="lede">Electronic invoicing with SUNAT: who issues, how documents are sent, numbering per POS, taxes and the printed ticket.</p></div>
+<div class="acts"><button class="btn" type="button">Test connection</button><button class="btn pri" type="button">Save configuration</button></div>
+</div>
+
+<div class="banner" role="status">
+<span class="pill warn"><span class="dot"></span>{{envLabel}}</span>
+<div style="flex: 1 1 320px; min-width: 0"><div style="font-weight: 600">Documents are being sent to SUNAT&#39;s test environment</div><div class="hint">Last test 10:12 · boleta B001-00000001 accepted with CDR. Upload the digital certificate to go live.</div></div>
+<button class="btn dis" type="button" aria-disabled="true">Go to production</button>
+</div>
+
+<section class="card">
+<div class="ch"><h2><span class="num">1</span>Issuer (emisor)</h2><span class="hint">Must match your RUC record exactly</span></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="ruc">RUC</label><input id="ruc" class="mono" placeholder="20XXXXXXXXX"></div>
+<div class="field"><label for="rs">Razón social</label><input id="rs" placeholder="[RAZÓN SOCIAL S.A.C.]"></div>
+<div class="field"><label for="nc">Nombre comercial</label><input id="nc" placeholder="[YOUR BRAND]"></div>
+</div>
+<div class="fg">
+<div class="field" style="grid-column: span 2"><label for="df">Domicilio fiscal</label><input id="df" placeholder="Address as registered with SUNAT"></div>
+<div class="field"><label for="dfu">Ubigeo</label><input id="dfu" class="mono" placeholder="150122"></div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2><span class="num">2</span>Connection</h2>
+<div class="segs" role="group" aria-label="Environment"><button type="button" class="seg {{betaCls}}" onClick="{{setBeta}}">Beta (testing)</button><button type="button" class="seg {{prodCls}}" onClick="{{setProd}}">Producción</button></div></div>
+<div class="cb">
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<button type="button" class="rc {{oseCls}}" onClick="{{pickOse}}"><span class="rdo"></span><span><span style="display: flex; gap: 8px; align-items: center; font-weight: 600">Through an OSE / PSE provider<span class="pill ok">Recommended</span></span><span class="hint" style="display: block; margin-top: 4px">The provider signs, validates and sends; you get the CDR back. Handles retries and SUNAT downtime.</span></span></button>
+<button type="button" class="rc {{directCls}}" onClick="{{pickDirect}}"><span class="rdo"></span><span><span style="display: block; font-weight: 600">Directly to SUNAT</span><span class="hint" style="display: block; margin-top: 4px">SEE – Del contribuyente. We sign with your certificate and call SUNAT&#39;s web services with your SOL user.</span></span></button>
+</div>
+<sc-if value="{{isOse}}" hint-placeholder-val="{{ true }}">
+<div class="fg">
+<div class="field"><label for="prov">Provider</label><select id="prov"><option>Select provider…</option></select></div>
+<div class="field"><label for="purl">API endpoint</label><input id="purl" class="mono" placeholder="https://"></div>
+<div class="field"><label for="ptok">API token</label><input id="ptok" class="mono" type="password" value="••••••••••••"></div>
+</div>
+</sc-if>
+<sc-if value="{{isDirect}}" hint-placeholder-val="{{ false }}">
+<div class="fg">
+<div class="field"><label for="solu">Usuario SOL secundario</label><input id="solu" class="mono" placeholder="RUC + user, e.g. 20XXXXXXXXXMODDATOS"></div>
+<div class="field"><label for="solp">Clave SOL</label><input id="solp" type="password" placeholder="••••••••"></div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2><span class="num">3</span>Digital certificate</h2><span class="pill warn"><span class="dot"></span>Not uploaded</span></div>
+<div class="cb">
+<div class="drop">
+<span style="width: 44px; height: 44px; border-radius: 10px; background: #FFFFFF; border: 1px solid #E3E5E0; color: #0B5F58; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"></path></svg></span>
+<div style="flex: 1 1 240px"><div style="font-weight: 600">Drop your .pfx or .p12 certificate</div><div class="hint">Issued for your RUC. We store it encrypted and warn you 30 days before it expires.</div></div>
+<button class="btn" type="button">Choose file</button>
+</div>
+<div class="fg"><div class="field"><label for="cpw">Certificate password</label><input id="cpw" type="password" placeholder="••••••••"></div><div class="field"><label for="cexp">Expires</label><input id="cexp" class="mono" placeholder="Read from certificate" readonly="readonly"></div></div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><div><h2><span class="num">4</span>Series &amp; numbering</h2><div class="hint" style="margin-top: 4px; margin-left: 34px">One series per POS, so two terminals never issue the same number — even offline.</div></div><button class="btn sm" type="button">Add series</button></div>
+<div class="scroll">
+<table>
+<thead><tr><th>Document</th><th>Series</th><th>Location · POS</th><th>Next number</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Boleta de venta</td><td class="mono">B001</td><td class="muted">Miraflores · Counter POS</td><td class="mono">00012879</td><td><span class="pill ok">Active</span></td></tr>
+<tr><td>Factura</td><td class="mono">F001</td><td class="muted">Miraflores · Counter POS</td><td class="mono">00000413</td><td><span class="pill ok">Active</span></td></tr>
+<tr><td>Boleta de venta</td><td class="mono">B002</td><td class="muted">Miraflores · Curbside POS</td><td class="mono">00003102</td><td><span class="pill ok">Active</span></td></tr>
+<tr><td>Factura</td><td class="mono">F002</td><td class="muted">Miraflores · Curbside POS</td><td class="mono">00000057</td><td><span class="pill ok">Active</span></td></tr>
+<tr><td>Boleta de venta</td><td class="mono">B003</td><td class="muted">San Isidro · Counter POS</td><td class="mono">00008440</td><td><span class="pill ok">Active</span></td></tr>
+<tr><td>Nota de crédito</td><td class="mono">BC01 · FC01</td><td class="muted">All locations</td><td class="mono">00000021</td><td><span class="pill ok">Active</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="hint" style="padding: 12px 20px">Facturas start with F, boletas with B; 4 characters. Credit notes use the same letter as the document they correct.</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2><span class="num">5</span>Taxes &amp; document rules</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="igv">IGV rate</label><select id="igv"><option>18% · General (16% IGV + 2% IPM)</option><option>Reduced · restaurants &amp; hotels (Ley 31556)</option></select></div>
+<div class="field"><label for="icb">ICBPER per plastic bag</label><input id="icb" class="mono" value="S/ 0.50"></div>
+<div class="field"><label for="defdoc">Default document at checkout</label><select id="defdoc"><option>Boleta de venta</option><option>Factura</option><option>Nota de venta (internal)</option></select></div>
+</div>
+<div class="fg">
+<div class="tgl"><div><div class="lbl">Catalog prices include IGV</div><div class="hint">IGV is broken out on the comprobante</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Prices include IGV"></div>
+<div class="tgl"><div><div class="lbl">Ask for DNI on boletas over S/ 700</div><div class="hint">POS blocks checkout until the customer is identified</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Require DNI over S/ 700"></div>
+</div>
+<div class="hint">Check the reduced rate&#39;s current percentage and your eligibility with your accountant before switching.</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2><span class="num">6</span>Sending &amp; contingency</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="sb">Boletas</label><select id="sb"><option>Send each one right away</option><option>Group in the resumen diario</option></select></div>
+<div class="field"><label for="sr">Resumen diario time</label><input id="sr" class="mono" value="23:00"></div>
+<div class="field"><label for="sf">Facturas &amp; notes</label><select id="sf"><option>Send right away</option></select></div>
+</div>
+<div class="fg">
+<div class="tgl"><div><div class="lbl">Keep selling when offline</div><div class="hint">Issue locally, send when the connection returns</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Offline contingency"></div>
+<div class="tgl"><div><div class="lbl">Email PDF + XML to the customer</div><div class="hint">When an email is captured at checkout</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Email documents"></div>
+<div class="tgl"><div><div class="lbl">Alert me on rejections</div><div class="hint">Email and dashboard alert</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Rejection alerts"></div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2><span class="num">7</span>Printed ticket (representación impresa)</h2>
+<div class="segs" role="group" aria-label="Paper width"><button type="button" class="seg {{w80Cls}}" onClick="{{set80}}">80 mm</button><button type="button" class="seg {{w58Cls}}" onClick="{{set58}}">58 mm</button></div></div>
+<div class="cb" style="flex-direction: row; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div class="tgl"><div><div class="lbl">Print logo</div><div class="hint">Monochrome PNG, max 384 px wide</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Print logo"></div>
+<div class="tgl"><div><div class="lbl">QR code</div><div class="hint">Required on electronic comprobantes</div></div><span class="pill">Always on</span></div>
+<div class="tgl"><div><div class="lbl">Print kitchen comanda on payment</div><div class="hint">Routed per product to its station printer</div></div><input class="sw" type="checkbox" checked="checked" aria-label="Print comanda"></div>
+<div class="field"><label for="foot">Footer text</label><textarea id="foot">Representación impresa de la Boleta de Venta Electrónica. ¡Gracias por su visita!</textarea></div>
+<button class="btn" type="button" style="align-self: flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"></path><rect x="3" y="9" width="18" height="8" rx="1.5"></rect><path d="M7 14h10v7H7z"></path></svg>Print test ticket</button>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; padding: 24px; background: #EEF0EC; border-radius: 12px">
+<div class="tkt" style="width: {{ticketW}}">
+<div class="ctr" style="font-weight: 600; font-size: 13px">[YOUR BRAND]</div>
+<div class="ctr">[RAZÓN SOCIAL S.A.C.]</div>
+<div class="ctr">RUC 20XXXXXXXXX</div>
+<div class="ctr">Av. José Larco 812, Miraflores</div>
+<div class="hr"></div>
+<div class="ctr" style="font-weight: 600">BOLETA DE VENTA ELECTRÓNICA</div>
+<div class="ctr" style="font-weight: 600">B001-00012879</div>
+<div class="tl"><span>03/10/2026 13:42</span><span>Counter POS</span></div>
+<div class="hr"></div>
+<div class="tl"><span>1 Caesar salad</span><span>24.00</span></div>
+<div class="tl" style="padding-left: 12px"><span>+ Extra Ranch</span><span>1.50</span></div>
+<div class="tl" style="padding-left: 12px"><span>+ Grilled chicken</span><span>8.00</span></div>
+<div class="hr"></div>
+<div class="tl"><span>Op. gravada</span><span>28.39</span></div>
+<div class="tl"><span>IGV 18%</span><span>5.11</span></div>
+<div class="tl" style="font-weight: 600; font-size: 13px"><span>TOTAL S/</span><span>33.50</span></div>
+<div class="hr"></div>
+<div style="display: flex; justify-content: center; padding: 6px 0">
+<svg width="76" height="76" viewBox="0 0 21 21" aria-label="QR code placeholder" role="img"><rect width="21" height="21" fill="#FFFFFF"></rect><g fill="#15171A"><rect x="0" y="0" width="7" height="7"></rect><rect x="14" y="0" width="7" height="7"></rect><rect x="0" y="14" width="7" height="7"></rect></g><g fill="#FFFFFF"><rect x="1" y="1" width="5" height="5"></rect><rect x="15" y="1" width="5" height="5"></rect><rect x="1" y="15" width="5" height="5"></rect></g><g fill="#15171A"><rect x="2" y="2" width="3" height="3"></rect><rect x="16" y="2" width="3" height="3"></rect><rect x="2" y="16" width="3" height="3"></rect><rect x="9" y="1" width="2" height="2"></rect><rect x="8" y="4" width="1" height="3"></rect><rect x="10" y="8" width="3" height="1"></rect><rect x="8" y="10" width="2" height="2"></rect><rect x="12" y="11" width="2" height="3"></rect><rect x="15" y="9" width="3" height="2"></rect><rect x="9" y="14" width="3" height="2"></rect><rect x="15" y="14" width="2" height="4"></rect><rect x="18" y="12" width="2" height="2"></rect><rect x="10" y="18" width="4" height="2"></rect><rect x="18" y="17" width="2" height="3"></rect><rect x="1" y="9" width="3" height="2"></rect><rect x="5" y="11" width="2" height="1"></rect></g></svg>
+</div>
+<div class="ctr" style="font-size: 10.5px">Representación impresa de la Boleta de Venta Electrónica. ¡Gracias por su visita!</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  navVals() {
+    var self = this;
+    var st = this.state || {};
+    var open = st.navOpen === undefined ? true : st.navOpen;
+    return {
+      navOpen: open,
+      navExpanded: open ? 'true' : 'false',
+      navChev: open ? '' : 'shut',
+      toggleNav: function () { self.setState({ navOpen: !open }); }
+    };
+  }
+  renderVals() {
+    return Object.assign({}, this.pageVals(), this.navVals());
+  }
+  pageVals() {
+    var self = this;
+    var st = this.state || {};
+    var env = st.env || 'beta';
+    var method = st.method || 'ose';
+    var paper = st.paper || '80';
+    return {
+      envLabel: env === 'beta' ? 'Beta · testing' : 'Producción',
+      betaCls: env === 'beta' ? 'on' : '',
+      prodCls: env === 'prod' ? 'on' : '',
+      setBeta: function () { self.setState({ env: 'beta' }); },
+      setProd: function () { self.setState({ env: 'prod' }); },
+      oseCls: method === 'ose' ? 'on' : '',
+      directCls: method === 'direct' ? 'on' : '',
+      isOse: method === 'ose',
+      isDirect: method === 'direct',
+      pickOse: function () { self.setState({ method: 'ose' }); },
+      pickDirect: function () { self.setState({ method: 'direct' }); },
+      w80Cls: paper === '80' ? 'on' : '',
+      w58Cls: paper === '58' ? 'on' : '',
+      set80: function () { self.setState({ paper: '80' }); },
+      set58: function () { self.setState({ paper: '58' }); },
+      ticketW: paper === '80' ? '300px' : '220px'
+    };
+  }
+}
+</script>
+</body>
+</html>

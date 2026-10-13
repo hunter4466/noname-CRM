@@ -1,0 +1,46 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  background: var(--color-bg);
+}
+
+.left {
+  display: flex;
+  flex: 1 1 560px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-brand-hover);
+  font-weight: 600;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}

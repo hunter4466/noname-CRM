@@ -1,0 +1,26 @@
+.line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-pressed);
+  color: var(--color-text);
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 500;
+}

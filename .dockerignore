@@ -1,0 +1,12 @@
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+**/.next
+**/.turbo
+**/node_modules
+.claude
+.git
+.idea
+design
+infra
+packages/db/src/generated

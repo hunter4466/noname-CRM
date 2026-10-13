@@ -1,0 +1,18 @@
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 6px 0;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-faint);
+  border-radius: var(--radius-pill);
+}
+
+.filled {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+}

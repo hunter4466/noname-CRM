@@ -1,0 +1,19 @@
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid #f3d9ad;
+  border-radius: var(--radius-lg);
+  background: #fffaf1;
+}
+
+.text {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+}

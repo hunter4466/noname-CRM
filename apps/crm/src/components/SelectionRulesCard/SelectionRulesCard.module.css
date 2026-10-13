@@ -1,0 +1,6 @@
+.summary {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}

@@ -1,0 +1,12 @@
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.hint {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: var(--text-md);
+}

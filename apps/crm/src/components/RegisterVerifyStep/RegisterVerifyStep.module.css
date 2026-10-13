@@ -1,0 +1,23 @@
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--color-brand-soft);
+  color: var(--color-brand-hover);
+}
+
+.email {
+  color: var(--color-ink);
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-brand-hover);
+  font-weight: 500;
+  text-decoration: underline;
+}

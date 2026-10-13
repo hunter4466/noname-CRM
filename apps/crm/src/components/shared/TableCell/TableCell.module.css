@@ -1,0 +1,18 @@
+.alignEnd {
+  text-align: right;
+}
+
+.money {
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+.strong {
+  font-weight: 500;
+}

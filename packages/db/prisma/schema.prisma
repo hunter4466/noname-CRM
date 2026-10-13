@@ -1,0 +1,530 @@
+// Shared schema for every app in the monorepo (crm, pos).
+// Conventions: see ./CLAUDE.md
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────
+
+enum PermissionKey {
+  DASHBOARD_VIEW
+  CATALOG_VIEW
+  CATALOG_MANAGE
+  LOCATIONS_VIEW
+  LOCATIONS_MANAGE
+  SUNAT_VIEW
+  SUNAT_MANAGE
+  POS_SELL
+  POS_SHIFT_OPEN
+}
+
+enum BusinessType {
+  RESTAURANT
+  CAFE
+  RETAIL
+  OTHER
+}
+
+enum ProductStatus {
+  ACTIVE
+  OUT_OF_STOCK
+  ARCHIVED
+}
+
+enum IgvAffectation {
+  GRAVADO_ONEROSA   // 10
+  EXONERADO_ONEROSA // 20
+  INAFECTO_ONEROSA  // 30
+}
+
+enum UnitOfMeasure {
+  NIU
+  ZZ
+  KGM
+}
+
+enum ModifierOptionKind {
+  SIMPLE
+  LINKED_PRODUCT
+}
+
+enum ComboPricingMode {
+  FIXED_PRICE
+  ITEMS_TOTAL_MINUS_DISCOUNT
+}
+
+enum ComboReceiptMode {
+  SINGLE_LINE
+  LINE_PER_ITEM
+}
+
+enum TerminalStatus {
+  ONLINE
+  OFFLINE
+}
+
+enum PrinterConnection {
+  LAN
+  USB
+  BLUETOOTH
+}
+
+enum PrinterRole {
+  RECEIPT
+  KITCHEN
+}
+
+enum SunatEnvironment {
+  BETA
+  PRODUCTION
+}
+
+enum SunatConnectionMode {
+  OSE_PROVIDER
+  DIRECT
+}
+
+enum DocumentType {
+  BOLETA
+  FACTURA
+  NOTA_CREDITO
+  NOTA_VENTA
+}
+
+enum SunatDocumentStatus {
+  NOT_SENT
+  QUEUED
+  ACCEPTED
+  REJECTED
+}
+
+enum OrderType {
+  DINE_IN
+  TAKEAWAY
+  CURBSIDE
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  YAPE_PLIN
+  SPLIT
+}
+
+enum ShiftStatus {
+  OPEN
+  CLOSED
+}
+
+// ─── Tenancy & access ────────────────────────────────────────────────────
+
+model Company {
+  id             String       @id @default(cuid())
+  ruc            String?      @unique
+  legalName      String?
+  commercialName String
+  businessType   BusinessType @default(RESTAURANT)
+  fiscalAddress  String?
+  fiscalUbigeo   String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+
+  users          User[]
+  roles          Role[]
+  locations      Location[]
+  categories     Category[]
+  products       Product[]
+  modifierGroups ModifierGroup[]
+  combos         Combo[]
+  sunatConfig    SunatConfig?
+  orders         Order[]
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  companyId   String
+  name        String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
+
+  company     Company          @relation(fields: [companyId], references: [id])
+  permissions RolePermission[]
+  users       User[]
+
+  @@unique([companyId, name])
+}
+
+model RolePermission {
+  roleId     String
+  permission PermissionKey
+
+  role       Role          @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permission])
+}
+
+model User {
+  id           String    @id @default(cuid())
+  companyId    String
+  roleId       String
+  fullName     String
+  email        String?   @unique
+  passwordHash String?
+  googleId     String?   @unique
+  pinHash      String?   // 4-digit staff PIN for POS sign-in
+  emailVerifiedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  company      Company   @relation(fields: [companyId], references: [id])
+  role         Role      @relation(fields: [roleId], references: [id])
+  shifts       Shift[]
+  orders       Order[]
+}
+
+// ─── Locations & devices ─────────────────────────────────────────────────
+
+model Location {
+  id                String    @id @default(cuid())
+  companyId         String
+  name              String
+  receiptName       String?
+  phone             String?
+  openingHours      String?
+  address           String
+  addressReference  String?
+  department        String
+  province          String
+  district          String
+  ubigeo            String
+  establishmentCode String
+  latitude          Decimal?  @db.Decimal(9, 6)
+  longitude         Decimal?  @db.Decimal(9, 6)
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deletedAt         DateTime?
+
+  company           Company   @relation(fields: [companyId], references: [id])
+  terminals         Terminal[]
+  printers          Printer[]
+  productSettings   ProductLocation[]
+
+  @@unique([companyId, establishmentCode])
+}
+
+model Terminal {
+  id                 String         @id @default(cuid())
+  locationId         String
+  name               String
+  placement          String?
+  deviceCode         String         @unique
+  pairingCode        String?
+  allowOfflineSales  Boolean        @default(true)
+  status             TerminalStatus @default(OFFLINE)
+  lastSeenAt         DateTime?
+  receiptPrinterId   String?
+  kitchenPrinterId   String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  deletedAt          DateTime?
+
+  location           Location       @relation(fields: [locationId], references: [id])
+  receiptPrinter     Printer?       @relation("TerminalReceiptPrinter", fields: [receiptPrinterId], references: [id])
+  kitchenPrinter     Printer?       @relation("TerminalKitchenPrinter", fields: [kitchenPrinterId], references: [id])
+  series             DocumentSeries[]
+  shifts             Shift[]
+  orders             Order[]
+}
+
+model Printer {
+  id               String            @id @default(cuid())
+  locationId       String
+  name             String
+  model            String
+  connection       PrinterConnection
+  address          String?
+  role             PrinterRole
+  paperLow         Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  deletedAt        DateTime?
+
+  location         Location          @relation(fields: [locationId], references: [id])
+  receiptTerminals Terminal[]        @relation("TerminalReceiptPrinter")
+  kitchenTerminals Terminal[]        @relation("TerminalKitchenPrinter")
+  routedProducts   ProductLocation[]
+}
+
+// ─── Catalog ─────────────────────────────────────────────────────────────
+
+model Category {
+  id        String    @id @default(cuid())
+  companyId String
+  name      String
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  company   Company   @relation(fields: [companyId], references: [id])
+  products  Product[]
+  combos    Combo[]
+
+  @@unique([companyId, name])
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  companyId        String
+  categoryId       String
+  name             String
+  sku              String
+  description      String?
+  price            Decimal         @db.Decimal(10, 2) // IGV included
+  status           ProductStatus   @default(ACTIVE)
+  igvAffectation   IgvAffectation  @default(GRAVADO_ONEROSA)
+  unitOfMeasure    UnitOfMeasure   @default(NIU)
+  sunatProductCode String?
+  appliesIcbper    Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  deletedAt        DateTime?
+
+  company          Company         @relation(fields: [companyId], references: [id])
+  category         Category        @relation(fields: [categoryId], references: [id])
+  modifierGroups   ProductModifierGroup[]
+  locationSettings ProductLocation[]
+  linkedOptions    ModifierOption[]
+  comboSlotItems   ComboSlotItem[]
+  orderLines       OrderLine[]
+
+  @@unique([companyId, sku])
+}
+
+model ProductLocation {
+  productId        String
+  locationId       String
+  isAvailable      Boolean  @default(true)
+  priceOverride    Decimal? @db.Decimal(10, 2)
+  routedPrinterId  String?
+
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  location         Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  routedPrinter    Printer? @relation(fields: [routedPrinterId], references: [id])
+
+  @@id([productId, locationId])
+}
+
+model ModifierGroup {
+  id                 String    @id @default(cuid())
+  companyId          String
+  name               String
+  ticketName         String?
+  cashierPrompt      String?
+  minSelections      Int       @default(0)
+  maxSelections      Int       @default(1)
+  freeSelections     Int       @default(0)
+  allowRepeats       Boolean   @default(false)
+  preModifiersEnabled Boolean  @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  company            Company   @relation(fields: [companyId], references: [id])
+  options            ModifierOption[] @relation("GroupOptions")
+  followUpFor        ModifierOption[] @relation("OptionFollowUpGroup")
+  products           ProductModifierGroup[]
+}
+
+model ModifierOption {
+  id               String             @id @default(cuid())
+  groupId          String
+  kind             ModifierOptionKind
+  label            String
+  priceDelta       Decimal            @default(0) @db.Decimal(10, 2)
+  linkedProductId  String?
+  followUpGroupId  String?            // nested group asked after picking this option
+  isDefault        Boolean            @default(false)
+  isAvailable      Boolean            @default(true)
+  sortOrder        Int                @default(0)
+
+  group            ModifierGroup      @relation("GroupOptions", fields: [groupId], references: [id], onDelete: Cascade)
+  linkedProduct    Product?           @relation(fields: [linkedProductId], references: [id])
+  followUpGroup    ModifierGroup?     @relation("OptionFollowUpGroup", fields: [followUpGroupId], references: [id])
+}
+
+model ProductModifierGroup {
+  productId        String
+  groupId          String
+  sortOrder        Int           @default(0)
+  maxOverride      Int?
+
+  product          Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  group            ModifierGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@id([productId, groupId])
+}
+
+model Combo {
+  id                     String           @id @default(cuid())
+  companyId              String
+  categoryId             String
+  name                   String
+  sku                    String
+  pricingMode            ComboPricingMode @default(FIXED_PRICE)
+  price                  Decimal?         @db.Decimal(10, 2)
+  discount               Decimal?         @db.Decimal(10, 2)
+  availabilityWindow     String?          // null = all day
+  receiptMode            ComboReceiptMode @default(SINGLE_LINE)
+  routeItemsToStations   Boolean          @default(true)
+  deductStockPerItem     Boolean          @default(true)
+  isActive               Boolean          @default(true)
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  deletedAt              DateTime?
+
+  company                Company          @relation(fields: [companyId], references: [id])
+  category               Category         @relation(fields: [categoryId], references: [id])
+  slots                  ComboSlot[]
+
+  @@unique([companyId, sku])
+}
+
+model ComboSlot {
+  id         String          @id @default(cuid())
+  comboId    String
+  name       String
+  isRequired Boolean         @default(true)
+  sortOrder  Int             @default(0)
+
+  combo      Combo           @relation(fields: [comboId], references: [id], onDelete: Cascade)
+  items      ComboSlotItem[]
+}
+
+model ComboSlotItem {
+  slotId    String
+  productId String
+  upcharge  Decimal   @default(0) @db.Decimal(10, 2)
+  isDefault Boolean   @default(false)
+
+  slot      ComboSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  product   Product   @relation(fields: [productId], references: [id])
+
+  @@id([slotId, productId])
+}
+
+// ─── SUNAT ───────────────────────────────────────────────────────────────
+
+model SunatConfig {
+  companyId            String              @id
+  environment          SunatEnvironment    @default(BETA)
+  connectionMode       SunatConnectionMode @default(OSE_PROVIDER)
+  providerName         String?
+  providerEndpoint     String?
+  providerTokenSecret  String?             // Secret Manager reference, never the token itself
+  solUser              String?
+  solPasswordSecret    String?             // Secret Manager reference
+  certificateSecret    String?             // Secret Manager reference
+  certificateExpiresAt DateTime?
+  igvRate              Decimal             @default(18) @db.Decimal(5, 2)
+  icbperAmount         Decimal             @default(0.5) @db.Decimal(10, 2)
+  defaultDocumentType  DocumentType        @default(BOLETA)
+  pricesIncludeIgv     Boolean             @default(true)
+  requireDniOverAmount Decimal?            @default(700) @db.Decimal(10, 2)
+  sendBoletasInSummary Boolean             @default(false)
+  dailySummaryTime     String              @default("23:00")
+  offlineContingency   Boolean             @default(true)
+  emailDocuments       Boolean             @default(true)
+  alertOnRejection     Boolean             @default(true)
+  ticketPaperWidthMm   Int                 @default(80)
+  printLogo            Boolean             @default(true)
+  printKitchenTicket   Boolean             @default(true)
+  ticketFooter         String?
+  updatedAt            DateTime            @updatedAt
+
+  company              Company             @relation(fields: [companyId], references: [id])
+}
+
+model DocumentSeries {
+  id           String       @id @default(cuid())
+  terminalId   String?      // null = shared across all locations (e.g. credit notes)
+  documentType DocumentType
+  series       String       @db.VarChar(4)
+  nextNumber   Int          @default(1)
+  isActive     Boolean      @default(true)
+
+  terminal     Terminal?    @relation(fields: [terminalId], references: [id])
+  orders       Order[]
+
+  @@unique([documentType, series])
+}
+
+// ─── POS operations ──────────────────────────────────────────────────────
+
+model Shift {
+  id           String      @id @default(cuid())
+  terminalId   String
+  userId       String
+  status       ShiftStatus @default(OPEN)
+  openingCash  Decimal     @db.Decimal(10, 2)
+  closingCash  Decimal?    @db.Decimal(10, 2)
+  openedAt     DateTime    @default(now())
+  closedAt     DateTime?
+
+  terminal     Terminal    @relation(fields: [terminalId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+  orders       Order[]
+}
+
+model Order {
+  id                  String              @id @default(cuid())
+  companyId           String
+  terminalId          String
+  shiftId             String
+  userId              String
+  seriesId            String?
+  number              Int                 // sequential ticket number per terminal
+  documentNumber      Int?                // correlativo within the series
+  orderType           OrderType
+  documentType        DocumentType
+  customerDocument    String?             // DNI or RUC
+  customerName        String?
+  paymentMethod       PaymentMethod
+  amountTendered      Decimal?            @db.Decimal(10, 2)
+  taxableAmount       Decimal             @db.Decimal(10, 2)
+  igvAmount           Decimal             @db.Decimal(10, 2)
+  total               Decimal             @db.Decimal(10, 2)
+  sunatStatus         SunatDocumentStatus @default(NOT_SENT)
+  sunatMessage        String?
+  createdAt           DateTime            @default(now())
+
+  company             Company             @relation(fields: [companyId], references: [id])
+  terminal            Terminal            @relation(fields: [terminalId], references: [id])
+  shift               Shift               @relation(fields: [shiftId], references: [id])
+  user                User                @relation(fields: [userId], references: [id])
+  series              DocumentSeries?     @relation(fields: [seriesId], references: [id])
+  lines               OrderLine[]
+}
+
+model OrderLine {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String
+  name        String
+  modifiers   String[]
+  unitPrice   Decimal  @db.Decimal(10, 2)
+  quantity    Int
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id])
+}

@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS register</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+.pos *{box-sizing:border-box}
+.pos{position:relative;display:flex;flex-direction:column;overflow:hidden;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.4;color:#15171A;background:#F4F5F2}
+.pos svg{flex:none}
+.pos button{font:inherit;color:inherit;cursor:pointer}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+.bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 16px;background:#111315;color:#C9CDD2}
+.bl,.br{display:flex;align-items:center;gap:12px;min-width:0}
+.mark{width:32px;height:32px;border-radius:8px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.bname{color:#FFFFFF;font-weight:700;font-size:16px}
+.sep{width:1px;height:24px;background:#2B3035}
+.where{color:#FFFFFF;font-weight:500;white-space:nowrap}
+.where small{color:#8B9098;font-weight:400;margin-left:6px}
+.st{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;background:#1C1F23;font-size:12px;font-weight:500;color:#C9CDD2;white-space:nowrap}
+.st i{width:7px;height:7px;border-radius:999px;background:#3DBE9F}
+.clock{color:#FFFFFF;font-weight:600}
+.who{display:flex;align-items:center;gap:8px;color:#FFFFFF;font-weight:500}
+.av{width:32px;height:32px;border-radius:999px;background:#2B3035;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.lock{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;color:#C9CDD2;text-decoration:none}
+.lock:hover{background:#1C1F23;color:#FFFFFF}
+.body{flex:1 1 auto;min-height:0;display:flex}
+.cats{flex:0 0 104px;display:flex;flex-direction:column;gap:6px;padding:12px 10px;background:#FFFFFF;border-right:1px solid #E3E5E0;overflow-y:auto}
+.cat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;padding:6px;border:0;border-radius:12px;background:transparent;color:#3D4249 !important;font-weight:600;font-size:13px;text-align:center}
+.cat small{font-size:11px;font-weight:500;color:#6B7078}
+.cat:hover{background:#F1F3EF}
+.cat.on{background:#15171A;color:#FFFFFF !important}
+.cat.on small{color:#B4B9BF}
+.menu{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:14px;padding:16px;overflow-y:auto}
+.mtop{display:flex;gap:10px;align-items:center}
+.srch{position:relative;flex:1 1 auto}
+.srch svg{position:absolute;left:14px;top:15px;color:#5B6068}
+.srch input{width:100%;height:48px;padding:0 14px 0 42px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font:inherit;font-size:15px;color:#15171A}
+.ghost{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 16px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font-weight:500;white-space:nowrap}
+.ghost b{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#FDF0DC;color:#8A4205;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;min-height:118px;padding:12px;border:1px solid #E3E5E0;border-radius:14px;background:#FFFFFF;text-align:left}
+.tile:hover{border-color:#8B9098}
+.tile:active{transform:scale(.98)}
+.sw{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.t-burgers .sw{background:#FDF0DC;color:#8A4205}
+.t-mains .sw{background:#FBE7E5;color:#9A1C12}
+.t-salads .sw{background:#E3F3EE;color:#0B5F58}
+.t-sides .sw{background:#EEF0EC;color:#3D4249}
+.t-drinks .sw{background:#E6EEF7;color:#24476E}
+.t-combos .sw{background:#15171A;color:#FFFFFF}
+.tn{font-weight:600;font-size:14.5px;line-height:1.25}
+.tp{font-family:'Geist Mono',ui-monospace,monospace;font-size:13.5px;color:#3D4249}
+.tb{position:absolute;top:12px;right:12px;font-size:11px;font-weight:600;color:#0B5F58;background:#E6F2F0;padding:2px 7px;border-radius:999px}
+.tile.out{background:#F1F2EF;color:#6B7078;cursor:not-allowed;border-style:dashed}
+.tile.out .tb{background:#FDF0DC;color:#8A4205}
+.order{flex:0 0 clamp(340px,30%,400px);display:flex;flex-direction:column;min-height:0;background:#FFFFFF;border-left:1px solid #E3E5E0}
+.oh{flex:none;display:flex;flex-direction:column;gap:12px;padding:16px 16px 12px;border-bottom:1px solid #EEF0EC}
+.ohr{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ohr h2{margin:0;font-size:18px;font-weight:600}
+.segs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;background:#F1F3EF;border-radius:12px}
+.seg{min-height:40px;border:0;border-radius:9px;background:transparent;font-weight:500 !important;font-size:13.5px !important;color:#3D4249 !important}
+.seg.on{background:#FFFFFF;color:#15171A !important;box-shadow:0 1px 3px rgba(17,19,21,.14)}
+.lines{flex:1 1 auto;min-height:0;overflow-y:auto;padding:4px 16px}
+.ln{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 0;border-bottom:1px solid #F1F3EF}
+.lnn{font-weight:600}
+.mods{display:flex;flex-direction:column;font-size:12.5px;color:#5B6068}
+.lnp{font-family:'Geist Mono',ui-monospace,monospace;text-align:right}
+.qty{display:flex;align-items:center;gap:4px}
+.qb{width:36px;height:36px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.qn{min-width:26px;text-align:center;font-weight:600}
+.rm{justify-self:end;align-self:center;border:0;background:transparent;color:#9A1C12 !important;font-size:12.5px;font-weight:500;padding:8px 0}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:100%;min-height:200px;color:#5B6068;text-align:center}
+.of{flex:none;display:flex;flex-direction:column;gap:8px;padding:14px 16px 16px;border-top:1px solid #E3E5E0;background:#FAFAF8}
+.tr{display:flex;justify-content:space-between;color:#5B6068}
+.tr.big{color:#15171A;font-size:20px;font-weight:700}
+.tr .mono{color:inherit}
+.fbtns{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;margin-top:6px}
+.clr{height:56px;padding:0 18px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font-weight:500}
+.charge{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 18px;border:0;border-radius:12px;background:#0F766E;color:#FFFFFF !important;font-weight:600 !important;font-size:16px !important}
+.charge.dis{background:#C9CDC6;color:#2B3035 !important;cursor:not-allowed}
+.scrim{position:absolute;inset:0;background:rgba(17,19,21,.45);display:flex;align-items:center;justify-content:center;padding:24px;z-index:5}
+.sheet{width:min(640px,100%);max-height:100%;display:flex;flex-direction:column;background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(17,19,21,.3)}
+.shh{flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid #EEF0EC}
+.shh h3{margin:0;font-size:20px}
+.x{width:44px;height:44px;border:0;border-radius:10px;background:#F1F3EF;display:flex;align-items:center;justify-content:center}
+.shb{flex:1 1 auto;min-height:0;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:18px}
+.pg{display:flex;flex-direction:column;gap:10px}
+.pgh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600}
+.badge.req{background:#FDF0DC;color:#8A4205}
+.badge.done{background:#E3F3EE;color:#0B5F58}
+.badge.optl{background:#EEF0EC;color:#3D4249}
+.hint{font-size:12.5px;color:#5B6068}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:58px;padding:10px 12px;border-radius:12px;border:1.5px solid #D5D8D2;background:#FFFFFF;text-align:left}
+.opt small{font-size:12px;color:#5B6068}
+.opt.on{border-color:#0F766E;background:#E6F2F0;box-shadow:inset 0 0 0 1px #0F766E}
+.opt.on small{color:#0B5F58}
+.opt.dim{background:#FAFAF8;color:#6B7078 !important}
+.opt.off{background:#EEF0EC;color:#6B7078 !important;cursor:not-allowed;border-style:dashed}
+.shf{flex:none;display:flex;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid #EEF0EC;background:#FAFAF8}
+.add{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 18px;border:0;border-radius:12px;background:#0F766E;color:#FFFFFF !important;font-weight:600 !important;font-size:16px !important}
+.add.dis{background:#C9CDC6;color:#2B3035 !important;cursor:not-allowed}
+.warn{padding:10px 12px;border-radius:10px;background:#FDF0DC;color:#8A4205;font-weight:500}
+.full{position:absolute;inset:60px 0 0 0;background:#F4F5F2;display:flex;z-index:4;overflow:hidden}
+.payl{flex:1 1 auto;min-width:0;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.payr{flex:0 0 clamp(340px,30%,400px);display:flex;flex-direction:column;background:#FFFFFF;border-left:1px solid #E3E5E0;min-height:0}
+.back{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 8px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;font-weight:500;align-self:flex-start}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sec h3{margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6068}
+.docs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:12px 14px;border:1.5px solid #D5D8D2;border-radius:12px;background:#FFFFFF;text-align:left;font-weight:600 !important}
+.card small{font-weight:400;font-size:12px;color:#5B6068}
+.card.on{border-color:#0F766E;background:#E6F2F0;box-shadow:inset 0 0 0 1px #0F766E}
+.cust{display:flex;gap:8px}
+.cust input{flex:1 1 auto;min-width:0;height:48px;padding:0 14px;border:1px solid #D5D8D2;border-radius:12px;font:inherit;font-size:15px;background:#FFFFFF;color:#15171A}
+.cust button{height:48px;padding:0 16px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font-weight:500}
+.found{display:flex;align-items:center;gap:8px;font-size:13px;color:#0B5F58}
+.methods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cashrow{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+.tend{flex:1 1 240px;display:flex;flex-direction:column;gap:10px}
+.disp{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;border-radius:12px;background:#FFFFFF;border:1px solid #D5D8D2}
+.disp b{font-family:'Geist Mono',ui-monospace,monospace;font-size:28px}
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.qk{height:48px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font-weight:600 !important}
+.change{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;border-radius:12px;background:#E3F3EE;color:#0B5F58;font-weight:600}
+.change.short{background:#FDF0DC;color:#8A4205}
+.pad{flex:0 1 280px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.key{height:60px;border:1px solid #E3E5E0;border-radius:12px;background:#FFFFFF;font-size:22px !important;font-weight:500 !important}
+.key:active{background:#F1F3EF}
+.sum{flex:1 1 auto;min-height:0;overflow-y:auto;padding:16px}
+.sumh{flex:none;padding:16px;border-bottom:1px solid #EEF0EC}
+.sumh h2{margin:0;font-size:18px}
+.sl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #F1F3EF}
+.fin{position:absolute;inset:60px 0 0 0;background:#F4F5F2;display:flex;align-items:center;justify-content:center;padding:24px;z-index:4}
+.dbox{width:min(560px,100%);display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px;background:#FFFFFF;border:1px solid #E3E5E0;border-radius:20px;text-align:center}
+.ok{width:64px;height:64px;border-radius:999px;background:#0F766E;color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.dbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+.dbtns button{height:52px;border:1px solid #D5D8D2;border-radius:12px;background:#FFFFFF;font-weight:500}
+.newo{grid-column:1 / -1;background:#0F766E !important;border-color:#0F766E !important;color:#FFFFFF !important;font-weight:600 !important;font-size:16px}
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500;background:#E3F3EE;color:#0B5F58}
+</style>
+</helmet>
+<div class="pos" style="height: {{rootH}}">
+<header class="bar">
+<div class="bl">
+<span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>
+<span class="bname">CRM POS</span>
+<span class="sep" aria-hidden="true"></span>
+<span class="where">Miraflores<small>Counter POS</small></span>
+</div>
+<div class="br">
+<span class="st"><i></i>Online</span>
+<span class="st"><i></i>SUNAT</span>
+<span class="st"><i style="background: #E0A23B"></i>Printer · paper low</span>
+<span class="clock mono">13:42</span>
+<span class="who"><span class="av">MC</span>Mario C.</span>
+<a class="lock" href="POSLogin.dc.html" aria-label="Lock register"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></a>
+</div>
+</header>
+
+<div class="body">
+<nav class="cats" aria-label="Categories">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="7">
+<button type="button" class="cat {{c.cls}}" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}">{{c.label}}<small>{{c.count}}</small></button>
+</sc-for>
+</nav>
+
+<section class="menu" aria-label="Products">
+<div class="mtop">
+<div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg><input type="search" aria-label="Search products" placeholder="Search or scan barcode"></div>
+<button class="ghost" type="button">Open tickets<b>3</b></button>
+</div>
+<div class="grid">
+<sc-for list="{{tiles}}" as="t" hint-placeholder-count="12">
+<button type="button" class="tile {{t.cls}}" onClick="{{t.pick}}">
+<span class="sw">{{t.ini}}</span>
+<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span class="tb">{{t.badge}}</span></sc-if>
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="tn">{{t.name}}</span><span class="tp">{{t.price}}</span></span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<aside class="order" aria-label="Current order">
+<div class="oh">
+<div class="ohr"><h2>Order #0142</h2><span class="hint">{{itemCount}}</span></div>
+<div class="segs" role="group" aria-label="Order type">
+<sc-for list="{{types}}" as="ty" hint-placeholder-count="3">
+<button type="button" class="seg {{ty.cls}}" aria-pressed="{{ty.pressed}}" onClick="{{ty.pick}}">{{ty.label}}</button>
+</sc-for>
+</div>
+</div>
+<div class="lines">
+<sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+<div class="empty"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#8B9098" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg><strong style="color: #15171A">No items yet</strong><span>Tap a product to start the order</span></div>
+</sc-if>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+<div class="ln">
+<div style="min-width: 0"><div class="lnn">{{l.name}}</div>
+<div class="mods"><sc-for list="{{l.mods}}" as="m" hint-placeholder-count="1"><span>+ {{m}}</span></sc-for></div></div>
+<div class="lnp">{{l.total}}</div>
+<div class="qty"><button type="button" class="qb" aria-label="Less" onClick="{{l.dec}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button><span class="qn">{{l.qty}}</span><button type="button" class="qb" aria-label="More" onClick="{{l.inc}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+<button type="button" class="rm" onClick="{{l.remove}}">Remove</button>
+</div>
+</sc-for>
+</div>
+<div class="of">
+<div class="tr"><span>Op. gravada</span><span class="mono">{{opGrav}}</span></div>
+<div class="tr"><span>IGV 18%</span><span class="mono">{{igv}}</span></div>
+<div class="tr big"><span>Total</span><span class="mono">{{total}}</span></div>
+<div class="fbtns"><button type="button" class="clr" onClick="{{clear}}">Clear</button><button type="button" class="charge {{chargeCls}}" onClick="{{toPay}}"><span>Charge</span><span class="mono">{{total}}</span></button></div>
+</div>
+</aside>
+</div>
+
+<sc-if value="{{sheetOpen}}" hint-placeholder-val="{{ false }}">
+<div class="scrim">
+<div class="sheet" role="dialog" aria-modal="true" aria-label="{{sh.name}}">
+<div class="shh"><div><h3>{{sh.name}}</h3><div class="hint mono" style="margin-top: 2px">{{sh.base}}</div></div><button type="button" class="x" aria-label="Close" onClick="{{sh.close}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div class="shb">
+<sc-for list="{{sh.groups}}" as="g" hint-placeholder-count="2">
+<div class="pg">
+<div class="pgh"><strong style="font-size: 15px">{{g.name}}</strong><span class="badge {{g.badgeCls}}">{{g.badge}}</span><span class="hint" style="margin-left: auto">{{g.rule}}</span></div>
+<div class="opts">
+<sc-for list="{{g.options}}" as="o" hint-placeholder-count="3">
+<button type="button" class="opt {{o.cls}}" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}"><span style="font-weight: 500">{{o.label}}</span><small>{{o.note}}</small></button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{sh.hasMissing}}" hint-placeholder-val="{{ false }}"><div class="warn">{{sh.missingText}}</div></sc-if>
+</div>
+<div class="shf">
+<div class="qty"><button type="button" class="qb" aria-label="Less" onClick="{{sh.dec}}" style="width: 48px; height: 48px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button><span class="qn" style="font-size: 18px">{{sh.qty}}</span><button type="button" class="qb" aria-label="More" onClick="{{sh.inc}}" style="width: 48px; height: 48px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+<button type="button" class="add {{sh.addCls}}" onClick="{{sh.add}}"><span>Add to order</span><span class="mono">{{sh.total}}</span></button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPay}}" hint-placeholder-val="{{ false }}">
+<div class="full">
+<div class="payl">
+<button type="button" class="back" onClick="{{toOrder}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Back to order</button>
+<div class="sec"><h3>Document</h3>
+<div class="docs">
+<sc-for list="{{docs}}" as="d" hint-placeholder-count="3">
+<button type="button" class="card {{d.cls}}" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}">{{d.label}}<small>{{d.sub}}</small></button>
+</sc-for>
+</div>
+</div>
+<div class="sec"><h3>{{custLabel}}</h3>
+<div class="cust"><input aria-label="{{custLabel}}" placeholder="{{custPh}}" class="mono"><button type="button">Look up</button></div>
+<span class="hint">{{custHint}}</span>
+</div>
+<div class="sec"><h3>Payment</h3>
+<div class="methods">
+<sc-for list="{{methods}}" as="m" hint-placeholder-count="4">
+<button type="button" class="card {{m.cls}}" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}">{{m.label}}<small>{{m.sub}}</small></button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{isCash}}" hint-placeholder-val="{{ true }}">
+<div class="cashrow">
+<div class="tend">
+<div class="disp"><span class="hint">Received</span><b>{{tendered}}</b></div>
+<div class="quick">
+<sc-for list="{{quick}}" as="q" hint-placeholder-count="4"><button type="button" class="qk" onClick="{{q.pick}}">{{q.label}}</button></sc-for>
+</div>
+<div class="change {{changeCls}}"><span>{{changeLabel}}</span><span class="mono" style="font-size: 20px">{{change}}</span></div>
+</div>
+<div class="pad" role="group" aria-label="Keypad">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12"><button type="button" class="key" aria-label="{{k.aria}}" onClick="{{k.press}}">{{k.label}}</button></sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isOther}}" hint-placeholder-val="{{ false }}">
+<div class="disp"><span class="hint">{{otherHint}}</span><b>{{total}}</b></div>
+</sc-if>
+</div>
+<div class="payr">
+<div class="sumh"><h2>Order #0142</h2><div class="hint">{{typeLabel}} · {{itemCount}}</div></div>
+<div class="sum">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+<div class="sl"><div style="min-width: 0"><div style="font-weight: 500">{{l.qty}} × {{l.name}}</div><div class="mods"><sc-for list="{{l.mods}}" as="m" hint-placeholder-count="1"><span>+ {{m}}</span></sc-for></div></div><span class="mono">{{l.total}}</span></div>
+</sc-for>
+</div>
+<div class="of">
+<div class="tr"><span>Op. gravada</span><span class="mono">{{opGrav}}</span></div>
+<div class="tr"><span>IGV 18%</span><span class="mono">{{igv}}</span></div>
+<div class="tr big"><span>Total</span><span class="mono">{{total}}</span></div>
+<button type="button" class="charge {{confirmCls}}" style="margin-top: 6px" onClick="{{confirm}}"><span>Confirm &amp; print</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"></path><rect x="3" y="9" width="18" height="8" rx="1.5"></rect><path d="M7 14h10v7H7z"></path></svg></button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div class="fin">
+<div class="dbox">
+<span class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+<div><div style="font-size: 22px; font-weight: 700">Payment complete</div><div class="hint" style="margin-top: 4px">{{docName}} <span class="mono">{{docNumber}}</span> · printing on Epson TM-T20III</div></div>
+<span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Sent to SUNAT · CDR accepted</span>
+<sc-if value="{{showChange}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 2px"><span class="hint">Change to give</span><span class="mono" style="font-size: 40px; font-weight: 600; color: #0B5F58">{{change}}</span></div>
+</sc-if>
+<div class="dbtns">
+<button type="button">Print again</button>
+<button type="button">Send by email / WhatsApp</button>
+<button type="button" class="newo" onClick="{{newOrder}}">New order</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"h":{"editor":null},"$preview":{"width":1440,"height":900}}'>
+var G = {
+  cook: { name: 'Cooking point', min: 1, max: 1, opts: [['jugoso', 'Jugoso', 0], ['tres', 'Tres cuartos', 0], ['bien', 'Bien cocido', 0]] },
+  extras: { name: 'Burger extras', min: 0, max: 3, opts: [['cheese', 'Cheese', 3], ['bacon', 'Bacon', 5], ['egg', 'Fried egg', 3], ['platano', 'Plátano frito', 3]] },
+  cremas: { name: 'Cremas', min: 0, max: 4, free: 2, each: 1, opts: [['mayo', 'Mayonesa', 0], ['ketchup', 'Ketchup', 0], ['aji', 'Ají', 0], ['huacatay', 'Huacatay', 0], ['tartara', 'Tártara', 0]] },
+  dressing: { name: 'Dressing', min: 1, max: 1, opts: [['caesar', 'Caesar', 0], ['ranch', 'Ranch', 0], ['balsamic', 'Balsamic', 0], ['lemon', 'Olive oil & lemon', 0]] },
+  protein: { name: 'Add protein', min: 0, max: 2, opts: [['chicken', 'Grilled chicken', 8], ['shrimp', 'Shrimp', 12], ['bacon', 'Bacon', 5]] },
+  drink: { name: 'Add a drink', min: 0, max: 1, opts: [['inca', 'Inca Kola 500 ml', 5], ['chicha', 'Chicha morada 500 ml', 6], ['agua', 'Agua mineral 625 ml', 3.5, true]] },
+  side: { name: 'Side', min: 1, max: 1, opts: [['papas', 'Papas fritas', 0], ['ensalada', 'Ensalada', 0], ['chaufa', 'Arroz chaufa', 3]] },
+  cburger: { name: 'Burger', min: 1, max: 1, def: 'classic', opts: [['classic', 'Classic burger', 0], ['cheese', 'Cheese burger', 3], ['crispy', 'Crispy chicken', 2]] },
+  cside: { name: 'Side', min: 1, max: 1, def: 'papas', opts: [['papas', 'Papas fritas', 0], ['camote', 'Camote frito', 1.5], ['salad', 'Side salad', 0]] },
+  cdrink: { name: 'Drink', min: 1, max: 1, def: 'inca', opts: [['inca', 'Inca Kola 500 ml', 0], ['chicha', 'Chicha morada 500 ml', 1], ['agua', 'Agua mineral 625 ml', 0, true]] },
+  entrada: { name: 'Entrada', min: 1, max: 1, def: 'causa', opts: [['causa', 'Causa limeña', 0], ['sopa', 'Sopa del día', 0]] },
+  segundo: { name: 'Segundo', min: 1, max: 1, def: 'aji', opts: [['aji', 'Ají de gallina', 0], ['lomo', 'Lomo saltado', 6], ['tallarines', 'Tallarines verdes', 0]] },
+  refresco: { name: 'Refresco', min: 1, max: 1, def: 'chicha', opts: [['chicha', 'Chicha morada', 0], ['limonada', 'Limonada', 0]] }
+};
+var P = [
+  { id: 'classic', name: 'Classic burger', cat: 'burgers', price: 29, g: ['cook', 'extras'] },
+  { id: 'cheeseb', name: 'Cheese burger', cat: 'burgers', price: 32, g: ['cook', 'extras'] },
+  { id: 'crispy', name: 'Crispy chicken burger', cat: 'burgers', price: 31, g: ['extras'] },
+  { id: 'lomo', name: 'Lomo saltado', cat: 'mains', price: 35, g: ['cook', 'cremas'] },
+  { id: 'pollo', name: 'Pollo a la brasa ¼', cat: 'mains', price: 22, g: ['side', 'cremas'] },
+  { id: 'ajig', name: 'Ají de gallina', cat: 'mains', price: 28, g: [] },
+  { id: 'caesar', name: 'Caesar salad', cat: 'salads', price: 24, g: ['dressing', 'protein', 'drink'] },
+  { id: 'quinoa', name: 'Quinoa salad', cat: 'salads', price: 26, g: ['dressing'] },
+  { id: 'papas', name: 'Papas fritas', cat: 'sides', price: 9, g: ['cremas'] },
+  { id: 'camote', name: 'Camote frito', cat: 'sides', price: 10, g: [] },
+  { id: 'yuca', name: 'Yuca frita', cat: 'sides', price: 9, g: ['cremas'] },
+  { id: 'inca', name: 'Inca Kola 500 ml', cat: 'drinks', price: 5, g: [] },
+  { id: 'chicha', name: 'Chicha morada 500 ml', cat: 'drinks', price: 6, g: [] },
+  { id: 'limonada', name: 'Limonada', cat: 'drinks', price: 8, g: [] },
+  { id: 'agua', name: 'Agua mineral 625 ml', cat: 'drinks', price: 3.5, g: [], out: true },
+  { id: 'comboburger', name: 'Combo Burger', cat: 'combos', price: 32, g: ['cburger', 'cside', 'cdrink'] },
+  { id: 'menu', name: 'Menú del día', cat: 'combos', price: 18, g: ['entrada', 'segundo', 'refresco'] }
+];
+var CATS = [['all', 'All'], ['burgers', 'Burgers'], ['mains', 'Mains'], ['salads', 'Salads'], ['sides', 'Sides'], ['drinks', 'Drinks'], ['combos', 'Combos']];
+var SEED = [
+  { key: 'lomo|Tres cuartos,Ají,Huacatay', name: 'Lomo saltado', mods: ['Tres cuartos', 'Ají', 'Huacatay'], unit: 35, qty: 1 },
+  { key: 'caesar|Ranch,Grilled chicken', name: 'Caesar salad', mods: ['Ranch', 'Grilled chicken'], unit: 32, qty: 1 },
+  { key: 'inca|', name: 'Inca Kola 500 ml', mods: [], unit: 5, qty: 2 }
+];
+function fmt(n) { return n.toFixed(2); }
+function money(n) { return 'S/ ' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function initials(name) { var w = name.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ ]/g, '').split(' ').filter(Boolean); return ((w[0] || '')[0] + ((w[1] || '')[0] || '')).toUpperCase(); }
+function optObj(o) { return { id: o[0], label: o[1], price: o[2], out: !!o[3] }; }
+function groupExtra(g, chosen) {
+  var sum = 0;
+  g.opts.forEach(function (o) { if (chosen.indexOf(o[0]) >= 0) sum += o[2]; });
+  if (g.free !== undefined) sum += Math.max(0, chosen.length - g.free) * g.each;
+  return sum;
+}
+class Component extends DCLogic {
+  S() {
+    var st = this.state || {};
+    return {
+      cat: st.cat || 'all',
+      lines: st.lines || SEED,
+      sheet: st.sheet || null,
+      type: st.type || 'dine',
+      screen: st.screen || 'order',
+      doc: st.doc || 'boleta',
+      pay: st.pay || 'cash',
+      tendered: st.tendered === undefined ? '150' : st.tendered
+    };
+  }
+  addLine(name, mods, unit, qty, pid) {
+    var s = this.S();
+    var key = pid + '|' + mods.join(',');
+    var lines = s.lines.map(function (l) { return Object.assign({}, l); });
+    var hit = lines.filter(function (l) { return l.key === key; })[0];
+    if (hit) hit.qty += qty; else lines.push({ key: key, name: name, mods: mods, unit: unit, qty: qty });
+    this.setState({ lines: lines, sheet: null });
+  }
+  openProduct(p) {
+    if (p.out) return;
+    if (!p.g.length) { this.addLine(p.name, [], p.price, 1, p.id); return; }
+    var sel = {};
+    p.g.forEach(function (gid) { sel[gid] = G[gid].def ? [G[gid].def] : []; });
+    this.setState({ sheet: { pid: p.id, sel: sel, qty: 1 } });
+  }
+  sheetToggle(gid, oid) {
+    var s = this.S(); var sh = s.sheet; var g = G[gid];
+    var sel = Object.assign({}, sh.sel); var cur = (sel[gid] || []).slice();
+    var i = cur.indexOf(oid);
+    if (i >= 0) { if (!(g.max === 1 && g.min === 1)) cur.splice(i, 1); }
+    else if (g.max === 1) cur = [oid];
+    else if (cur.length < g.max) cur.push(oid);
+    sel[gid] = cur;
+    this.setState({ sheet: Object.assign({}, sh, { sel: sel }) });
+  }
+  setLineQty(key, delta) {
+    var lines = this.S().lines.map(function (l) { return Object.assign({}, l); })
+      .map(function (l) { if (l.key === key) l.qty += delta; return l; })
+      .filter(function (l) { return l.qty > 0; });
+    this.setState({ lines: lines });
+  }
+  renderVals() {
+    var self = this;
+    var s = this.S();
+    var rootH = this.props.h || '100vh';
+
+    var cats = CATS.map(function (c) {
+      var n = c[0] === 'all' ? P.length : P.filter(function (p) { return p.cat === c[0]; }).length;
+      return { label: c[1], count: n + ' items', cls: s.cat === c[0] ? 'on' : '', pressed: s.cat === c[0] ? 'true' : 'false', pick: function () { self.setState({ cat: c[0] }); } };
+    });
+    var tiles = P.filter(function (p) { return s.cat === 'all' || p.cat === s.cat; }).map(function (p) {
+      return {
+        name: p.name, price: money(p.price), ini: p.cat === 'combos' ? 'CO' : initials(p.name),
+        badge: p.out ? 'Out of stock' : (p.g.length ? (p.cat === 'combos' ? p.g.length + ' choices' : 'Options') : ''),
+        cls: 't-' + p.cat + (p.out ? ' out' : ''),
+        pick: function () { self.openProduct(p); }
+      };
+    });
+
+    var total = 0, count = 0;
+    var lines = s.lines.map(function (l) {
+      total += l.unit * l.qty; count += l.qty;
+      return {
+        name: l.name, mods: l.mods, qty: l.qty, total: money(l.unit * l.qty),
+        inc: function () { self.setLineQty(l.key, 1); },
+        dec: function () { self.setLineQty(l.key, -1); },
+        remove: function () { self.setLineQty(l.key, -9999); }
+      };
+    });
+    var op = total / 1.18;
+    var TYPES = [['dine', 'Dine in'], ['take', 'Takeaway'], ['curb', 'Curbside']];
+    var types = TYPES.map(function (t) { return { label: t[1], cls: s.type === t[0] ? 'on' : '', pressed: s.type === t[0] ? 'true' : 'false', pick: function () { self.setState({ type: t[0] }); } }; });
+
+    var sh = { name: '', base: '', groups: [], qty: 1, total: '', addCls: '', hasMissing: false, missingText: '' };
+    if (s.sheet) {
+      var p = P.filter(function (x) { return x.id === s.sheet.pid; })[0];
+      var unit = p.price; var missing = []; var mods = [];
+      var groups = p.g.map(function (gid) {
+        var g = G[gid]; var chosen = s.sheet.sel[gid] || [];
+        if (chosen.length < g.min) missing.push(g.name.toLowerCase());
+        unit += groupExtra(g, chosen);
+        var full = g.max > 1 && chosen.length >= g.max;
+        var options = g.opts.map(optObj).map(function (o) {
+          var on = chosen.indexOf(o.id) >= 0;
+          if (on) mods.push(o.label);
+          var note = o.out ? 'Out of stock' : (o.price ? '+ S/ ' + fmt(o.price) : (g.free !== undefined ? 'First ' + g.free + ' free' : 'Included'));
+          return { label: o.label, note: note, pressed: on ? 'true' : 'false', cls: o.out ? 'off' : (on ? 'on' : (full ? 'dim' : '')), pick: function () { if (!o.out) self.sheetToggle(gid, o.id); } };
+        });
+        var met = chosen.length >= g.min;
+        var rule = g.max === 1 ? 'Pick 1' : 'Up to ' + g.max + ' · ' + chosen.length + ' chosen';
+        if (g.free !== undefined && chosen.length > g.free) rule += ' · +S/ ' + fmt((chosen.length - g.free) * g.each);
+        return { name: g.name, rule: rule, options: options, badge: g.min ? (met ? 'DONE' : 'REQUIRED') : 'OPTIONAL', badgeCls: g.min ? (met ? 'done' : 'req') : 'optl' };
+      });
+      var q = s.sheet.qty;
+      sh = {
+        name: p.name, base: money(p.price), groups: groups, qty: q, total: money(unit * q),
+        hasMissing: missing.length > 0, missingText: 'Choose: ' + missing.join(', '),
+        addCls: missing.length ? 'dis' : '',
+        add: function () { if (!missing.length) self.addLine(p.name, mods, unit, q, p.id); },
+        close: function () { self.setState({ sheet: null }); },
+        inc: function () { self.setState({ sheet: Object.assign({}, s.sheet, { qty: q + 1 }) }); },
+        dec: function () { if (q > 1) self.setState({ sheet: Object.assign({}, s.sheet, { qty: q - 1 }) }); }
+      };
+    } else {
+      sh.add = sh.close = sh.inc = sh.dec = function () {};
+    }
+
+    var DOCS = [['boleta', 'Boleta', 'Consumer · DNI optional'], ['factura', 'Factura', 'Business · RUC required'], ['nota', 'Nota de venta', 'Internal, not sent']];
+    var docs = DOCS.map(function (d) { return { label: d[1], sub: d[2], cls: s.doc === d[0] ? 'on' : '', pressed: s.doc === d[0] ? 'true' : 'false', pick: function () { self.setState({ doc: d[0] }); } }; });
+    var METHODS = [['cash', 'Cash', 'Soles'], ['card', 'Card', 'POS terminal'], ['yape', 'Yape / Plin', 'QR'], ['split', 'Split', 'Several methods']];
+    var methods = METHODS.map(function (m) { return { label: m[1], sub: m[2], cls: s.pay === m[0] ? 'on' : '', pressed: s.pay === m[0] ? 'true' : 'false', pick: function () { self.setState({ pay: m[0] }); } }; });
+    var tend = parseFloat(s.tendered || '0') || 0;
+    var change = tend - total;
+    var KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'del'];
+    var keys = KEYS.map(function (k) {
+      return {
+        label: k === 'del' ? '⌫' : k, aria: k === 'del' ? 'Delete' : k,
+        press: function () {
+          var t = self.S().tendered || '';
+          if (k === 'del') t = t.slice(0, -1);
+          else if (k === '.' && t.indexOf('.') >= 0) return;
+          else if (t.indexOf('.') >= 0 && t.split('.')[1].length >= 2) return;
+          else t = t + k;
+          self.setState({ tendered: t });
+        }
+      };
+    });
+    var quick = [['Exact', total], ['S/ 50', 50], ['S/ 100', 100], ['S/ 200', 200]].map(function (q) {
+      return { label: q[0], pick: function () { self.setState({ tendered: fmt(q[1]) }); } };
+    });
+    var canConfirm = s.pay !== 'cash' || change >= -0.001;
+    var DOCNUM = { boleta: ['Boleta', 'B001-00012880'], factura: ['Factura', 'F001-00000414'], nota: ['Nota de venta', 'NV01-00003310'] };
+    var typeLabel = { dine: 'Dine in', take: 'Takeaway', curb: 'Curbside' }[s.type];
+
+    return {
+      rootH: rootH, cats: cats, tiles: tiles, types: types, lines: lines,
+      isEmpty: lines.length === 0,
+      itemCount: count + (count === 1 ? ' item' : ' items'),
+      opGrav: money(op), igv: money(total - op), total: money(total),
+      chargeCls: lines.length ? '' : 'dis',
+      clear: function () { self.setState({ lines: [] }); },
+      toPay: function () { if (lines.length) self.setState({ screen: 'pay', sheet: null }); },
+      toOrder: function () { self.setState({ screen: 'order' }); },
+      sheetOpen: !!s.sheet && s.screen === 'order', sh: sh,
+      isPay: s.screen === 'pay', isDone: s.screen === 'done',
+      docs: docs, methods: methods,
+      custLabel: s.doc === 'factura' ? 'Customer RUC' : 'Customer DNI',
+      custPh: s.doc === 'factura' ? '20XXXXXXXXX' : 'Optional for boletas under S/ 700',
+      custHint: s.doc === 'factura' ? 'We fetch the razón social and address from SUNAT.' : (total > 700 ? 'Required: this boleta is over S/ 700.' : 'Leave empty for an anonymous boleta.'),
+      isCash: s.pay === 'cash', isOther: s.pay !== 'cash',
+      otherHint: s.pay === 'card' ? 'Charge on the card terminal' : (s.pay === 'yape' ? 'Show QR to the customer' : 'Split between methods'),
+      tendered: money(tend), quick: quick, keys: keys,
+      change: money(Math.abs(change)),
+      changeLabel: change >= -0.001 ? 'Change' : 'Missing',
+      changeCls: change >= -0.001 ? '' : 'short',
+      confirmCls: canConfirm ? '' : 'dis',
+      confirm: function () { if (canConfirm) self.setState({ screen: 'done' }); },
+      typeLabel: typeLabel,
+      docName: DOCNUM[s.doc][0], docNumber: DOCNUM[s.doc][1],
+      showChange: s.pay === 'cash' && change > 0.001,
+      newOrder: function () { self.setState({ screen: 'order', lines: [], tendered: '', pay: 'cash', doc: 'boleta', type: 'dine' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

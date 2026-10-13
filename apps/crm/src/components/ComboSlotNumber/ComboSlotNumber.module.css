@@ -1,0 +1,19 @@
+.number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-on-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.small {
+  width: 18px;
+  height: 18px;
+  font-size: 10.5px;
+}

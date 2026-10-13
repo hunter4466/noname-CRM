@@ -1,0 +1,67 @@
+import type { ModifierGroupInput } from '@noname/types';
+import { Card, CardBody, CardHeader, Field, FieldGrid, TextInput, ToggleRow } from '@noname/ui';
+import { describeSelectionRules } from '@/lib/describeSelectionRules';
+import styles from './SelectionRulesCard.module.css';
+
+export interface SelectionRulesCardProps {
+  draft: ModifierGroupInput;
+  updateField: <K extends keyof ModifierGroupInput>(field: K, value: ModifierGroupInput[K]) => void;
+  onRequiredChange: (isRequired: boolean) => void;
+}
+
+const toCount = (value: string) => Math.max(0, Math.floor(Number(value) || 0));
+
+export const SelectionRulesCard = ({ draft, updateField, onRequiredChange }: SelectionRulesCardProps) => (
+  <Card>
+    <CardHeader title="Selection rules" />
+    <CardBody>
+      <FieldGrid>
+        <ToggleRow
+          label="Required"
+          hint="Can't add the item without a choice"
+          checked={draft.minSelections > 0}
+          onChange={onRequiredChange}
+        />
+        <Field label="Minimum" htmlFor="groupMin">
+          <TextInput
+            id="groupMin"
+            monospace
+            type="number"
+            min={0}
+            value={draft.minSelections}
+            onChange={(event) => updateField('minSelections', toCount(event.target.value))}
+          />
+        </Field>
+        <Field label="Maximum" htmlFor="groupMax">
+          <TextInput
+            id="groupMax"
+            monospace
+            type="number"
+            min={1}
+            value={draft.maxSelections}
+            onChange={(event) => updateField('maxSelections', Math.max(1, toCount(event.target.value)))}
+          />
+        </Field>
+        <Field label="Free choices" htmlFor="groupFree">
+          <TextInput
+            id="groupFree"
+            monospace
+            type="number"
+            min={0}
+            value={draft.freeSelections}
+            onChange={(event) => updateField('freeSelections', toCount(event.target.value))}
+          />
+        </Field>
+      </FieldGrid>
+      <ToggleRow
+        label="Same option more than once"
+        hint={'e.g. "2 × Inca Kola" inside one combo'}
+        checked={draft.allowRepeats}
+        onChange={(allowRepeats) => updateField('allowRepeats', allowRepeats)}
+      />
+      <div className={styles.summary}>
+        <strong>Reads as:</strong> {describeSelectionRules(draft)}
+      </div>
+    </CardBody>
+  </Card>
+);

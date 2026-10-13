@@ -1,0 +1,21 @@
+.shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 999 1 560px;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  padding: 28px 36px 56px;
+}
+
+@media (max-width: 760px) {
+  .main {
+    padding: 20px 16px 40px;
+  }
+}

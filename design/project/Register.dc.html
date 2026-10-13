@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Create account</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+a{color:#0B5F58}a:hover{color:#084A44}
+.au *{box-sizing:border-box}
+.au{display:flex;flex-wrap:wrap;min-height:100vh;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.45;color:#15171A;background:#F4F5F2}
+.au svg{flex:none}
+.au button{font:inherit;cursor:pointer}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+.bp{flex:1 1 440px;display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:48px;background:#111315;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;color:#FFFFFF;font-weight:700;font-size:20px;text-decoration:none}
+.brand:hover{color:#FFFFFF}
+.mark{width:36px;height:36px;border-radius:10px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.bp h2{margin:0;max-width:460px;font-size:40px;line-height:1.1;font-weight:600;letter-spacing:-0.03em;color:#FFFFFF}
+.bp .sub{margin:14px 0 0;max-width:420px;font-size:16px;color:#B4B9BF}
+.feats{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.ft{display:flex;gap:12px;align-items:flex-start;max-width:420px}
+.fti{width:34px;height:34px;border-radius:9px;background:#1D3B37;color:#5FC4B6;display:flex;align-items:center;justify-content:center;flex:none}
+.ft b{display:block;color:#FFFFFF;font-weight:600}
+.ft span{font-size:13px}
+.foot{font-size:12px;color:#8B9098}
+.fp{flex:1 1 520px;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+.fb{width:min(420px,100%);display:flex;flex-direction:column;gap:20px}
+.fb h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-0.02em}
+.hint{font-size:13px;color:#5B6068}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.lbl{font-size:13px;font-weight:500;color:#3D4249}
+.lrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lrow a{font-size:13px;font-weight:500}
+.inp{width:100%;height:48px;padding:0 14px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;font:inherit;font-size:15px;color:#15171A}
+.inp:focus{outline:2px solid #0F766E;outline-offset:-1px;border-color:#0F766E}
+.pw{position:relative}
+.pw .inp{padding-right:52px}
+.eye{position:absolute;right:4px;top:4px;width:40px;height:40px;border:0;border-radius:8px;background:transparent;color:#5B6068;display:flex;align-items:center;justify-content:center}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;height:48px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;color:#15171A;font-weight:500;font-size:15px;text-decoration:none}
+.gbtn:hover{background:#F6F7F4;color:#15171A}
+.gmk{width:22px;height:22px;border-radius:999px;border:1.5px solid #8B9098;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#3D4249}
+.or{display:flex;align-items:center;gap:12px;color:#6B7078;font-size:12.5px}
+.or::before,.or::after{content:'';flex:1;height:1px;background:#E3E5E0}
+.pri{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border:0;border-radius:10px;background:#0F766E;color:#FFFFFF !important;font-weight:600;font-size:15px;text-decoration:none}
+.pri:hover{background:#0B5F58}
+.sec{display:flex;align-items:center;justify-content:center;height:48px;padding:0 18px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;color:#15171A;font-weight:500;text-decoration:none}
+.chk{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#3D4249}
+.chk input{width:18px;height:18px;accent-color:#0F766E;margin:0}
+.alt{font-size:14px;color:#3D4249;text-align:center}
+.alt a{font-weight:600}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stp{display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:500;color:#6B7078}
+.stp i{height:4px;border-radius:999px;background:#E3E5E0}
+.stp.on{color:#15171A}
+.stp.on i{background:#0F766E}
+.stp.dn i{background:#0F766E}
+.rules{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.rl{display:flex;align-items:center;gap:8px;color:#5B6068}
+.rl.ok{color:#0B5F58}
+.meter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.meter i{height:4px;border-radius:999px;background:#E3E5E0}
+.meter i.f{background:#0F766E}
+.found{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:12px;background:#E3F3EE;color:#0B5F58}
+.types{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ty{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 14px;border:1.5px solid #D5D8D2;border-radius:12px;background:#FFFFFF;text-align:left;font-weight:600;color:#15171A}
+.ty small{font-weight:400;font-size:12px;color:#5B6068}
+.ty.on{border-color:#0F766E;background:#F7FBFA;box-shadow:inset 0 0 0 1px #0F766E}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.btns{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:48px;height:48px;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;font-size:20px}
+.stepper b{min-width:44px;text-align:center;font-size:18px}
+.big{width:64px;height:64px;border-radius:18px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center}
+.code{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.code input{height:56px;text-align:center;font-size:22px;font-family:'Geist Mono',ui-monospace,monospace;border:1px solid #D5D8D2;border-radius:10px;background:#FFFFFF;color:#15171A;width:100%;min-width:0}
+.code input.f{border-color:#0F766E}
+.au .pri,.au .ty{font-weight:600}
+.au .gbtn,.au .sec{font-weight:500}
+.link{border:0;background:transparent;padding:0;color:#0B5F58;font-weight:500;text-decoration:underline}
+@media (max-width: 760px){.bp{padding:24px}.bp .mid,.bp .foot{display:none}.row2{grid-template-columns:minmax(0,1fr)}}
+</style>
+</helmet>
+<div class="au">
+<aside class="bp">
+<a class="brand" href="Login.dc.html"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM</a>
+<div class="mid">
+<h2>Run every counter from one place.</h2>
+<p class="sub">Point of sale, SUNAT e-invoicing and all your locations, managed from one dashboard.</p>
+<div class="feats">
+<div class="ft"><span class="fti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10"></path></svg></span><div><b>POS for web and tablet</b><span>Same register on every device, works offline.</span></div></div>
+<div class="ft"><span class="fti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg></span><div><b>Boletas and facturas to SUNAT</b><span>Issued, signed and sent at checkout.</span></div></div>
+<div class="ft"><span class="fti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span><div><b>Every location, one view</b><span>Menus, terminals and printers per store.</span></div></div>
+</div>
+</div>
+<div class="foot">© 2026 CRM · Lima, Perú</div>
+</aside>
+<main class="fp">
+<div class="fb">
+<sc-if value="{{notDone}}" hint-placeholder-val="{{ true }}">
+<div class="steps" aria-label="Progress">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="3"><div class="stp {{s.cls}}"><i></i>{{s.label}}</div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{s1}}" hint-placeholder-val="{{ true }}">
+<div class="fb">
+<div><h1>Create your account</h1><div class="hint" style="margin-top: 6px">You&#39;ll be the owner. Invite your team later.</div></div>
+<button type="button" class="gbtn" onClick="{{next}}"><span class="gmk" aria-hidden="true">G</span>Sign up with Google</button>
+<div class="or">or with email</div>
+<div class="field"><label for="rn">Full name</label><input class="inp" id="rn" autocomplete="name" placeholder="Your name"></div>
+<div class="field"><label for="re">Work email</label><input class="inp" id="re" type="email" autocomplete="email" placeholder="you@company.pe"></div>
+<div class="field"><label for="rp">Password</label><div class="pw"><input class="inp" id="rp" type="password" autocomplete="new-password" value="Ceviche2026"><button type="button" class="eye" aria-label="Show password"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div>
+<div class="meter" aria-label="Password strength: good"><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div>
+<div class="rules"><span class="rl ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>At least 8 characters</span><span class="rl ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>A number</span><span class="rl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle></svg>A symbol (recommended)</span></div>
+</div>
+<label class="chk"><input type="checkbox" checked="checked">I agree to the Terms and Privacy Policy</label>
+<button type="button" class="pri" onClick="{{next}}">Continue</button>
+<div class="alt">Already have an account? <a href="Login.dc.html">Sign in</a></div>
+</div>
+</sc-if>
+
+<sc-if value="{{s2}}" hint-placeholder-val="{{ false }}">
+<div class="fb">
+<div><h1>Your business</h1><div class="hint" style="margin-top: 6px">We use your RUC to fill in your SUNAT details.</div></div>
+<div class="field"><label for="ruc">RUC</label><div style="display: flex; gap: 8px"><input class="inp mono" id="ruc" inputmode="numeric" placeholder="20XXXXXXXXX"><button type="button" class="sec" onClick="{{lookup}}">Validate</button></div></div>
+<sc-if value="{{found}}" hint-placeholder-val="{{ false }}">
+<div class="found"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><div><div style="font-weight: 600">[RAZÓN SOCIAL S.A.C.]</div><div style="font-size: 13px">Activo · Habido · domicilio fiscal loaded</div></div></div>
+</sc-if>
+<div class="field"><label for="cn">Commercial name</label><input class="inp" id="cn" placeholder="Name customers see on receipts"></div>
+<div class="field"><span class="lbl">Type of business</span>
+<div class="types">
+<sc-for list="{{types}}" as="t" hint-placeholder-count="4"><button type="button" class="ty {{t.cls}}" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}">{{t.label}}<small>{{t.sub}}</small></button></sc-for>
+</div></div>
+<div class="btns"><button type="button" class="sec" onClick="{{back}}">Back</button><button type="button" class="pri" onClick="{{next}}">Continue</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{s3}}" hint-placeholder-val="{{ false }}">
+<div class="fb">
+<div><h1>Your first location</h1><div class="hint" style="margin-top: 6px">You can add the map pin, printers and more locations later.</div></div>
+<div class="field"><label for="ln">Location name</label><input class="inp" id="ln" placeholder="e.g. Miraflores"></div>
+<div class="row2">
+<div class="field"><label for="ld">District</label><select class="inp" id="ld"><option>Miraflores</option><option>San Isidro</option><option>Barranco</option><option>Surco</option></select></div>
+<div class="field"><label for="lh">Opening hours</label><input class="inp" id="lh" placeholder="12:00 – 23:00"></div>
+</div>
+<div class="field"><span class="lbl">How many registers (POS)?</span>
+<div class="stepper"><button type="button" aria-label="Fewer" onClick="{{fewer}}">−</button><b class="mono">{{posCount}}</b><button type="button" aria-label="More" onClick="{{more}}">+</button><span class="hint" style="margin-left: 8px">Named Counter POS, POS 2… rename them anytime</span></div></div>
+<div class="btns"><button type="button" class="sec" onClick="{{back}}">Back</button><button type="button" class="pri" onClick="{{next}}">Create account</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{s4}}" hint-placeholder-val="{{ false }}">
+<div class="fb">
+<span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span>
+<div><h1>Check your inbox</h1><div class="hint" style="margin-top: 6px; font-size: 15px">We sent a verification link to <b style="color: #15171A">you@company.pe</b>. Open it to activate your account.</div></div>
+<a class="pri" href="Main.dc.html">I&#39;ve verified, go to my dashboard</a>
+<div class="hint">Didn&#39;t get it? Check spam, or <button type="button" class="link">resend the email</button> in 0:45.</div>
+<div class="hint">Wrong email? <button type="button" class="link" onClick="{{restart}}">Start over</button></div>
+</div>
+</sc-if>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+var TYPES = [['rest', 'Restaurant', 'Dine-in, kitchen tickets'], ['cafe', 'Café / bakery', 'Quick counter service'], ['bar', 'Bar', 'Tabs and tables'], ['retail', 'Retail', 'Products and stock']];
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var step = st.step || 1;
+    var type = st.type || 'rest';
+    var pos = st.pos || 2;
+    var labels = ['Account', 'Business', 'Location'];
+    var steps = labels.map(function (l, i) {
+      var n = i + 1;
+      return { label: n + '. ' + l, cls: n === step ? 'on' : (n < step ? 'dn' : '') };
+    });
+    return {
+      steps: steps, notDone: step < 4,
+      s1: step === 1, s2: step === 2, s3: step === 3, s4: step === 4,
+      next: function () { self.setState({ step: Math.min(4, step + 1) }); },
+      back: function () { self.setState({ step: Math.max(1, step - 1) }); },
+      restart: function () { self.setState({ step: 1, found: false }); },
+      found: !!st.found,
+      lookup: function () { self.setState({ found: true }); },
+      types: TYPES.map(function (t) { return { label: t[1], sub: t[2], cls: type === t[0] ? 'on' : '', pressed: type === t[0] ? 'true' : 'false', pick: function () { self.setState({ type: t[0] }); } }; }),
+      posCount: pos,
+      fewer: function () { self.setState({ pos: Math.max(1, pos - 1) }); },
+      more: function () { self.setState({ pos: Math.min(20, pos + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

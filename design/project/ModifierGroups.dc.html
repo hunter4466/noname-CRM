@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS Modifier groups</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+a{color:#0B5F58}a:hover{color:#084A44}
+.app *{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap;align-items:stretch;min-height:100vh;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.45;color:#15171A;background:#F4F5F2}
+.app svg{flex:none}
+.rail{flex:1 1 256px;display:flex;flex-direction:column;gap:2px;padding:20px 12px;background:#111315;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;color:#FFFFFF;font-weight:700;font-size:18px;letter-spacing:-0.01em;text-decoration:none}
+.brand:hover{color:#FFFFFF}
+.mark{width:30px;height:30px;border-radius:8px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.sect{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:14px 10px 6px}
+.ri{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#C9CDD2;text-decoration:none;font:inherit;font-weight:500;text-align:left;cursor:pointer}
+.ri:hover{background:#1C1F23;color:#FFFFFF}
+.ri.on{background:#23282C;color:#FFFFFF}
+.ri .tag{margin-left:auto;font-size:11px;padding:1px 8px;border-radius:999px;background:#0F766E;color:#FFFFFF}
+.ri.add{border:1px dashed #3A3F45;color:#9AA0A7}
+.cfg{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:8px}
+.me{display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 10px;border-top:1px solid #24282C}
+.av{width:32px;height:32px;border-radius:999px;background:#2B3035;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+.grp{color:#FFFFFF}
+.grp .chev{margin-left:auto;color:#8B9098;transition:transform .15s}
+.grp .chev.shut{transform:rotate(-90deg)}
+.nest{display:flex;flex-direction:column;gap:2px;margin:2px 0 6px 19px;padding-left:10px;border-left:1px solid #2A2F34}
+.nsect{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:10px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 10px;border-radius:8px;color:#B4B9BF;text-decoration:none;font-weight:500;font-size:13.5px}
+.ni:hover{background:#1C1F23;color:#FFFFFF}
+.ni.on{background:#1D3B37;color:#FFFFFF}
+.ni.on svg{color:#5FC4B6}
+.ni small{margin-left:auto;font-size:11px;color:#8B9098;font-weight:500}
+.sub{flex:1 1 212px;display:flex;flex-direction:column;gap:2px;padding:22px 12px;background:#FFFFFF;border-right:1px solid #E3E5E0}
+.subh{display:flex;align-items:center;gap:10px;padding:2px 10px 14px}
+.modi{width:34px;height:34px;border-radius:9px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center;flex:none}
+.sect2{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B7078;padding:16px 10px 6px}
+.si{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:8px;color:#3D4249;text-decoration:none;font-weight:500}
+.si:hover{background:#F1F3EF;color:#15171A}
+.si.on{background:#E6F2F0;color:#0B5F58}
+.si small{margin-left:auto;font-size:11px;color:#6B7078;font-weight:500}
+.main{flex:999 1 560px;min-width:0;padding:28px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:#5B6068}
+.crumbs a{color:#5B6068;text-decoration:none}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.ph h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-0.02em}
+.lede{margin:4px 0 0;color:#5B6068;max-width:680px}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:8px;border:1px solid #D5D8D2;background:#FFFFFF;color:#15171A;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:#F6F7F4;color:#15171A}
+.btn.pri{background:#0F766E;border-color:#0F766E;color:#FFFFFF}
+.btn.pri:hover{background:#0B5F58;color:#FFFFFF}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.btn.dng{color:#9A1C12}
+.card{background:#FFFFFF;border:1px solid #E3E5E0;border-radius:12px;min-width:0}
+.ch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #EEF0EC}
+.ch h2{margin:0;font-size:16px;font-weight:600}
+.cb{padding:20px;display:flex;flex-direction:column;gap:16px}
+.scroll{overflow-x:auto}
+.app table{width:100%;border-collapse:collapse;min-width:560px}
+.app th{text-align:left;font-size:12px;font-weight:600;color:#5B6068;padding:11px 14px;border-bottom:1px solid #E3E5E0;background:#FAFAF8;white-space:nowrap}
+.app td{padding:10px 14px;border-bottom:1px solid #EEF0EC;vertical-align:middle}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-size:13px}
+.muted{color:#5B6068}
+.hint{font-size:12px;color:#5B6068}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:500;background:#EEF0EC;color:#3D4249;white-space:nowrap}
+.pill.ok{background:#E3F3EE;color:#0B5F58}
+.pill.warn{background:#FDF0DC;color:#8A4205}
+.pill.info{background:#E6EEF7;color:#24476E}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid #E3E5E0}
+.tab{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;margin-bottom:-1px;border-bottom:2px solid transparent;color:#5B6068;text-decoration:none;font-weight:500}
+.tab:hover{color:#15171A}
+.tab.on{color:#15171A;border-bottom-color:#0F766E}
+.tab .n{font-size:12px;padding:1px 7px;border-radius:999px;background:#EEF0EC;color:#3D4249}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:500;color:#3D4249}
+.app input,.app select{font:inherit;width:100%;min-height:42px;padding:0 12px;border:1px solid #D5D8D2;border-radius:8px;background:#FFFFFF;color:#15171A}
+.app input[type=radio]{width:18px;height:18px;min-height:0;padding:0;accent-color:#0F766E}
+.app input.sw{appearance:none;-webkit-appearance:none;position:relative;width:38px;height:22px;min-height:0;padding:0;border:0;border-radius:999px;background:#C9CDC6;cursor:pointer;flex:none}
+.app input.sw::before{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:999px;background:#FFFFFF}
+.app input.sw:checked{background:#0F766E}
+.app input.sw:checked::before{left:19px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:6px;border:1px solid #E3E5E0;background:#FAFAF8;font-size:12px;font-weight:500;color:#3D4249;white-space:nowrap}
+.chip.lk{background:#E6EEF7;border-color:#CFDDEE;color:#24476E}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.gl{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:10px;border:1px solid transparent;color:#15171A;text-decoration:none}
+.gl:hover{background:#F6F7F4;color:#15171A}
+.gl.on{background:#E6F2F0;border-color:#9FCFC8}
+.gl .top{display:flex;align-items:center;gap:8px;font-weight:500}
+.gl .top .hint{margin-left:auto}
+.kind{flex:1 1 220px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px}
+.ki{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;border:1px solid #E3E5E0;border-radius:10px}
+.say{padding:12px 14px;border-radius:10px;background:#F4F5F2;color:#3D4249}
+.handle{color:#8B9098;cursor:grab}
+.money{display:inline-flex;align-items:center;border:1px solid #D5D8D2;border-radius:8px;overflow:hidden}
+.money span{padding:0 8px;color:#5B6068;background:#FAFAF8;border-right:1px solid #E3E5E0;align-self:stretch;display:flex;align-items:center}
+.money input{border:0;border-radius:0;min-height:36px;width:64px;min-width:0}
+</style>
+</helmet>
+<div class="app">
+<nav class="rail" aria-label="Main navigation">
+<a class="brand" href="Main.dc.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM</a>
+<div class="sect">My modules</div>
+<button class="ri grp" type="button" aria-expanded="{{navExpanded}}" aria-controls="pos-nav" onClick="{{toggleNav}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg>Point of Sale<svg class="chev {{navChev}}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}">
+<div class="nest" id="pos-nav">
+<a class="ni" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Dashboard</a>
+<div class="nsect">Catalog</div>
+<a class="ni on" href="Products.dc.html" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"></path><path d="M3 8l9 5 9-5M12 13v8"></path></svg>Products<small>48</small></a>
+<div class="nsect">Setup</div>
+<a class="ni" href="Locations.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Locations<small>3</small></a>
+<a class="ni" href="Sunat.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg>Configuration<small>SUNAT</small></a>
+</div>
+</sc-if>
+<a class="ri add" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add module</a>
+<div class="cfg">
+<div class="sect">Configuration</div>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Users</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>Roles &amp; permissions</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"></path></svg>Company</a>
+<div class="me"><span class="av">MC</span><div style="display: flex; flex-direction: column; min-width: 0"><span style="color: #FFFFFF; font-weight: 500">Mario C.</span><span style="font-size: 12px; color: #8B9098">Owner</span></div></div>
+<a class="ri" href="Login.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5v16h4M15 8l4 4-4 4M19 12H9"></path></svg>Log out</a>
+</div>
+</nav>
+<main class="main">
+<div class="crumbs"><a href="Main.dc.html">Point of Sale</a><span aria-hidden="true">/</span><a href="Products.dc.html">Products</a><span aria-hidden="true">/</span><span style="color: #15171A">Modifier groups</span></div>
+<div class="ph">
+<div><h1>Modifier groups</h1><p class="lede">Reusable sets of choices — dressings, sides, drinks, cooking points. Rules decide what the cashier must pick; each option can be plain text, a real product, or open another group.</p></div>
+<div class="acts"><button class="btn pri" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New group</button></div>
+</div>
+
+<div class="tabs" role="tablist">
+<a class="tab" href="Products.dc.html" role="tab" aria-selected="false">Products<span class="n">48</span></a>
+<a class="tab" href="Combos.dc.html" role="tab" aria-selected="false">Combos<span class="n">4</span></a>
+<a class="tab on" href="ModifierGroups.dc.html" role="tab" aria-selected="true">Modifier groups<span class="n">9</span></a>
+<a class="tab" href="#" role="tab" aria-selected="false">Categories<span class="n">6</span></a>
+</div>
+
+<section class="card" style="display: flex; flex-wrap: wrap" aria-label="Kinds of options">
+<div class="kind"><span class="ki" style="background: #EEF0EC; color: #3D4249"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9"></path></svg></span><div><div style="font-weight: 600">Simple option</div><div class="hint">Name + price change. &quot;Ranch&quot;, &quot;Extra cheese +3.00&quot;.</div></div></div>
+<div class="kind"><span class="ki" style="background: #E6EEF7; color: #24476E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></span><div><div style="font-weight: 600">Linked product</div><div class="hint">Option is a real product: stock, out-of-stock and sales reports stay correct.</div></div></div>
+<div class="kind"><span class="ki" style="background: #E6F2F0; color: #0B5F58"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M3 13l9 5 9-5"></path></svg></span><div><div style="font-weight: 600">Nested group</div><div class="hint">Picking an option asks a follow-up: drink → ice; combo → side.</div></div></div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<section class="card" style="flex: 1 1 300px; padding: 8px" aria-label="Groups">
+<div style="padding: 8px 8px 10px"><input type="search" aria-label="Search groups" placeholder="Search groups"></div>
+<a class="gl" href="#"><span class="top">Dressing<span class="pill warn">Required</span><span class="hint">6 products</span></span><span class="hint">Pick 1 · 4 options · pre-modifiers</span></a>
+<a class="gl" href="#"><span class="top">Add protein<span class="hint">9 products</span></span><span class="hint">Up to 3 · 3 options</span></a>
+<a class="gl on" href="#" aria-current="true"><span class="top">Add a drink<span class="hint">14 products</span></span><span class="hint">Pick 1 · 3 linked products</span></a>
+<a class="gl" href="#"><span class="top">Cooking point<span class="pill warn">Required</span><span class="hint">5 products</span></span><span class="hint">Pick 1 · Jugoso, Tres cuartos, Bien cocido</span></a>
+<a class="gl" href="#"><span class="top">Cremas<span class="hint">18 products</span></span><span class="hint">Up to 4 · first 2 free · 6 options</span></a>
+<a class="gl" href="#"><span class="top">Burger extras<span class="hint">7 products</span></span><span class="hint">Up to 5 · 5 options</span></a>
+<a class="gl" href="#"><span class="top">Combo side<span class="pill warn">Required</span><span class="hint">8 products</span></span><span class="hint">Pick 1 · 3 options</span></a>
+<a class="gl" href="#"><span class="top">Ice<span class="hint">nested</span></span><span class="hint">Pick 1 · With ice / No ice</span></a>
+<a class="gl" href="#"><span class="top">Burger build<span class="hint">2 products</span></span><span class="hint">Remove-only · pre-modifiers</span></a>
+</section>
+
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section class="card">
+<div class="ch"><div><h2 style="font-size: 20px">Add a drink</h2><div class="hint">Used in 14 products · last edited today 10:42 by Mario C.</div></div><div class="acts"><button class="btn sm dng" type="button">Delete</button><button class="btn sm pri" type="button">Save group</button></div></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="gname">Group name</label><input id="gname" value="Add a drink"></div>
+<div class="field"><label for="gticket">Name on comanda</label><input id="gticket" value="Drink"></div>
+<div class="field"><label for="gtip">Cashier prompt</label><input id="gtip" value="Offer a drink with every main"></div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2>Selection rules</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="tgl"><div><div class="lbl">Required</div><div class="hint">Can&#39;t add the item without a choice</div></div><input class="sw" type="checkbox" aria-label="Required"></div>
+<div class="field"><label for="gmin">Minimum</label><input id="gmin" class="mono" type="number" value="0"></div>
+<div class="field"><label for="gmax">Maximum</label><input id="gmax" class="mono" type="number" value="1"></div>
+<div class="field"><label for="gfree">Free choices</label><input id="gfree" class="mono" type="number" value="0"></div>
+</div>
+<div class="tgl"><div><div class="lbl">Same option more than once</div><div class="hint">e.g. &quot;2 × Inca Kola&quot; inside one combo</div></div><input class="sw" type="checkbox" aria-label="Allow repeats"></div>
+<div class="say"><strong>Reads as:</strong> Optional · the customer may choose up to 1 drink. Each drink is charged at its option price.</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2>Options</h2><div class="acts"><button class="btn sm" type="button">Link a product</button><button class="btn sm" type="button">Add simple option</button></div></div>
+<div class="scroll">
+<table>
+<thead><tr><th style="width: 32px"><span style="position: absolute; left: -9999px">Order</span></th><th>Option</th><th>Price</th><th>Then ask</th><th>Default</th><th>Available</th></tr></thead>
+<tbody>
+<tr><td class="handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></td><td><div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px"><span style="font-weight: 500">Chicha morada 500 ml</span><span class="chip lk">Linked · BEV-003</span></div></td><td><div class="money"><span>+S/</span><input class="mono" value="6.00" aria-label="Chicha morada price"></div></td><td><span class="chip">Ice</span></td><td><input type="radio" name="def" aria-label="Default Chicha morada"></td><td><input class="sw" type="checkbox" checked="checked" aria-label="Chicha morada available"></td></tr>
+<tr><td class="handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></td><td><div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px"><span style="font-weight: 500">Inca Kola 500 ml</span><span class="chip lk">Linked · BEV-001</span></div></td><td><div class="money"><span>+S/</span><input class="mono" value="5.00" aria-label="Inca Kola price"></div></td><td><span class="chip">Ice</span></td><td><input type="radio" name="def" aria-label="Default Inca Kola"></td><td><input class="sw" type="checkbox" checked="checked" aria-label="Inca Kola available"></td></tr>
+<tr><td class="handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></td><td><div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px"><span style="font-weight: 500">Agua mineral 625 ml</span><span class="chip lk">Linked · BEV-005</span><span class="hint">Out of stock in Miraflores · synced from product</span></div></td><td><div class="money"><span>+S/</span><input class="mono" value="3.50" aria-label="Agua mineral price"></div></td><td class="muted">—</td><td><input type="radio" name="def" aria-label="Default Agua mineral"></td><td><input class="sw" type="checkbox" aria-label="Agua mineral available"></td></tr>
+</tbody>
+</table>
+</div>
+<div style="padding: 12px 16px" class="hint">Linked prices default to the product&#39;s own price — change it here to sell the drink cheaper inside this group.</div>
+</section>
+
+<section class="card">
+<div class="ch"><div><h2>Pre-modifiers</h2><div class="hint" style="margin-top: 2px">Let the cashier say how much of an option. Best for dressings, sauces and toppings.</div></div><input class="sw" type="checkbox" aria-label="Enable pre-modifiers"></div>
+<div class="cb" style="flex-direction: row; flex-wrap: wrap; gap: 8px; align-items: center">
+<span class="chip">No</span><span class="chip">Light</span><span class="chip">Regular</span><span class="chip">Extra · +S/ 1.50</span><span class="chip">On the side</span>
+<span class="hint" style="margin-left: auto">Off for this group</span>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><h2>Used in 14 products</h2><button class="btn sm" type="button">Attach to products…</button></div>
+<div class="cb"><div class="chips"><a class="chip" href="ProductEditor.dc.html">Caesar salad</a><span class="chip">Classic burger</span><span class="chip">Lomo saltado</span><span class="chip">Pollo a la brasa ¼</span><span class="chip">Ají de gallina</span><span class="chip">Club sandwich</span><span class="chip">+ 8 more</span></div></div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1760}}'>
+class Component extends DCLogic {
+  navVals() {
+    var self = this;
+    var st = this.state || {};
+    var open = st.navOpen === undefined ? true : st.navOpen;
+    return {
+      navOpen: open,
+      navExpanded: open ? 'true' : 'false',
+      navChev: open ? '' : 'shut',
+      toggleNav: function () { self.setState({ navOpen: !open }); }
+    };
+  }
+  renderVals() {
+    return Object.assign({}, this.pageVals(), this.navVals());
+  }
+  pageVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

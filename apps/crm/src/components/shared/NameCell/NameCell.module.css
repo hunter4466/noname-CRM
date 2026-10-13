@@ -1,0 +1,16 @@
+.cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.name {
+  color: var(--color-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--color-brand-hover);
+  text-decoration: underline;
+}

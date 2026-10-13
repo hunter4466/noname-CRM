@@ -1,0 +1,65 @@
+# Promote to prod: copy the exact staging images (by commit SHA) into the prod registry, migrate, deploy.
+# Nothing is rebuilt, so prod runs byte-for-byte what was tested on staging.
+# Run manually (or from a tag trigger) with _SOURCE_PROJECT=<staging project> and _SHA=<short sha on staging>.
+substitutions:
+  _ENV: prod
+  _REGION: southamerica-west1
+  _SOURCE_PROJECT: noname-crm-staging
+  _SHA: ""
+  _KEEP_REVISIONS: "3"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+
+timeout: 1200s
+
+steps:
+  - id: check
+    name: bash
+    args: ["-c", "test -n '${_SHA}' || { echo 'Set _SHA to the staging commit to promote'; exit 1; }"]
+
+  - id: copy-images
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        for image in crm pos migrator; do
+          crane copy \
+            "${_REGION}-docker.pkg.dev/${_SOURCE_PROJECT}/apps/$${image}:${_SHA}" \
+            "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/$${image}:${_SHA}"
+        done
+
+  - id: migrate
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud run jobs update "noname-${_ENV}-migrate" --region "${_REGION}" \
+          --image "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/migrator:${_SHA}"
+        gcloud run jobs execute "noname-${_ENV}-migrate" --region "${_REGION}" --wait
+
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        for app in crm pos; do
+          gcloud run deploy "noname-${_ENV}-$${app}" --region "${_REGION}" \
+            --image "${_REGION}-docker.pkg.dev/${PROJECT_ID}/apps/$${app}:${_SHA}" \
+            --to-latest
+        done
+
+  - id: prune
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        for app in crm pos; do
+          bash infra/scripts/prune-cloud-run-revisions.sh "noname-${_ENV}-$${app}" "${_REGION}" "${_KEEP_REVISIONS}"
+        done
+        bash infra/scripts/prune-job-executions.sh "noname-${_ENV}-migrate" "${_REGION}"

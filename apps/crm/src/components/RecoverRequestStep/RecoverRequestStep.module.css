@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.back {
+  font-weight: 500;
+  text-decoration: none;
+}

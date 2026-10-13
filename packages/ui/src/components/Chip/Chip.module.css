@@ -1,0 +1,21 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.default {
+  background: var(--color-surface-pressed);
+  color: var(--color-text);
+}
+
+.linked {
+  background: var(--color-info-bg);
+  color: var(--color-info-fg);
+}

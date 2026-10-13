@@ -1,0 +1,21 @@
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.fields {
+  display: flex;
+  flex: 1 1 360px;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.map {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}

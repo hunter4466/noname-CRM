@@ -1,0 +1,22 @@
+.chart {
+  width: 100%;
+  height: 240px;
+}
+
+.bar {
+  fill: var(--color-brand);
+}
+
+.peak {
+  fill: var(--color-brand-hover);
+}
+
+.forecast {
+  fill: var(--color-brand-muted);
+}
+
+.hour {
+  fill: var(--color-muted);
+  font-size: 11px;
+  text-anchor: middle;
+}

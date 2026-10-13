@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POS Location detail</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F2}
+a{color:#0B5F58}a:hover{color:#084A44}
+.app *{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap;align-items:stretch;min-height:100vh;font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.45;color:#15171A;background:#F4F5F2}
+.app svg{flex:none}
+.rail{flex:1 1 256px;display:flex;flex-direction:column;gap:2px;padding:20px 12px;background:#111315;color:#C9CDD2}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;color:#FFFFFF;font-weight:700;font-size:18px;letter-spacing:-0.01em;text-decoration:none}
+.brand:hover{color:#FFFFFF}
+.mark{width:30px;height:30px;border-radius:8px;background:#0F766E;display:flex;align-items:center;justify-content:center}
+.sect{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:14px 10px 6px}
+.ri{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:#C9CDD2;text-decoration:none;font:inherit;font-weight:500;text-align:left;cursor:pointer}
+.ri:hover{background:#1C1F23;color:#FFFFFF}
+.ri.on{background:#23282C;color:#FFFFFF}
+.ri .tag{margin-left:auto;font-size:11px;padding:1px 8px;border-radius:999px;background:#0F766E;color:#FFFFFF}
+.ri.add{border:1px dashed #3A3F45;color:#9AA0A7}
+.cfg{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:8px}
+.me{display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 10px;border-top:1px solid #24282C}
+.av{width:32px;height:32px;border-radius:999px;background:#2B3035;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+.grp{color:#FFFFFF}
+.grp .chev{margin-left:auto;color:#8B9098;transition:transform .15s}
+.grp .chev.shut{transform:rotate(-90deg)}
+.nest{display:flex;flex-direction:column;gap:2px;margin:2px 0 6px 19px;padding-left:10px;border-left:1px solid #2A2F34}
+.nsect{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8B9098;padding:10px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;min-height:38px;padding:0 10px;border-radius:8px;color:#B4B9BF;text-decoration:none;font-weight:500;font-size:13.5px}
+.ni:hover{background:#1C1F23;color:#FFFFFF}
+.ni.on{background:#1D3B37;color:#FFFFFF}
+.ni.on svg{color:#5FC4B6}
+.ni small{margin-left:auto;font-size:11px;color:#8B9098;font-weight:500}
+.sub{flex:1 1 212px;display:flex;flex-direction:column;gap:2px;padding:22px 12px;background:#FFFFFF;border-right:1px solid #E3E5E0}
+.subh{display:flex;align-items:center;gap:10px;padding:2px 10px 14px}
+.modi{width:34px;height:34px;border-radius:9px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center;flex:none}
+.sect2{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6B7078;padding:16px 10px 6px}
+.si{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:8px;color:#3D4249;text-decoration:none;font-weight:500}
+.si:hover{background:#F1F3EF;color:#15171A}
+.si.on{background:#E6F2F0;color:#0B5F58}
+.si small{margin-left:auto;font-size:11px;color:#6B7078;font-weight:500}
+.main{flex:999 1 560px;min-width:0;padding:28px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:#5B6068}
+.crumbs a{color:#5B6068;text-decoration:none}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.ph h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-0.02em}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:8px;border:1px solid #D5D8D2;background:#FFFFFF;color:#15171A;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:#F6F7F4;color:#15171A}
+.btn.pri{background:#0F766E;border-color:#0F766E;color:#FFFFFF}
+.btn.pri:hover{background:#0B5F58;color:#FFFFFF}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.card{background:#FFFFFF;border:1px solid #E3E5E0;border-radius:12px;min-width:0}
+.ch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #EEF0EC}
+.ch h2{margin:0;font-size:16px;font-weight:600}
+.cb{padding:20px;display:flex;flex-direction:column;gap:16px}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-size:13px}
+.muted{color:#5B6068}
+.hint{font-size:12px;color:#5B6068}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:500;background:#EEF0EC;color:#3D4249;white-space:nowrap}
+.pill.ok{background:#E3F3EE;color:#0B5F58}
+.pill.warn{background:#FDF0DC;color:#8A4205}
+.dot{width:7px;height:7px;border-radius:999px;background:currentColor}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:13px;font-weight:500;color:#3D4249}
+.app input,.app select{font:inherit;width:100%;min-height:42px;padding:0 12px;border:1px solid #D5D8D2;border-radius:8px;background:#FFFFFF;color:#15171A}
+.fg select{padding:0 6px}
+.app input[readonly]{background:#F6F7F4;color:#3D4249}
+.app input.sw{appearance:none;-webkit-appearance:none;position:relative;width:38px;height:22px;min-height:0;padding:0;border:0;border-radius:999px;background:#C9CDC6;cursor:pointer;flex:none}
+.app input.sw::before{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:999px;background:#FFFFFF}
+.app input.sw:checked{background:#0F766E}
+.app input.sw:checked::before{left:19px}
+.bigmap{position:relative;overflow:hidden;height:440px;border-radius:10px;background:#E8ECE4;border:1px solid #E3E5E0}
+.rd{position:absolute;background:#FFFFFF}
+.rd.art{background:#FBEFD5}
+.blk{position:absolute;background:#DCE2D6;border-radius:3px}
+.park{position:absolute;background:#CDE3C9;border-radius:14px}
+.sea{position:absolute;background:#CCDFEA}
+.lab{position:absolute;font-size:11px;font-weight:600;color:#5B6068;letter-spacing:.04em}
+.msearch{position:absolute;left:14px;right:14px;top:14px;display:flex;align-items:center;gap:8px;padding:0 6px 0 14px;background:#FFFFFF;border-radius:10px;box-shadow:0 2px 10px rgba(17,19,21,.12)}
+.msearch input{border:0;min-height:46px;padding:0}
+.mctl{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;background:#FFFFFF;border-radius:10px;box-shadow:0 2px 10px rgba(17,19,21,.12);overflow:hidden}
+.mctl button{width:44px;height:44px;border:0;background:#FFFFFF;font:inherit;font-size:20px;color:#15171A;cursor:pointer}
+.mctl button+button{border-top:1px solid #E3E5E0}
+.loc{position:absolute;left:14px;bottom:14px}
+.pinw{position:absolute;left:47%;top:52%;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:4px}
+.tip{background:#15171A;color:#FFFFFF;font-size:12px;font-weight:500;padding:6px 10px;border-radius:8px;white-space:nowrap}
+.posr{display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:16px 20px;border-bottom:1px solid #EEF0EC}
+.pic{width:40px;height:40px;border-radius:10px;background:#E6F2F0;color:#0B5F58;display:flex;align-items:center;justify-content:center;flex:none}
+.pm{display:flex;flex-wrap:wrap;gap:16px}
+.pm div{display:flex;flex-direction:column;gap:2px}
+.pm div:nth-child(1),.pm div:nth-child(2){width:96px}
+.pm div:nth-child(3){width:160px}
+.stw{width:92px;display:flex}
+.pm .k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6B7078}
+.newpos{margin:16px 20px 20px;padding:18px;border:1.5px solid #0F766E;border-radius:12px;background:#F7FBFA;display:flex;flex-direction:column;gap:16px}
+</style>
+</helmet>
+<div class="app">
+<nav class="rail" aria-label="Main navigation">
+<a class="brand" href="Main.dc.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M17 7.5A6.5 6.5 0 1 0 17 16.5"></path></svg></span>CRM</a>
+<div class="sect">My modules</div>
+<button class="ri grp" type="button" aria-expanded="{{navExpanded}}" aria-controls="pos-nav" onClick="{{toggleNav}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg>Point of Sale<svg class="chev {{navChev}}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}">
+<div class="nest" id="pos-nav">
+<a class="ni" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Dashboard</a>
+<div class="nsect">Catalog</div>
+<a class="ni" href="Products.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"></path><path d="M3 8l9 5 9-5M12 13v8"></path></svg>Products<small>48</small></a>
+<div class="nsect">Setup</div>
+<a class="ni on" href="Locations.dc.html" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Locations<small>3</small></a>
+<a class="ni" href="Sunat.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg>Configuration<small>SUNAT</small></a>
+</div>
+</sc-if>
+<a class="ri add" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add module</a>
+<div class="cfg">
+<div class="sect">Configuration</div>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Users</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>Roles &amp; permissions</a>
+<a class="ri" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"></path></svg>Company</a>
+<div class="me"><span class="av">MC</span><div style="display: flex; flex-direction: column; min-width: 0"><span style="color: #FFFFFF; font-weight: 500">Mario C.</span><span style="font-size: 12px; color: #8B9098">Owner</span></div></div>
+<a class="ri" href="Login.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5v16h4M15 8l4 4-4 4M19 12H9"></path></svg>Log out</a>
+</div>
+</nav>
+<main class="main">
+<div class="crumbs"><a href="Main.dc.html">Point of Sale</a><span aria-hidden="true">/</span><a href="Locations.dc.html">Locations</a><span aria-hidden="true">/</span><span style="color: #15171A">Miraflores</span></div>
+<div class="ph">
+<div><h1>Miraflores</h1><div style="display: flex; gap: 8px; align-items: center; margin-top: 4px"><span class="pill ok"><span class="dot"></span>Open · accepting orders</span><span class="hint">Establishment 0001</span></div></div>
+<div class="acts"><button class="btn" type="button">Deactivate</button><button class="btn pri" type="button">Save changes</button></div>
+</div>
+
+<section class="card">
+<div class="ch"><h2>Details</h2></div>
+<div class="cb">
+<div class="fg">
+<div class="field"><label for="lname">Location name</label><input id="lname" value="Miraflores"></div>
+<div class="field"><label for="lrcpt">Name printed on receipts</label><input id="lrcpt" placeholder="[YOUR BRAND] Miraflores"></div>
+<div class="field"><label for="lphone">Phone</label><input id="lphone" placeholder="+51 1 000 0000"></div>
+<div class="field"><label for="lhours">Opening hours</label><input id="lhours" value="Mon–Sun · 12:00 – 23:00"></div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><div><h2>Address &amp; map</h2><div class="hint" style="margin-top: 2px">Search with Google Maps, then drag the pin to the door customers actually use. Delivery and curbside pickup use this point.</div></div></div>
+<div class="cb" style="flex-direction: row; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div class="field"><label for="addr">Address</label><input id="addr" value="Av. José Larco 812"></div>
+<div class="field"><label for="ref">Reference</label><input id="ref" value="Half a block from Parque Kennedy"></div>
+<div class="fg" style="grid-template-columns: repeat(auto-fit, minmax(96px, 1fr))">
+<div class="field"><label for="dep">Department</label><select id="dep"><option>Lima</option></select></div>
+<div class="field"><label for="prov">Province</label><select id="prov"><option>Lima</option></select></div>
+<div class="field"><label for="dist">District</label><select id="dist"><option>Miraflores</option><option>San Isidro</option><option>Barranco</option></select></div>
+</div>
+<div class="fg" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr))">
+<div class="field"><label for="ubi">Ubigeo</label><input id="ubi" class="mono" value="150122" readonly="readonly"></div>
+<div class="field"><label for="est">SUNAT establishment code</label><input id="est" class="mono" value="0001"></div>
+</div>
+<div class="hint">Establishment code is the &quot;código de establecimiento anexo&quot; registered under your RUC. It is printed on every comprobante issued here.</div>
+<div class="fg" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr))">
+<div class="field"><label for="lat">Latitude</label><input id="lat" class="mono" value="-12.122310"></div>
+<div class="field"><label for="lng">Longitude</label><input id="lng" class="mono" value="-77.030050"></div>
+</div>
+</div>
+<div style="flex: 2 1 420px; min-width: 0">
+<div class="bigmap" role="img" aria-label="Map picker with pin on Av. José Larco">
+<div class="sea" style="left: 0; top: 0; width: 13%; height: 100%"></div>
+<div class="park" style="left: 49%; top: 18%; width: 17%; height: 22%"></div>
+<div class="lab" style="left: 50.5%; top: 21%">PARQUE<br>KENNEDY</div>
+<div class="blk" style="left: 17%; top: 20%; width: 13%; height: 18%"></div>
+<div class="blk" style="left: 32%; top: 20%; width: 12%; height: 18%"></div>
+<div class="blk" style="left: 17%; top: 46%; width: 13%; height: 16%"></div>
+<div class="blk" style="left: 32%; top: 46%; width: 12%; height: 16%"></div>
+<div class="blk" style="left: 52%; top: 46%; width: 14%; height: 16%"></div>
+<div class="blk" style="left: 70%; top: 20%; width: 13%; height: 18%"></div>
+<div class="blk" style="left: 70%; top: 46%; width: 13%; height: 16%"></div>
+<div class="blk" style="left: 17%; top: 70%; width: 27%; height: 20%"></div>
+<div class="blk" style="left: 52%; top: 70%; width: 31%; height: 20%"></div>
+<div class="rd" style="left: 13%; top: 40%; width: 87%; height: 8px"></div>
+<div class="rd" style="left: 13%; top: 64%; width: 87%; height: 8px"></div>
+<div class="rd art" style="left: 46%; top: 0; width: 13px; height: 100%"></div>
+<div class="rd" style="left: 67.5%; top: 0; width: 8px; height: 100%"></div>
+<div class="rd" style="left: 30.5%; top: 0; width: 6px; height: 100%"></div>
+<div class="lab" style="left: 48.5%; top: 80%; transform: rotate(-90deg); transform-origin: left top">AV. LARCO</div>
+<div class="pinw"><span class="tip">Drag to the entrance</span><svg width="40" height="40" viewBox="0 0 24 24" fill="#0F766E" aria-hidden="true"><path d="M12 22s-7.5-6.6-7.5-12a7.5 7.5 0 0 1 15 0c0 5.4-7.5 12-7.5 12z"></path><circle cx="12" cy="10" r="2.8" fill="#FFFFFF"></circle></svg></div>
+<div class="msearch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6068" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg><input type="search" aria-label="Search address" value="Av. José Larco 812, Miraflores"><button class="btn sm" type="button">Search</button></div>
+<button class="btn sm loc" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="1.5"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></svg>Use my location</button>
+<div class="mctl"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
+</div>
+<div class="hint" style="margin-top: 8px">Map placeholder · the Google Maps JS widget with Places autocomplete renders here.</div>
+</div>
+</div>
+</section>
+
+<section class="card">
+<div class="ch"><div><h2>Points of sale</h2><div class="hint" style="margin-top: 2px">Each POS is one device. Give it a name and say where it is, so staff know which terminal is which.</div></div><button class="btn sm pri" type="button" onClick="{{openForm}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add POS</button></div>
+
+<div class="posr">
+<span class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg></span>
+<div style="flex: 1 1 150px; min-width: 0"><div style="font-weight: 600">Counter POS</div><div class="hint">Main counter, right of the entrance</div></div>
+<div class="pm">
+<div><span class="k">Device</span><span class="mono">POS-MIR-01</span></div>
+<div><span class="k">Series</span><span class="mono">B001 · F001</span></div>
+<div><span class="k">Printers</span><span>Epson TM-T20III · LAN</span></div>
+</div>
+<span class="stw"><span class="pill ok"><span class="dot"></span>Online</span></span>
+<button class="btn sm" type="button">Edit</button>
+</div>
+
+<div class="posr">
+<span class="pic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="2"></rect><path d="M12 14v4M7 21h10M8 18h8"></path></svg></span>
+<div style="flex: 1 1 150px; min-width: 0"><div style="font-weight: 600">Curbside POS</div><div class="hint">Pickup window facing the side street</div></div>
+<div class="pm">
+<div><span class="k">Device</span><span class="mono">POS-MIR-02</span></div>
+<div><span class="k">Series</span><span class="mono">B002 · F002</span></div>
+<div><span class="k">Printers</span><span>Star TSP143IV · USB</span></div>
+</div>
+<span class="stw"><span class="pill warn">Paper low</span></span>
+<button class="btn sm" type="button">Edit</button>
+</div>
+
+<sc-if value="{{adding}}" hint-placeholder-val="{{ true }}">
+<div class="newpos">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px"><strong style="font-size: 15px">New point of sale</strong><span class="hint">After saving you get a pairing code to enter on the device</span></div>
+<div class="fg">
+<div class="field"><label for="npname">Name</label><input id="npname" placeholder="e.g. Counter POS, Curbside POS, Terrace POS"></div>
+<div class="field"><label for="npwhere">Where is it?</label><input id="npwhere" placeholder="e.g. Next to the terrace door"></div>
+</div>
+<div class="fg">
+<div class="field"><label for="nprp">Receipt printer</label><select id="nprp"><option>Choose a printer…</option><option>Epson TM-T20III · LAN 192.168.1.40</option><option>Star TSP143IV · USB</option><option>+ Pair a new printer</option></select></div>
+<div class="field"><label for="npkp">Kitchen printer (comandas)</label><select id="npkp"><option>Use product routing</option><option>Kitchen · Epson TM-U220</option></select></div>
+</div>
+<div class="fg">
+<div class="field"><label for="npb">Boleta series</label><input id="npb" class="mono" value="B003"></div>
+<div class="field"><label for="npf">Factura series</label><input id="npf" class="mono" value="F003"></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<label style="display: flex; align-items: center; gap: 10px"><input class="sw" type="checkbox" checked="checked">Allow offline sales (contingency)</label>
+<div class="acts"><button class="btn" type="button" onClick="{{closeForm}}">Cancel</button><button class="btn pri" type="button" onClick="{{closeForm}}">Add POS</button></div>
+</div>
+</div>
+</sc-if>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+class Component extends DCLogic {
+  navVals() {
+    var self = this;
+    var st = this.state || {};
+    var open = st.navOpen === undefined ? true : st.navOpen;
+    return {
+      navOpen: open,
+      navExpanded: open ? 'true' : 'false',
+      navChev: open ? '' : 'shut',
+      toggleNav: function () { self.setState({ navOpen: !open }); }
+    };
+  }
+  renderVals() {
+    return Object.assign({}, this.pageVals(), this.navVals());
+  }
+  pageVals() {
+    var self = this;
+    var st = this.state || {};
+    var adding = st.adding === undefined ? true : st.adding;
+    return {
+      adding: adding,
+      openForm: function () { self.setState({ adding: true }); },
+      closeForm: function () { self.setState({ adding: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

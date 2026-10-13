@@ -1,0 +1,14 @@
+.worth {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: end;
+  gap: 10px;
+  min-height: var(--control-height);
+}
+
+.regular {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  text-decoration: line-through;
+}

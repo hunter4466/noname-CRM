@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+}
+
+.label {
+  color: var(--color-muted);
+}
+
+.value {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.positive {
+  color: var(--color-ok-fg);
+  font-weight: 600;
+}
+
+.negative {
+  color: var(--color-bad-fg);
+  font-weight: 600;
+}

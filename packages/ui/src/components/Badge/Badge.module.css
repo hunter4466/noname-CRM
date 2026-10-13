@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.required {
+  background: var(--color-warn-bg);
+  color: var(--color-warn-fg);
+}
+
+.optional {
+  background: var(--color-surface-pressed);
+  color: var(--color-muted);
+}
+
+.done {
+  background: var(--color-ok-bg);
+  color: var(--color-ok-fg);
+}
